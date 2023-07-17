@@ -1,0 +1,240 @@
+<body>
+    <div >
+        <form id="myForm" class="configuration">
+            <div class=""label>Nom des équipes locales</div>
+            <textarea id="noms_equipes_dom">
+["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "(CHAP-PHB)", "PORTES DE L'ERDRE"]
+            </textarea>
+            <div class=""label>Substitions équipes. Ajouter ici les noms d'équipe que vous souhaitez voir afficher sous une forme plus "humaine"</div>
+            <textarea id="sub_equipes">
+[
+    ["U12M-44-EXC-C-GRAND LIEU SUD RETZ (PHB/ESL/MHC)","GRAND LIEU"],
+    ["HANDBALL CLUB DU GESVRES","Treillières"]
+
+]
+            </textarea>
+            <div class=""label>Configuration des équipes. Format (division:{collectif:"nom collectif","nom equipe":"libellé court"}). Utiliser les logs de la console pour compléter en pensant à faire une PR.</div>
+            <textarea id="configurationEquipe">
+{
+    "d1fpl ; division 1 feminine territoriale ;": {
+        "collectif": "SF",
+        "color": "#634928"
+    },
+    "c-depfpl ; coupe dep feminin pays de la loire ": {
+        "collectif": "SF",
+        "color": "#634928"
+    },
+    "hmpl ; honneur masculine regionale": {
+        "collectif": "SM1",
+        "color": "#634928"
+    },
+    "u11m-44": {
+        "collectif": "U11M",
+        "LA CHAPELAINE 1": "U11M1",
+        "LA CHAPELAINE 2": "U11M2",
+        "color": "#29a659"
+    },
+    "u11f-44": {
+        "collectif": "U11F",
+        "LA CHAPELAINE 1": "U11F1",
+        "LA CHAPELAINE 2": "U11F2",
+        "color": "#29a659"
+    },
+    "u12m-44": {
+        "collectif": "U12M",
+        "LA CHAPELAINE 1": "U12M1",
+        "LA CHAPELAINE 2": "U12M2",
+        "color": "#29a659"
+    },
+    "u13f-44": {
+        "collectif": "U13F",
+        "U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U13F1",
+        "U13F-44-E-ALLIANCE PORTES DE L'ERDRE (LA CHAP/PORTERIE)": "U13F1",
+        "LA CHAPELAINE": "U13F2",
+        "color": "#29a659"
+    },
+    "u14m-44": {
+        "collectif": "U14M",
+        "LA CHAPELAINE 1": "U14M1",
+        "LA CHAPELAINE 2": "U14M2",
+        "color": "#29a659"
+    },
+    "u15f-44": {
+        "collectif": "U15F",
+        "U15F-44-HA-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U15F1",
+        "color": "#634928"
+    },
+    "u16m-44": {
+        "collectif": "U16M",
+        "U16M D1": "U16M",
+        "color": "#634928"
+    },
+    "u17f-44": {
+        "collectif": "U17F",
+        "U17F D1": "U17F",
+        "color": "#634928"
+    },
+    "u19m-44":{
+        "collectif": "U19M",
+        "U19M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U19M1",
+        "color": "#634928"
+    }
+}
+            </textarea>
+            <div class=""label>CSV des résultats à copier coller de l'extract Gest'Hand. Menu "Compétitions" > Rencontres à Venir et "Compétitions" > Rencontre passées. Pensez à extraire Chapelaine et Porterie.</div>
+            <textarea id="csvContent">
+semaine;"num poule";competition;poule;J;le;horaire;"club rec";"club vis";"sc rec";"sc vis";"fdme rec";"fdme vis";"pen. rec";"pen. vis";"forf. rec";"forf. vis";"arb1 designe";"arb2 designe";"arb1 sifle";"arb2 sifle";secretaire;chronometreur;observateur;delegue;"resp salle";"tuteur table";"code renc";"Num rec";"Num vis";Etat;Forfait;Penalite;FDME;"Date Arrivee"
+2023-14;F62001021U;"c-depfpl ; coupe dep feminin ""pays de la loire"" ";"C-DEPFPL-1/2 ; COUPE DEP FEM ""PDLL"" ; 1/2 FINALE";1;09/04/2023;17:00:00;"THOUARE HANDBALL CLUB";"D1FPL -E-LA CHAPELAINE*ALLIANCE PORTE DE L'ERDRE";13;21;13;21;0;0;0;0;"GEBLEUX CEDRIC";;"GEBLEUX CEDRIC";;"GAUDIN GAEL";"NECK NICOLAS";;;"RABALLAND PIERRE";;SAEQYFH;6244091;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/Q/SAEQYFH_Z+P6vJzB3o7xDIqkg7I6AQ==.pdf;"09/04/2023 19:56"
+2023-14;F624470002;u11f-44;"U11F D1A";9;08/04/2023;13:30:00;"LA CHAPELAINE 1";"LES NEPTUNES DE NANTES 1";22;20;22;20;0;0;0;0;;;"DUBOIS LE GOFF ERIN";"LE GOFF ELINE";"OLLIVIER EMMA";"BERNARD MARTIN MATEO";"CONNES EWEN";;"DEWITTE PIERRE-ALBAN";;SAEPAFD;6244038;6244080;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPAFD_o4ErnFvbR+kOm2OND1FbLA==.pdf;"09/04/2023 15:43"
+2023-14;F624470062;u11f-44;"U11F D6";9;08/04/2023;14:45:00;"HBC SAUTRON";"LA CHAPELAINE 2";25;24;25;24;0;0;0;0;;;"SEBILLOT SIDONIE";;"LE CORRE JULIA";"SALIMOU STEVEN";"MOUILLE ANGELIQUE";;"RENODON AXELLE";;SAEPAMA;6244045;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPAMA_kiPCEBGYqHX4Liga88Gj+Q==.pdf;"09/04/2023 10:09"
+2023-14;Z624470022;u11m-44;"U11M D2";9;08/04/2023;14:00:00;"ST SEBASTIEN SUD LOIRE HANDBALL";"LA CHAPELAINE 1";11;37;11;37;0;0;0;0;;;"PIMONT ARTHUR";"GUILLERMIC JULES";"RETHO FAUSTINE";"DOUSSIN DAPHNE";;;"HENRY MARCEAU";;SAEPAPM;6244097;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPAPM_3w28Zxdcjir7yjfZJxs6kA==.pdf;"09/04/2023 14:48"
+2023-14;M624465072;u12m-44;"U12M D8";9;08/04/2023;15:30:00;"ES COUERON 1";"LA CHAPELAINE 2";15;21;15;21;0;0;0;0;;;"AUGUSTE SOLAL";"BAUDET ACHILLE";"BARBIER COLIN";"HELLEGOUARCH CORENTIN";"TANCREL ALEXANDRE";;"CRETIN JULIEN";;SAEPCRT;6244032;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPCRT_YSRUmU+SgTtEcmvhfE20Uw==.pdf;"08/04/2023 16:37"
+2023-14;F624460012;u13f-44;"U13F D2";9;08/04/2023;18:00:00;"U13F-44-E-ALLIANCE PORTES DE L'ERDRE (LA CHAP/PORTERIE)";"ASB REZE HANDBALL";22;20;22;20;0;0;0;0;;;"ROBIN ALEXANDRE";"BOURENE ADRIEN";"DAVEAU REMI";"COTTANCIN ROBIN";;;"GREGOIRE VIANNEY";;SAEPDIT;6244038;6244008;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPDIT_Bw9FTeAFfgqTtURv8XI9zw==.pdf;"09/04/2023 15:43"
+2023-14;F624460062;u13f-44;"U13F D7";9;08/04/2023;16:30:00;"LA CHAPELAINE";"HANDBALL CLUB DU GESVRES";13;11;13;11;0;0;0;0;;;"DUVERT SAUVOUREL TAHINA";"FORGERIT YAELLE";"POINEN LAHNA";"LOYER ROMANE";"DENIAUD ADRIEN";;"DEWITTE PIERRE-ALBAN";;SAEPDOL;6244038;6244085;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPDOL_phenfYzF4RXpoM5MLX6j2A==.pdf;"09/04/2023 15:43"
+2023-14;M624455032;u14m-44;"U14M D4";9;09/04/2023;11:00:00;"LA CHAPELAINE 1";"LE LANDREAU HANDBALL";24;31;24;31;0;0;0;0;;;"COTTANCIN FAUSTINE";"KLEIN RAPHAELLE";"OLLIVIER EMMA";"OLLIVIER ANNA";;;"HUBERT STEPHANE";;SAEPCAN;6244038;6244082;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPCAN_AVGpYEBljlqXkR1pOegzLw==.pdf;"09/04/2023 15:43"
+</textarea>
+            <input type="button" value="Générer" onclick="generer()"/>
+        </form>
+        </div>
+
+        <div class="instagram matchs-we" id="insta_1">
+            <div class="logo_1"></div>
+            <div class="titre">Les matchs<br><span id="date_we_feed_1"></span></div>
+            
+            
+        </div>
+        <div class="instagram matchs-we"  id="insta_2">
+            <div class="logo_1"></div>
+            <div class="titre">Les matchs<br><span id="date_we_feed_2"></span></div>
+        </div>
+      
+      <div class="instagram resultats-we">
+        <div class="logo_1"></div>
+        <div class="titre">Les resultats du week-end<br><span id="date_we_feed_3"></span></div>
+        <div id="resultats"></div>
+        <div class="logo_2"></div>
+      </div>
+    </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/d3-dsv@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="script.js"></script>
+    <style>
+        .configuration {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #configurationEquipe {
+            height: 75vh;
+        }
+        #csvContent {
+            height: 75vh;
+        }
+        .instagram {
+            background-color: #5BA17B;
+            color: white;
+            text-align: center;
+            align-items: center;
+            font-family: 'DM Sans', sans-serif;
+            padding: 20px;
+            text-shadow: 1px 1px 2px green;
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+
+        .resultats-we {
+            background-color: #5BA17B;
+            text-shadow: 1px 1px 2px green;
+
+        }
+
+        .matchs-we {
+            background-color: #e0bc3a;
+            text-shadow: 1px 1px 2px rgb(248, 162, 3);
+        }
+
+        .logo_1 {
+            background: center / contain no-repeat url("./logo_1.png");
+            height: 120px;
+            width: 200px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .titre {
+            border: 2px white solid;
+            padding: 10px;
+            font-weight: 600;
+            min-width: 180px;
+        }
+        .sous_titre {
+            margin-top: 12px;
+            border-bottom: solid 2px white;
+        }
+        #weekend_a_venir {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #resultats {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .ligneResultat {
+            display:flex;
+        }
+        .lrl {
+            width: calc(40vh - 50px);
+            text-align: right;
+        }
+        .lrc {
+            width: 100px;
+        }
+        .lrr {
+            width: calc(40vh - 50px);
+            text-align: left;
+        }
+        .egalite {
+            color: orange;
+            font-weight: 600;
+        }
+        .victoire {
+            color: black;
+            font-weight: 600;
+        }
+        .defaite {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .logo_2 {
+            background: center / contain no-repeat  url("./logo_2.png");
+            height: 120px;
+            width: 200px;
+            padding: 0px;
+            margin: 10px;
+        }
+        .salle {
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 6px;
+        }
+        .match {
+            display: flex;
+            flex-direction: row;
+        }
+        
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+  </body>
