@@ -69,6 +69,8 @@ function generer() {
 
         //Recherche du collectif
         const match_dom = clubHotes.find(g => e['club rec'].includes(g)) != undefined || (e['club hote'] != undefined && clubHotes.find(g => e['club hote'].includes(g)) != undefined);
+        
+        //génération de la structure
         let match_a_ignorer = false;
         var equipe_dom;
         var equipe_ext;
@@ -92,17 +94,6 @@ function generer() {
             salle = "Extérieur"
         }
 
-        if (equipe_dom && equipe_ext) {
-            //Creation de la ligne de resultat HTML à afficher
-            const newDiv = document.createElement("div");
-            newDiv.className = "ligneResultat"
-            //const newContent = document.createTextNode(nom_collectif_club + " : " + e['club rec'] + ":" +  e['fdme rec'] + " vs " + e['club vis'] + ":" + e['fdme vis']);
-            newDiv.innerHTML = "<div class='lrl'>" + equipe_dom + "</div><div class='lrc " + victoire + "'>" + e['fdme rec'] + " - " + e['fdme vis'] + "</div><div class='lrr'>" + equipe_ext + "</div>";//+ " : " + equipe_ext;
-            resultats.appendChild(newDiv);
-        }else {
-            console.error("Impossible d'afficher le match", e)
-        }
-
         if (!match_a_ignorer) {
             let dateSplitted = e.le.split("/");
             matchAVenir.push({
@@ -118,13 +109,31 @@ function generer() {
                 orig_vis: e['club vis']
             });
         }
+
+        //Affichage de la ligne de résultat
+        if (equipe_dom && equipe_ext) {
+            //Creation de la ligne de resultat HTML à afficher
+            const newDiv = document.createElement("div");
+            newDiv.className = "ligneResultat"
+            //const newContent = document.createTextNode(nom_collectif_club + " : " + e['club rec'] + ":" +  e['fdme rec'] + " vs " + e['club vis'] + ":" + e['fdme vis']);
+            newDiv.innerHTML = "<div class='lrl'>" + equipe_dom + "</div><div class='lrc " + victoire + "'>" + e['fdme rec'] + " - " + e['fdme vis'] + "</div><div class='lrr'>" + equipe_ext + "</div>";//+ " : " + equipe_ext;
+            resultats.appendChild(newDiv);
+        }else {
+            console.error("Impossible d'afficher le match", e)
+        }
+
+        
     })
+
+    //Tri des matchs à venir
     matchAVenir = _.orderBy(matchAVenir, ['jour', 'salle', 'horaire']);
     console.log(matchAVenir)
 
+    
     let positionAffichage = 1;
     const jours_de_match = _.uniqBy(matchAVenir, 'jour').map(j => j.jour).sort().reverse();
     console.log(jours_de_match)
+    
     let dates_week_end = undefined;
     jours_de_match.forEach(jdm => {
         console.log(jdm)
@@ -147,16 +156,31 @@ function generer() {
         //Pour chaque salle génération de la portion d'affichage
         salles_du_jour.forEach(salle => {
             console.log(salle)
+            //Generation ligne kifekoi
+            let jourKifekoi = createHtmlElement("div","jour-kifekoi","<div>"+jdm+" / "+ salle +"</div");
+            let tableauKifekoi = createHtmlElement("table","tableau-kifekoi","<tr><td>Horaire Match</td><td>Equipe</td><td>Adversaire</td></tr>")
+            
+            //Génération visuel insta
             const divSalle = createHtmlElement("div", "session", "<div class='salle'>"+salle+"</div>");
             const match_dans_la_salle = matchs_du_jour.filter(m => m.salle == salle);
             const match_dans_la_salle_trie = _.orderBy(match_dans_la_salle, ['horaire'], ['asc']);
+            
             match_dans_la_salle_trie.forEach(match_a_afficher => {
                 divSalle.appendChild(createHtmlElement("div", "match", "<div class='lrl'>"+match_a_afficher.equipe_dom + "</div><div class='lrc horaire'>" + format_heure(match_a_afficher.horaire) + "</div><div class='lrr'>" + match_a_afficher.equipe_ext+"</div>"));
+                tableauKifekoi.appendChild(createHtmlElement("tr","","<td>"+format_heure(match_a_afficher.horaire)+"</td><td>"+match_a_afficher.equipe_dom+"</td><td>"+match_a_afficher.equipe_ext+"</td>"))
             })
             resultats.appendChild(divSalle);
+
+            if(salle != "Extérieur"){
+                jourKifekoi.appendChild(tableauKifekoi);
+                document.getElementById("kifekoi").appendChild(jourKifekoi);
+            }
+
         })
         positionAffichage++;
         resultats.appendChild(createHtmlElement("div","logo_2",""))
+
+        
  
     })
     document.getElementById("date_we_feed_3").innerHTML = dates_week_end
