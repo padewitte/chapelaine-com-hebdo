@@ -45,16 +45,16 @@ function mapper_collectif_club(categorie, nom_equipe_fdm) {
     return nom_collectif_club
 }
 function generer() {
+    document.querySelectorAll(".hbgenerated").forEach(e => e.remove())
+    
     clubHotes = JSON.parse(document.getElementById("noms_equipes_dom").value)
-
-
     const resultats = document.getElementById("resultats");
     resultats.innerHTML = "";
     sub_equipes = JSON.parse(document.getElementById("sub_equipes").value);
     const configurationEquipe = JSON.parse(document.getElementById("configurationEquipe").value);
     const options_dates = { weekday: 'long', month: 'long', day: 'numeric' };
     const csvContent = document.getElementById("csvContent").value;
-    const csv = d3.dsvFormat(",");
+    const csv = d3.dsvFormat(";");
     const data = csv.parse(csvContent);
 
     let matchAVenir = [];
@@ -64,11 +64,12 @@ function generer() {
         let compet = e.competition.replaceAll('"','');
         var categorie = configurationEquipe[compet];
         if(categorie == undefined){
-            console.error("Impossible de trouver la compétition",e.competition)
+            console.error("Impossible de trouver la compétition :" + e.competition)
         }
 
         //Recherche du collectif
         const match_dom = clubHotes.find(g => e['club rec'].includes(g)) != undefined || (e['club hote'] != undefined && clubHotes.find(g => e['club hote'].includes(g)) != undefined);
+        const salle_dom = e['nom salle'].toUpperCase().includes("COUTANCIERE") || e['nom salle'].toUpperCase().includes("JEAN JAHAN");
         
         //génération de la structure
         let match_triangulaire = false;
@@ -83,7 +84,11 @@ function generer() {
 
             victoire = calculer_victoire(e['fdme rec'], e['fdme vis']);
             if(e['nom salle'] != undefined){
-                salle = capitalize_first_letter(e['nom salle']).replace("St Joseph De La Porterie N°1 - ","");
+                if(salle_dom){
+                    salle = capitalize_first_letter(e['nom salle']).replace("St Joseph De La Porterie N°1 - ","");
+                }else{
+                    salle = "Extérieur"
+                }
             }
             //Dans le cadre des triangulaires on ignore les matchs non porteri ou chapelain
             match_triangulaire = clubHotes.find(g => e['club rec'].includes(g)) == undefined;
@@ -103,7 +108,8 @@ function generer() {
                 horaire: e.horaire,
                 equipe_dom,
                 equipe_ext,
-                match_dom,              
+                match_dom,
+                salle_dom,
                 match_triangulaire,
                 orig_rec: e['club rec'],
                 orig_vis: e['club vis']
@@ -111,15 +117,13 @@ function generer() {
         //}
 
         //Affichage de la ligne de résultat
-        if (equipe_dom && equipe_ext) {
+        if (equipe_dom && equipe_ext && e['fdme rec']) {
             //Creation de la ligne de resultat HTML à afficher
             const newDiv = document.createElement("div");
-            newDiv.className = "ligneResultat"
+            newDiv.className = "ligneResultat hbgenerated"
             //const newContent = document.createTextNode(nom_collectif_club + " : " + e['club rec'] + ":" +  e['fdme rec'] + " vs " + e['club vis'] + ":" + e['fdme vis']);
             newDiv.innerHTML = "<div class='lrl'>" + equipe_dom + "</div><div class='lrc " + victoire + "'>" + e['fdme rec'] + " - " + e['fdme vis'] + "</div><div class='lrr'>" + equipe_ext + "</div>";//+ " : " + equipe_ext;
             resultats.appendChild(newDiv);
-        }else {
-            console.error("Impossible d'afficher le match", e)
         }
 
         
@@ -188,7 +192,7 @@ function generer() {
 
     function createHtmlElement(type, className, innerHtml) {
         const newDiv = document.createElement(type);
-        newDiv.className = className;
+        newDiv.className = className + " hbgenerated";
         newDiv.innerHTML = innerHtml;
         return newDiv;
     }
