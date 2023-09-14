@@ -39,7 +39,7 @@ function mapper_collectif_club(categorie, nom_equipe_fdm) {
             nom_collectif_club = categorie[nom_equipe_fdm]
         } else {
             console.log("Sous collectif non trouvé",categorie,nom_equipe_fdm)
-            nom_collectif_club = categorie.collectif;
+            nom_collectif_club = nom_equipe_fdm;
         }
     }
     return nom_collectif_club
@@ -54,7 +54,7 @@ function generer() {
     const configurationEquipe = JSON.parse(document.getElementById("configurationEquipe").value);
     const options_dates = { weekday: 'long', month: 'long', day: 'numeric' };
     const csvContent = document.getElementById("csvContent").value;
-    const csv = d3.dsvFormat(";");
+    const csv = d3.dsvFormat(",");
     const data = csv.parse(csvContent);
 
     let matchAVenir = [];
@@ -71,7 +71,7 @@ function generer() {
         const match_dom = clubHotes.find(g => e['club rec'].includes(g)) != undefined || (e['club hote'] != undefined && clubHotes.find(g => e['club hote'].includes(g)) != undefined);
         
         //génération de la structure
-        let match_a_ignorer = false;
+        let match_triangulaire = false;
         var equipe_dom;
         var equipe_ext;
         var victoire;
@@ -83,10 +83,10 @@ function generer() {
 
             victoire = calculer_victoire(e['fdme rec'], e['fdme vis']);
             if(e['nom salle'] != undefined){
-                salle = capitalize_first_letter(e['nom salle']);
+                salle = capitalize_first_letter(e['nom salle']).replace("St Joseph De La Porterie N°1 - ","");
             }
             //Dans le cadre des triangulaires on ignore les matchs non porteri ou chapelain
-            match_a_ignorer = clubHotes.find(g => e['club rec'].includes(g)) == undefined;
+            match_triangulaire = clubHotes.find(g => e['club rec'].includes(g)) == undefined;
         } else {
             equipe_dom = nettoyer_club_adversaire(e['club rec']);
             equipe_ext = mapper_collectif_club(categorie, e['club vis']);
@@ -94,7 +94,7 @@ function generer() {
             salle = "Extérieur"
         }
 
-        if (!match_a_ignorer) {
+        //if (!match_a_ignorer) {
             let dateSplitted = e.le.split("/");
             matchAVenir.push({
                 competition : e.competition,
@@ -104,11 +104,11 @@ function generer() {
                 equipe_dom,
                 equipe_ext,
                 match_dom,              
-                match_a_ignorer,
+                match_triangulaire,
                 orig_rec: e['club rec'],
                 orig_vis: e['club vis']
             });
-        }
+        //}
 
         //Affichage de la ligne de résultat
         if (equipe_dom && equipe_ext) {
@@ -171,10 +171,10 @@ function generer() {
             })
             resultats.appendChild(divSalle);
 
-            if(salle != "Extérieur"){
+            //if(salle != "Extérieur"){
                 jourKifekoi.appendChild(tableauKifekoi);
                 document.getElementById("kifekoi").appendChild(jourKifekoi);
-            }
+            //}
 
         })
         positionAffichage++;

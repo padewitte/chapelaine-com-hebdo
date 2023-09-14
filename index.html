@@ -1,103 +1,123 @@
+<head>
+    <meta charset="utf-8">
+</head>
 <body>
     <div>
         <form id="myForm" class="configuration">
             <div class="" label>Nom des équipes locales</div>
             <textarea id="noms_equipes_dom">
-["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "(CHAP-PHB)", "PORTES DE L'ERDRE"]
+["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "PORTERIE HANDBALL", "(CHAP-PHB)", "PORTES DE L'ERDRE"]
             </textarea>
             <div class="" label>Substitions équipes. Ajouter ici les noms d'équipe que vous souhaitez voir afficher sous
                 une forme plus "humaine"</div>
             <textarea id="sub_equipes">
 [
     ["U12M-44-EXC-C-GRAND LIEU SUD RETZ (PHB/ESL/MHC)","GRAND LIEU"],
-    ["HANDBALL CLUB DU GESVRES","Treillières"]
-
+    ["HANDBALL CLUB DU GESVRES","Treillières"],
+    ["HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE","Suce sur Erdre"],
+    ["UNION SPORTIVE GRANDE PRESQU'ILE HANDBALL","Guérande"]
 ]
             </textarea>
             <div class="" label>Configuration des équipes. Format (division:{collectif:"nom collectif","nom
                 equipe":"libellé court"}). Utiliser les logs de la console pour compléter en pensant à faire une PR.
             </div>
             <textarea id="configurationEquipe">
-{
-    "d1fpl ; division 1 feminine territoriale ;": {
-        "collectif": "SF",
-        "color": "#634928"
-    },
-    "c-depfpl ; coupe dep feminin pays de la loire ": {
-        "collectif": "SF",
-        "color": "#634928"
-    },
-    "hmpl ; honneur masculine regionale": {
-        "collectif": "SM1",
-        "color": "#634928"
-    },
-    "u11m-44": {
-        "collectif": "U11M",
-        "LA CHAPELAINE 1": "U11M1",
-        "LA CHAPELAINE 2": "U11M2",
-        "color": "#29a659"
-    },
-    "u11f-44": {
-        "collectif": "U11F",
-        "LA CHAPELAINE 1": "U11F1",
-        "LA CHAPELAINE 2": "U11F2",
-        "color": "#29a659"
-    },
-    "u12m-44": {
-        "collectif": "U12M",
-        "LA CHAPELAINE 1": "U12M1",
-        "LA CHAPELAINE 2": "U12M2",
-        "color": "#29a659"
-    },
-    "u13f-44": {
-        "collectif": "U13F",
-        "U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U13F1",
-        "U13F-44-E-ALLIANCE PORTES DE L'ERDRE (LA CHAP/PORTERIE)": "U13F1",
-        "LA CHAPELAINE": "U13F2",
-        "color": "#29a659"
-    },
-    "u14m-44": {
-        "collectif": "U14M",
-        "LA CHAPELAINE 1": "U14M1",
-        "LA CHAPELAINE 2": "U14M2",
-        "color": "#29a659"
-    },
-    "u15f-44": {
-        "collectif": "U15F",
-        "U15F-44-HA-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U15F1",
-        "color": "#634928"
-    },
-    "u16m-44": {
-        "collectif": "U16M",
-        "U16M D1": "U16M",
-        "color": "#634928"
-    },
-    "u17f-44": {
-        "collectif": "U17F",
-        "U17F D1": "U17F",
-        "color": "#634928"
-    },
-    "u19m-44":{
-        "collectif": "U19M",
-        "U19M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U19M1",
-        "color": "#634928"
-    }
-}
+                {
+                    "d1fpl ; division 1 feminine territoriale ;": {
+                        "collectif": "SF-x",
+                        "D1F44-C-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE": "SF1",
+                        "color": "#634928"
+                    },
+                    "1dtm-44": {
+                        "collectif": "SM2",
+                        "1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "SM2",
+                        "color": "#634928"
+                    },
+                    "c-depfpl ; coupe dep feminin pays de la loire ": {
+                        "collectif": "SF1",
+                        "color": "#634928"
+                    },
+                    "hmpl ; honneur masculine regionale": {
+                        "collectif": "SM1",
+                        "C-HMPL CHAPELAINE*PORTE DE L ERDRE": "SM1",
+                        "color": "#634928"
+                    },
+                    "u11m-44": {
+                        "collectif": "U11M-x",
+                        "LA CHAPELAINE 1": "U11M1",
+                        "LA CHAPELAINE 2": "U11M2",
+                        "color": "#29a659"
+                    },
+                    "u11f-44": {
+                        "collectif": "U11F-x",
+                        "LA CHAPELAINE 1": "U11F1",
+                        "LA CHAPELAINE 2": "U11F2",
+                        "color": "#29a659"
+                    },
+                    "u12m-44": {
+                        "collectif": "U12M-x",
+                        "LA CHAPELAINE 1": "U12M1",
+                        "LA CHAPELAINE 2": "U12M2",
+                        "color": "#29a659"
+                    },
+                    "u13f-44": {
+                        "collectif": "U13F-x",
+                        "U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U13F1",
+                        "U13F-44-E-ALLIANCE PORTES DE L'ERDRE (LA CHAP/PORTERIE)": "U13F1",
+                        "LA CHAPELAINE": "U13F2",
+                        "color": "#29a659"
+                    },
+                    "u14m-44": {
+                        "collectif": "U14M-x",
+                        "LA CHAPELAINE 1": "U14M-CHAP-1",
+                        "LA CHAPELAINE 2": "U14M-CHAP-2",
+                        "PORTERIE HANDBALL": "U14M-PORTERIE-1",
+                        "color": "#29a659"
+                    },
+                    "u15f-44": {
+                        "collectif": "U15F-x",
+                        "U15F-44-HA-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U15F1",
+                        "color": "#634928"
+                    },
+                    "u16m-44": {
+                        "collectif": "U16M-x",
+                        "U16M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U16M1",
+                        "color": "#634928"
+                    },
+                    "u17f-44": {
+                        "collectif": "U17F-x",
+                        "U17F-44-PR-E-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U17F",
+                        "color": "#634928"
+                    },
+                    "u19m-44":{
+                        "collectif": "U19M-x",
+                        "U19M-44-PR-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U19M-1",
+                        "U19M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U19M-2",
+                        "color": "#634928"
+                    }
+                }
+                            
             </textarea>
             <div class="" label>CSV des résultats à copier coller de l'extract Gest'Hand. Menu "Compétitions" >
                 Rencontres à Venir et "Compétitions" > Rencontre passées. Pensez à extraire Chapelaine et Porterie.
             </div>
             <textarea id="csvContent">
-semaine;"num poule";competition;poule;J;le;horaire;"club rec";"club vis";"sc rec";"sc vis";"fdme rec";"fdme vis";"pen. rec";"pen. vis";"forf. rec";"forf. vis";"arb1 designe";"arb2 designe";"arb1 sifle";"arb2 sifle";secretaire;chronometreur;observateur;delegue;"resp salle";"tuteur table";"code renc";"Num rec";"Num vis";Etat;Forfait;Penalite;FDME;"Date Arrivee"
-2023-14;F62001021U;"c-depfpl ; coupe dep feminin ""pays de la loire"" ";"C-DEPFPL-1/2 ; COUPE DEP FEM ""PDLL"" ; 1/2 FINALE";1;09/04/2023;17:00:00;"THOUARE HANDBALL CLUB";"D1FPL -E-LA CHAPELAINE*ALLIANCE PORTE DE L'ERDRE";13;21;13;21;0;0;0;0;"GEBLEUX CEDRIC";;"GEBLEUX CEDRIC";;"GAUDIN GAEL";"NECK NICOLAS";;;"RABALLAND PIERRE";;SAEQYFH;6244091;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/Q/SAEQYFH_Z+P6vJzB3o7xDIqkg7I6AQ==.pdf;"09/04/2023 19:56"
-2023-14;F624470002;u11f-44;"U11F D1A";9;08/04/2023;13:30:00;"LA CHAPELAINE 1";"LES NEPTUNES DE NANTES 1";22;20;22;20;0;0;0;0;;;"DUBOIS LE GOFF ERIN";"LE GOFF ELINE";"OLLIVIER EMMA";"BERNARD MARTIN MATEO";"CONNES EWEN";;"DEWITTE PIERRE-ALBAN";;SAEPAFD;6244038;6244080;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPAFD_o4ErnFvbR+kOm2OND1FbLA==.pdf;"09/04/2023 15:43"
-2023-14;F624470062;u11f-44;"U11F D6";9;08/04/2023;14:45:00;"HBC SAUTRON";"LA CHAPELAINE 2";25;24;25;24;0;0;0;0;;;"SEBILLOT SIDONIE";;"LE CORRE JULIA";"SALIMOU STEVEN";"MOUILLE ANGELIQUE";;"RENODON AXELLE";;SAEPAMA;6244045;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPAMA_kiPCEBGYqHX4Liga88Gj+Q==.pdf;"09/04/2023 10:09"
-2023-14;Z624470022;u11m-44;"U11M D2";9;08/04/2023;14:00:00;"ST SEBASTIEN SUD LOIRE HANDBALL";"LA CHAPELAINE 1";11;37;11;37;0;0;0;0;;;"PIMONT ARTHUR";"GUILLERMIC JULES";"RETHO FAUSTINE";"DOUSSIN DAPHNE";;;"HENRY MARCEAU";;SAEPAPM;6244097;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPAPM_3w28Zxdcjir7yjfZJxs6kA==.pdf;"09/04/2023 14:48"
-2023-14;M624465072;u12m-44;"U12M D8";9;08/04/2023;15:30:00;"ES COUERON 1";"LA CHAPELAINE 2";15;21;15;21;0;0;0;0;;;"AUGUSTE SOLAL";"BAUDET ACHILLE";"BARBIER COLIN";"HELLEGOUARCH CORENTIN";"TANCREL ALEXANDRE";;"CRETIN JULIEN";;SAEPCRT;6244032;6244038;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPCRT_YSRUmU+SgTtEcmvhfE20Uw==.pdf;"08/04/2023 16:37"
-2023-14;F624460012;u13f-44;"U13F D2";9;08/04/2023;18:00:00;"U13F-44-E-ALLIANCE PORTES DE L'ERDRE (LA CHAP/PORTERIE)";"ASB REZE HANDBALL";22;20;22;20;0;0;0;0;;;"ROBIN ALEXANDRE";"BOURENE ADRIEN";"DAVEAU REMI";"COTTANCIN ROBIN";;;"GREGOIRE VIANNEY";;SAEPDIT;6244038;6244008;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPDIT_Bw9FTeAFfgqTtURv8XI9zw==.pdf;"09/04/2023 15:43"
-2023-14;F624460062;u13f-44;"U13F D7";9;08/04/2023;16:30:00;"LA CHAPELAINE";"HANDBALL CLUB DU GESVRES";13;11;13;11;0;0;0;0;;;"DUVERT SAUVOUREL TAHINA";"FORGERIT YAELLE";"POINEN LAHNA";"LOYER ROMANE";"DENIAUD ADRIEN";;"DEWITTE PIERRE-ALBAN";;SAEPDOL;6244038;6244085;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPDOL_phenfYzF4RXpoM5MLX6j2A==.pdf;"09/04/2023 15:43"
-2023-14;M624455032;u14m-44;"U14M D4";9;09/04/2023;11:00:00;"LA CHAPELAINE 1";"LE LANDREAU HANDBALL";24;31;24;31;0;0;0;0;;;"COTTANCIN FAUSTINE";"KLEIN RAPHAELLE";"OLLIVIER EMMA";"OLLIVIER ANNA";;;"HUBERT STEPHANE";;SAEPCAN;6244038;6244082;JOUE;;;http://fdmerv.ff-handball.org/S/A/E/P/SAEPCAN_AVGpYEBljlqXkR1pOegzLw==.pdf;"09/04/2023 15:43"
-</textarea>
+semaine,num poule,competition,poule,J,le,horaire,club rec,club vis,club hote,arb1 designe,arb2 designe,observateur,delegue,code renc,nom salle,adresse salle,CP,Ville,colle,Coul. Rec,Coul. Gard. Rec,Coul. Vis,Coul. Gard. Vis,Ent. Rec,Tel Ent. Rec,Corresp. Rec,Tel Corresp. Rec,Ent. Vis,Tel Ent. Vis,Corresp. Vis,Tel Corresp. Vis,Num rec,Num vis
+2023-38,F62000301G,d1fpl ; division 1 feminine territoriale ;,D1FPL; POULE A,1,23/09/2023,19:00:00,HBC DU LAC,D1F44-C-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE,HBC DU LAC,,,,,TAEVSBX,RENE GAUTIER, esplanade de l'edit de nantes,44830,BOUAYE,Colle lavable à l'eau uniquement,Bleu,Orange,Vert-Noir,,COGARD EMMANUELLE,33625941918,TREBERNE-ROLLAND GWENAEL,330620487166,PINEAU THIERRY,,,,6244077,6244038
+2023-38,M62000201G,hmpl ; honneur masculine regionale,HMPL ; HONNEUR MASCULINE PDLL; POULE 2,2,23/09/2023,21:00:00,HIRONDELLE ST YO HB,C-HMPL CHAPELAINE*PORTE DE L ERDRE,HIRONDELLE ST YO HB,DESJOURS LAURENT,,,,TAESKVX,LE PALADIN, route de la chapelle basse mer,44450,ST JULIEN DE CONCELLES,Colle lavable à l'eau uniquement,Vert,Jaune,Noir-Vert,,HARSCOUET YOANN,330680353771,BOUYER ANNIE,330606778671,BOUTRUCHE CHRISTOPHE,33698168924,,,6244071,6244038
+2023-38,M624465001,u12m-44,U12M-44-EXCELLENCE POULE A,1,23/09/2023,13:30:00,LA CHAPELAINE 1,RACC NANTES 1,LA CHAPELAINE,,,,,TAESNVF,LA COUTANCIERE, allee des favrieres,44240,LA CHAPELLE SUR ERDRE,Colle lavable à l'eau uniquement,Vert,,,,TERROLLES GUILLAUME,330662899246,BOUTRUCHE CHRISTOPHE,33698168924,TERPEREAU AXEL,,LECLERC ANNA,,6244038,6244042
+2023-38,M624465001,u12m-44,U12M-44-EXCELLENCE POULE A,1,23/09/2023,14:15:00,LA CHAPELAINE 1,HBC NANTAIS 1,LA CHAPELAINE,,,,,TAESNVG,LA COUTANCIERE, allee des favrieres,44240,LA CHAPELLE SUR ERDRE,Colle lavable à l'eau uniquement,Vert,,Violet-Noir,Jaune,TERROLLES GUILLAUME,330662899246,BOUTRUCHE CHRISTOPHE,33698168924,DEBAST LOUIS,330614524924,DEBAST LOUIS,330614524924,6244038,6244001
+2023-38,M624465001,u12m-44,U12M-44-EXCELLENCE POULE A,1,23/09/2023,15:00:00,RACC NANTES 1,HBC NANTAIS 1,LA CHAPELAINE,,,,,TAESNVH,LA COUTANCIERE, allee des favrieres,44240,LA CHAPELLE SUR ERDRE,Colle lavable à l'eau uniquement,,,Violet-Noir,Jaune,TERPEREAU AXEL,,LECLERC ANNA,,DEBAST LOUIS,330614524924,DEBAST LOUIS,330614524924,6244042,6244001
+2023-38,M624465051,u12m-44,U12M-44-HONNEUR A POULE 4,1,23/09/2023,16:30:00,LA CHAPELAINE 2,CARQUEFOU HB 2,LA CHAPELAINE,DEWITTE MARIUS,,,,TAESOBI,LA COUTANCIERE, allee des favrieres,44240,LA CHAPELLE SUR ERDRE,Colle lavable à l'eau uniquement,Vert,,Jaune,Rouge,NEDELEC LUCA,33778643187,BOUTRUCHE CHRISTOPHE,33698168924,AZE CAMILLE,330627111810,RAZE CLAIRE,330681666748,6244038,6244049
+2023-38,F624460011,u13f-44,U13F-44-EXCELLENCE POULE B,1,23/09/2023,14:00:00,RACC NANTES 1 ,U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB),RACC NANTES,,,,,TAESNPJ,BOTTIERE CHENAIE,43  rue des carnavaliers,44300,NANTES,Colle lavable à l'eau uniquement,Vert,Noir,Noir-Vert,,LECLERC ANNA,,,,FORVEILLE CORENTIN,330631937784,OLLIVIER DAVID,330611046278,6244042,6244038
+2023-38,M624455061,u14m-44,U14M-44-HONNEUR A POULE 4,1,23/09/2023,18:15:00,LA CHAPELAINE 2,HANDBALL CLUB DU GESVRES,LA CHAPELAINE,,,,,TAESNKU,LA COUTANCIERE, allee des favrieres,44240,LA CHAPELLE SUR ERDRE,Colle lavable à l'eau uniquement,Vert,,Bleu-Blanc,Jaune,BEN HAROUN NICOLAS,,BOUTRUCHE CHRISTOPHE,33698168924,GUICHARD FREDERIC,330689291649,GUICHARD FREDERIC,330689291649,6244038,6244085
+2023-38,F624450021,u15f-44,U15F-44-HONNEUR A POULE 1,1,23/09/2023,13:30:00,ATLANTIQUE REZE HANDBALL,U15F-44-HA-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB),ATLANTIQUE REZE HANDBALL,,,,,TAESMUZ,HALLE DE LA TROCARDIERE,101 rue de la trocardiere,44400,REZE,Colle lavable à l'eau uniquement,Jaune,Gris,Noir-Vert,,DEVILLERS MARION,330772174073,AGULLO CORINNE,330698355985,,,,,6244006,6244038
+2023-38,M624430041,u19m-44,U19M-44-HONNEUR A POULE 2,1,23/09/2023,17:00:00,AL CHATEAUBRIANT,U19M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB),AL CHATEAUBRIANT,,,,,TAESMDR,CENTRE MUNICIPAL DES SPORTS, rue de la liberation,44110,CHATEAUBRIANT,Colle lavable à l'eau uniquement,Rouge,Vert,Noir-Vert,,,,NIDERLEIDNER TRISTAN,330671219303,APTEL ERWANN,33767053101,,,6244004,6244038
+2023-38,M624401001,1dtm-44,1DTM - POULE 1 ,2,23/09/2023,19:00:00,1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP),LAETITIA NANTES HB 2 ,PORTERIE HANDBALL,,,,,TAEUZJL,st joseph de la porterie n°1 - jean jahan,509  route de st joseph de la porterie,44300,NANTES,Toutes colles autorisées,Noir-Vert,,Bleu,Rouge,,,,,ROUSSEL PIERRE,330636091061,LOUTREL OLIVIER,330688332864,6244021,6244015
+2023-38,M624455061,u14m-44,U14M-44-HONNEUR A POULE 4,1,23/09/2023,13:30:00,PORTERIE HANDBALL,HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE,PORTERIE HANDBALL,,,,,TAESNKS,st joseph de la porterie n°1 - jean jahan,509  route de st joseph de la porterie,44300,NANTES,Toutes colles interdites,,,Blanc-Rouge,Blanc-Noir,,,,,,,BERNARD SYLVIE,330668798520,6244021,6244012
+2023-38,M624445081,u16m-44,U16M-44-HONNEUR A POULE 6 ,1,23/09/2023,15:00:00,U16M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP),CARQUEFOU HB,PORTERIE HANDBALL,,,,,TAESMRM,st joseph de la porterie n°1 - jean jahan,509  route de st joseph de la porterie,44300,NANTES,Toutes colles autorisées,Noir-Vert,,Jaune,Rouge,FORVEILLE CORENTIN,330631937784,,,CAUMES KIRIAN,330652140142,CHAILLANT TIMOTHE,33782831542,6244021,6244049
+2023-38,F624440001,u17f-44,U17F-44-PRE REGION POULE A,1,23/09/2023,17:00:00,U17F-44-PR-E-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP),UNION SPORTIVE GRANDE PRESQU'ILE HANDBALL,PORTERIE HANDBALL,,,,,TAESMYK,st joseph de la porterie n°1 - jean jahan,509  route de st joseph de la porterie,44300,NANTES,Toutes colles autorisées,Noir-Vert,,Noir-Vert,Vert-Noir,,,,,BARON ERWAN,330695949185,FLEURY SYLVAIN,330668349002,6244021,6244108
+2023-38,M624430001,u19m-44,U19M-44-PRE REGION POULE A,1,24/09/2023,14:00:00,CJ BOUGUENAIS HANDBALL,U19M-44-PR-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP),CJ BOUGUENAIS HANDBALL,,,,,TAESLZB,LES BELIANS, rue guishein,44340,BOUGUENAIS,Colle fournie par le club recevant,Orange,Noir,Noir-Vert,,BONHOUR LEANDRE,772412653,BIRON MEDHI,330669035045,BILLY ROMAIN,330638510471,,,6244027,6244021</textarea>
             <input type="button" value="Générer" onclick="generer()" />
         </form>
     </div>
