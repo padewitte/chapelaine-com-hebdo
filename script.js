@@ -26,10 +26,10 @@ function capitalize_first_letter(str) {
 }
 
 
-function nettoyer_club_adversaire(nom_equipe_adverse) {
-    var str = nom_equipe_adverse;
+function nettoyer_club_adversaire(categorie, nom_equipe_adverse) {
+    var str = mapper_collectif_club(categorie, nom_equipe_adverse);
     sub_equipes.forEach(sub => str = str.replace(sub[0], sub[1]));
-    str = str.replace("HANDBALL", "").replace("OLYMPIQUE", "").replace("CLUB", "").replace("*HTE SARTHE", "").trim();
+    str = str.replace("Handball", "").replace("OLYMPIQUE", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
 
     return capitalize_first_letter(str)
 }
@@ -44,7 +44,7 @@ function mapper_collectif_club(categorie, nom_equipe_fdm) {
             nom_collectif_club = nom_equipe_fdm;
         }
     }
-    return nom_collectif_club
+    return capitalize_first_letter(nom_collectif_club)
 }
 function generer() {
     document.querySelectorAll(".hbgenerated").forEach(e => e.remove())
@@ -82,7 +82,7 @@ function generer() {
 
         if (match_dom) {
             equipe_dom = mapper_collectif_club(categorie, e['club rec']);
-            equipe_ext = nettoyer_club_adversaire(e['club vis']);
+            equipe_ext = nettoyer_club_adversaire(categorie, e['club vis']);
 
             victoire = calculer_victoire(e['fdme rec'], e['fdme vis']);
             if(e['nom salle'] != undefined){
@@ -95,7 +95,7 @@ function generer() {
             //Dans le cadre des triangulaires on ignore les matchs non porteri ou chapelain
             match_triangulaire = clubHotes.find(g => e['club rec'].includes(g)) == undefined;
         } else {
-            equipe_dom = nettoyer_club_adversaire(e['club rec']);
+            equipe_dom = nettoyer_club_adversaire(categorie, e['club rec']);
             equipe_ext = mapper_collectif_club(categorie, e['club vis']);
             victoire = calculer_victoire(e['fdme vis'], e['fdme rec']);
             salle = "Extérieur"
@@ -132,7 +132,9 @@ function generer() {
     })
 
     //Tri des matchs à venir
-    matchAVenir = _.orderBy(matchAVenir, ['jour', 'salle', 'horaire']);
+    
+    matchAVenir = _.uniqWith(matchAVenir, (x,y) => ""+x.equipe_dom+x.equipe_ext+x.salle+x.horaire === ""+y.equipe_dom+y.equipe_ext+y.salle+y.horaire);
+    matchAVenir = _.orderBy(matchAVenir, ['jour', 'salle', 'horaire'])
     console.log(matchAVenir)
 
     
