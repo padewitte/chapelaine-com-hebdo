@@ -28,7 +28,7 @@ function capitalize_first_letter(str) {
 
 function nettoyer_club_adversaire(categorie, nom_equipe_adverse) {
     var str = mapper_collectif_club(categorie, nom_equipe_adverse);
-    sub_equipes.forEach(sub => str = str.replace(sub[0], sub[1]));
+    sub_equipes.forEach(sub => str = str.replace(capitalize_first_letter(sub[0]), capitalize_first_letter(sub[1])));
     str = str.replace("Handball", "").replace("OLYMPIQUE", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
 
     return capitalize_first_letter(str)
@@ -71,7 +71,7 @@ function generer() {
 
         //Recherche du collectif
         const match_dom = clubHotes.find(g => e['club rec'].includes(g)) != undefined || (e['club hote'] != undefined && clubHotes.find(g => e['club hote'].includes(g)) != undefined);
-        const salle_dom = e['nom salle'].toUpperCase().includes("COUTANCIERE") || e['nom salle'].toUpperCase().includes("JEAN JAHAN");
+        const salle_dom = e['nom salle'] != undefined && (e['nom salle'].toUpperCase().includes("COUTANCIERE") || e['nom salle'].toUpperCase().includes("JEAN JAHAN"));
         
         //génération de la structure
         let match_triangulaire = false;
