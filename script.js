@@ -186,7 +186,7 @@ function generer() {
 
         })
         positionAffichage++;
-        resultats.appendChild(createHtmlElement("div","logo_2",""))
+        resultats.appendChild(createHtmlElement("div","insta-footer","Bon match à tous !"))
 
         
  
