@@ -3,7 +3,9 @@
 let sub_equipes;
 let clubHotes;
 
-function calculer_victoire(scoreClub, scoreAutre) {
+function calculer_victoire(pScoreClub, pScoreAutre) {
+    const scoreClub = Number.parseInt(pScoreClub);
+    const scoreAutre = Number.parseInt(pScoreAutre);
     if (scoreClub > scoreAutre) {
         return "victoire";
     } else if (scoreClub == scoreAutre) {
