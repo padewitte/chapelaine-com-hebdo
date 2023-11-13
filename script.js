@@ -65,10 +65,10 @@ function generer() {
 
     const matchs = data.forEach(e => {
         console.log(e)
-        let compet = e.competition.replaceAll('"','');
+        let compet = e.competition.replaceAll('"','').trim();
         var categorie = configurationEquipe[compet];
         if(categorie == undefined){
-            console.error("Impossible de trouver la compétition :" + e.competition)
+            console.error("Impossible de trouver la compétition :" + compet)
         }
 
         //Recherche du collectif
