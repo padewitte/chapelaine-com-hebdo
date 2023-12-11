@@ -37,13 +37,14 @@ function nettoyer_club_adversaire(categorie, nom_equipe_adverse) {
 }
 
 function mapper_collectif_club(categorie, nom_equipe_fdm) {
+    let clean_nom_equipe_fdm = _.trim(nom_equipe_fdm);
     let nom_collectif_club = categorie;
     if (categorie) {
-        if (categorie[nom_equipe_fdm]) {
-            nom_collectif_club = categorie[nom_equipe_fdm]
+        if (categorie[clean_nom_equipe_fdm]) {
+            nom_collectif_club = categorie[clean_nom_equipe_fdm]
         } else {
             console.log("Sous collectif non trouvé",categorie,nom_equipe_fdm)
-            nom_collectif_club = nom_equipe_fdm;
+            nom_collectif_club = clean_nom_equipe_fdm;
         }
     }
     return capitalize_first_letter(nom_collectif_club)
