@@ -1,0 +1,77 @@
+/* General Reset */
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+}
+
+/* Button Parameters */
+#btn-param {
+    position: absolute;
+    top: var(--sl-spacing-large);
+    right: var(--sl-spacing-large);
+}
+
+/* Panels */
+/* Testing purpose TODO: Remove  */
+#pan-samedi-content {
+    height: 900px;
+    width: 900px;
+    background-color: red;
+}
+
+/* Drop zone */
+#dropZone {
+    width: 100%;
+    min-width: 200px;
+    max-width: 400px;
+    height: 200px;
+    border: var(--sl-spacing-3x-small) dashed #aaa;
+    border-radius: var(--sl-border-radius-large);
+    text-align: center;
+    line-height: 200px;
+    margin: var(--sl-spacing-large) auto;
+    cursor: pointer;
+}
+#dropZone.hover {
+    background-color: #f0f0f0;
+}
+
+
+/* Scroll Behavior */
+html,
+body,
+section {
+    block-size: 100%;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+}
+
+/* Sections */
+section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: calc(3 * var(--sl-spacing-large));
+}
+
+/* Section Elements */
+section > * {
+    margin: var(--sl-spacing-large);
+}
+
+/* Odd and Even Sections */
+section:nth-of-type(even) {
+    color: black;
+    background: white;
+}
+
+section:nth-of-type(odd) {
+    color: black;
+    background: #f6efef3d;
+}

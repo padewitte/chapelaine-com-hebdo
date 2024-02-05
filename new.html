@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/themes/light.css" />
+    <link rel="stylesheet" href="./generation-visuel.css" />
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/shoelace-autoloader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-dsv@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@freshworks/crayons@v4/dist/crayons/crayons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.js"></script>
+    
+</head>
+
+<body>
+    <sl-dialog label="Dialog" class="dialog-scrolling">
+        <div>
+            <h2>TODO</h2>
+        </div>
+        <sl-button slot="footer" variant="primary">Close</sl-button>
+    </sl-dialog>
+    <sl-button id="btn-param" variant="default" size="large">
+        <sl-icon slot="prefix" name="gear"></sl-icon>
+        Paramètres
+    </sl-button>
+    <section>
+        <h2>Upload des fichiers (résultats et matchs à venir)</h2>
+        <sl-alert variant="primary" open>
+            <sl-icon slot="icon" name="info-circle"></sl-icon>
+            <strong>Uploader un fichier de résultats ou de matchs à venir</strong><br />
+            Fichiers à générer depuis Gest'hand
+        </sl-alert>
+        <div id="dropZone">Glisser les fichiers CSV ici
+        </div>
+
+        <sl-select id="selSemaine" placeholder="Sélectionner une semaine" size="medium">
+            <sl-option value="option-1">Sem. 1 (27/01 & 28/01)</sl-option>
+            <sl-option value="option-2">Sem. 2 (27/01 & 28/01)</sl-option>
+            <sl-option value="option-3">Sem. 3 (27/01 & 28/01)</sl-option>
+        </sl-select>
+        <sl-button variant="success" size="large">
+            <sl-icon slot="suffix" name="chevron-double-right"></sl-icon>
+            Générer les visuels
+        </sl-button>
+    </section>
+    <section>
+        <h2>Images</h2>
+        <sl-tab-group>
+            <sl-tab slot="nav" panel="pan-resultats">Résultats</sl-tab>
+            <sl-tab slot="nav" panel="pan-samedi">Visuel Samedi</sl-tab>
+            <sl-tab slot="nav" panel="pan-dimanche">Visuel Dimanche</sl-tab>
+            <sl-tab slot="nav" panel="pan-kifekoi" disabled>Disabled</sl-tab>
+
+            <sl-tab-panel name="pan-resultats">This is the general tab panel.</sl-tab-panel>
+            <sl-tab-panel name="pan-samedi">
+                <div id="pan-samedi-content"></div>
+            </sl-tab-panel>
+            <sl-tab-panel name="pan-dimanche">This is the advanced tab panel.</sl-tab-panel>
+            <sl-tab-panel name="pan-kifekoi">This is a disabled tab panel.</sl-tab-panel>
+        </sl-tab-group>
+    </section>
+    <section>
+        <h1>slide 3</h1>
+    </section>
+    <section>
+        <h1>slide 4</h1>
+    </section>
+    <section>
+        <h1>slide 5</h1>
+    </section>
+
+
+    <sl-divider style="--width: 4px;"></sl-divider>
+    <h2>Choix semaine</h2>
+    <sl-divider style="--width: 4px;"></sl-divider>
+    <h2>Images</h2>
+    <sl-tab-group>
+        <sl-tab slot="nav" panel="general">Donnée</sl-tab>
+        <sl-tab slot="nav" panel="custom">Images</sl-tab>
+        <sl-tab slot="nav" panel="advanced">Configuration</sl-tab>
+
+
+        <sl-tab-panel name="general">This is the general tab panel.</sl-tab-panel>
+        <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
+        <sl-tab-panel name="advanced">This is the advanced tab panel.</sl-tab-panel>
+    </sl-tab-group>
+</body>
+
+<script src="js/generation-visuel.js"></script>
+<script src="js/default-param.js"></script>
+<script src="js/ui-behaviors.js"></script>
+<script src="js/extractor.js"></script>
+
+
+
+</html>
