@@ -1,7 +1,12 @@
 /* General Reset */
+
+:root {
+    padding: 10px;
+    font-family: 'Contrail One', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 body {
     margin: 0;
-    font-family: system-ui, sans-serif;
     font-size: 1rem;
 }
 
@@ -33,6 +38,7 @@ body {
     margin: var(--sl-spacing-large) auto;
     cursor: pointer;
 }
+
 #dropZone.hover {
     background-color: #f0f0f0;
 }
@@ -42,7 +48,7 @@ body {
 html,
 body,
 section {
-    block-size: 100%;
+    min-block-size: 100%;
 }
 
 html {
@@ -61,17 +67,205 @@ section {
 }
 
 /* Section Elements */
-section > * {
+section>* {
     margin: var(--sl-spacing-large);
 }
 
-/* Odd and Even Sections */
-section:nth-of-type(even) {
-    color: black;
-    background: white;
+
+.configuration {
+    display: flex;
+    flex-direction: column;
 }
 
-section:nth-of-type(odd) {
-    color: black;
-    background: #f6efef3d;
+#sub_equipes {
+    height: 10vh;
+}
+
+#configurationEquipe {
+    height: 75vh;
+}
+
+#csvContent {
+    height: 50vh;
+}
+
+#outputs {
+    margin: auto;
+    width: max(50%, 1200px);
+    text-align: center;
+}
+
+.instagram {
+    margin: auto;
+    background-color: #5BA17B;
+    color: white;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+    text-shadow: 1px 1px 2px green;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.insta-footer {
+    width: calc(100% - 250px);
+    background: left / 25% no-repeat url(./logo_4.png);
+    height: 60px;
+    font-family: "Edo";
+    font-size: 40px;
+    text-align: right;
+    margin-top: 60px;
+    margin-left: 160px;
+
+}
+
+.session {
+    margin-left: 100px;
+}
+
+.resultats-we {
+    background-image: url("./fond_resultats.png");
+    height: 1320px;
+    width: 742px;
+}
+
+.matchs-we {
+    background-image: url("./fond_programme.png");
+    height: 1320px;
+    width: 742px;
+}
+
+.logo-alliance-blanc {
+    background: center / contain no-repeat url("./logo_4.png");
+    height: 120px;
+    width: 200px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.msg-footer {
+    font-family: "Edo";
+    font-size: 32px;
+}
+
+.jour-match {
+    font-size: 32px;
+    padding: 10px;
+    min-width: 180px;
+}
+
+#weekend_a_venir {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sous-section-insta {
+    font-size: 24px;
+    margin-top: 300px;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableau-kifekoi {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.ligneResultat {
+    padding-top: 8px;
+    display: flex;
+}
+
+.lrl {
+    width: calc(40vh - 50px);
+    text-align: right;
+}
+
+.lrc {
+    width: 100px;
+}
+
+.lrr {
+    width: calc(40vh - 50px);
+    text-align: left;
+}
+
+.egalite {
+    font-family: "Edo";
+    color: orange;
+
+}
+
+.victoire {
+    font-family: "Edo";
+    color: green;
+
+}
+
+.defaite {
+    font-family: "Edo";
+    color: lemonchiffon;
+}
+
+
+.salle {
+    font-family: "Edo";
+    padding-top: 30px;
+    margin-bottom: 6px;
+}
+
+.match {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+}
+
+#kifekoi {
+    margin: auto;
+    margin-top: 20px;
+    background-color: lightgrey;
+    max-width: 500px;
+    padding: 10px;
+}
+
+.jour-kifekoi {
+    margin: auto;
+    margin-top: 20px;
+}
+
+.generer {
+    margin: auto;
+    max-width: 100px;
+}
+
+
+
+textarea {
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.alert__close-button {
+    align-items: baseline;
+}
+
+sl-icon > strong {
+
+}
+.alertHeader {
+    font-weight: bold;
 }

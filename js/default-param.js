@@ -1,5 +1,7 @@
 const noms_equipes_dom = ["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "PORTERIE HANDBALL", "(CHAP-PHB)", "PORTES DE L'ERDRE"];
 
+const salles_domicile = ["JEAN JAHAN","COUTANCIERE"]
+
 const sub_equipes = [
     ["HANDBALL CLUB MARSIEN", "St Mars"],
     ["U12M-44-EXC-C-GRAND LIEU SUD RETZ (PHB/ESL/MHC)", "GRAND LIEU"],
