@@ -113,6 +113,7 @@ function attachBtnGeneration() {
 function cleanGeneratedDiv() {
     document.getElementById("alert_samedi").removeAttribute("open")
     document.getElementById("alert_dimanche").removeAttribute("open")
+    document.getElementById("alertResultats").removeAttribute("open")
     document.querySelectorAll(".hbgenerated").forEach(e => e.remove())
     const resultats = document.getElementById("resultats");
     resultats.innerHTML = "";
