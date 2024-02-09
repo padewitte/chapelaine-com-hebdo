@@ -13,7 +13,9 @@ const sub_equipes = [
     ["U15f-44-ha-c-hb Ste Luce-chb-thbc", "Ste Luce"],
     ["U14M-44-EXC-E-FHBL/HBCM", "Ligné - St Mars"],
     ["U14m-44-exc-c-alliance Erdre Et Loire (chb-hbsl)", "All. Carquefou / Ste Luce"],
-    ["U17FPL-C-AMBRIERES*MAY'N", "Ambrieres"]
+    ["U17FPL-C-AMBRIERES*MAY'N", "Ambrieres"],
+    ["U13f-44-ha-e-sud Estuaire Hc / Hbc Pornic","Pornic"],
+    ["U17FPL-C-LA CHAIZE*LA FERRIERE","LA FERRIERE"]
 ];
 
 const configurationEquipe = {
@@ -36,12 +38,14 @@ const configurationEquipe = {
     "d1fpl ; division 1 feminine territoriale ;": {
         "collectif": "SF-xx",
         "D1F44-C-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE": "SF1",
+        "CHAPELAINE*P DE L'E": "SF1",
         "color": "#634928"
     },
     "d2fpl ; division 2 feminine territoriale ;": {
         "collectif": "SF-xx",
         "PORTERIE HANDBALL": "SF2",
         "D2F44-C-PORTERIE*ALLIANCE PORTES DE L'ERDRE": "SF2",
+        "CHAPELAINE*P DE L'E": "SF2",
         "color": "#634928"
     },
     "1dtm-44": {
@@ -145,3 +149,5 @@ const configurationEquipe = {
         "color": "#634928"
     }
 };
+
+const ERRORS = []; // Liste d'erreurs corrigeables

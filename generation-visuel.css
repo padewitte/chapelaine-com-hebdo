@@ -17,14 +17,6 @@ body {
     right: var(--sl-spacing-large);
 }
 
-/* Panels */
-/* Testing purpose TODO: Remove  */
-#pan-samedi-content {
-    height: 900px;
-    width: 900px;
-    background-color: red;
-}
-
 /* Drop zone */
 #dropZone {
     width: 100%;
@@ -97,6 +89,7 @@ section>* {
 
 .instagram {
     margin: auto;
+    font-size: 24px;
     background-color: #5BA17B;
     color: white;
     text-align: center;
@@ -106,6 +99,13 @@ section>* {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+
+}
+
+.btnDl {
+    text-align: center;
+    margin-left: 45%;
+    margin-top: 15px;
 }
 
 .insta-footer {
@@ -126,13 +126,13 @@ section>* {
 
 .resultats-we {
     background-image: url("./fond_resultats.png");
-    height: 1320px;
+    padding-bottom: 100px;
     width: 742px;
 }
 
 .matchs-we {
     background-image: url("./fond_programme.png");
-    height: 1320px;
+    padding-bottom: 100px;
     width: 742px;
 }
 
@@ -245,7 +245,14 @@ section>* {
     max-width: 100px;
 }
 
+.tabGroupMain {
+    width: 1200px;
+}
 
+#insta_Invalid {
+    visibility: hidden;
+    display: none;
+}
 
 textarea {
     width: 100%;
@@ -263,9 +270,8 @@ td {
     align-items: baseline;
 }
 
-sl-icon > strong {
+sl-icon>strong {}
 
-}
 .alertHeader {
     font-weight: bold;
 }
