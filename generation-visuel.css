@@ -1,0 +1,277 @@
+/* General Reset */
+
+:root {
+    padding: 10px;
+    font-family: 'Contrail One', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Button Parameters */
+#btn-param {
+    position: absolute;
+    top: var(--sl-spacing-large);
+    right: var(--sl-spacing-large);
+}
+
+/* Drop zone */
+#dropZone {
+    width: 100%;
+    min-width: 200px;
+    max-width: 400px;
+    height: 200px;
+    border: var(--sl-spacing-3x-small) dashed #aaa;
+    border-radius: var(--sl-border-radius-large);
+    text-align: center;
+    line-height: 200px;
+    margin: var(--sl-spacing-large) auto;
+    cursor: pointer;
+}
+
+#dropZone.hover {
+    background-color: #f0f0f0;
+}
+
+
+/* Scroll Behavior */
+html,
+body,
+section {
+    min-block-size: 100%;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+}
+
+/* Sections */
+section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: calc(3 * var(--sl-spacing-large));
+}
+
+/* Section Elements */
+section>* {
+    margin: var(--sl-spacing-large);
+}
+
+
+.configuration {
+    display: flex;
+    flex-direction: column;
+}
+
+#sub_equipes {
+    height: 10vh;
+}
+
+#configurationEquipe {
+    height: 75vh;
+}
+
+#csvContent {
+    height: 50vh;
+}
+
+#outputs {
+    margin: auto;
+    width: max(50%, 1200px);
+    text-align: center;
+}
+
+.instagram {
+    margin: auto;
+    font-size: 24px;
+    background-color: #5BA17B;
+    color: white;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+    text-shadow: 1px 1px 2px green;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+.btnDl {
+    text-align: center;
+    margin-left: 45%;
+    margin-top: 15px;
+}
+
+.insta-footer {
+    width: calc(100% - 250px);
+    background: left / 25% no-repeat url(./logo_4.png);
+    height: 60px;
+    font-family: "Edo";
+    font-size: 40px;
+    text-align: right;
+    margin-top: 60px;
+    margin-left: 160px;
+
+}
+
+.session {
+    margin-left: 100px;
+}
+
+.resultats-we {
+    background-image: url("./fond_resultats.png");
+    padding-bottom: 100px;
+    width: 742px;
+}
+
+.matchs-we {
+    background-image: url("./fond_programme.png");
+    padding-bottom: 100px;
+    width: 742px;
+}
+
+.logo-alliance-blanc {
+    background: center / contain no-repeat url("./logo_4.png");
+    height: 120px;
+    width: 200px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.msg-footer {
+    font-family: "Edo";
+    font-size: 32px;
+}
+
+.jour-match {
+    font-size: 32px;
+    padding: 10px;
+    min-width: 180px;
+}
+
+#weekend_a_venir {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sous-section-insta {
+    font-size: 24px;
+    margin-top: 300px;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableau-kifekoi {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.ligneResultat {
+    padding-top: 8px;
+    display: flex;
+}
+
+.lrl {
+    width: calc(40vh - 50px);
+    text-align: right;
+}
+
+.lrc {
+    width: 100px;
+}
+
+.lrr {
+    width: calc(40vh - 50px);
+    text-align: left;
+}
+
+.egalite {
+    font-family: "Edo";
+    color: orange;
+
+}
+
+.victoire {
+    font-family: "Edo";
+    color: green;
+
+}
+
+.defaite {
+    font-family: "Edo";
+    color: lemonchiffon;
+}
+
+
+.salle {
+    font-family: "Edo";
+    padding-top: 30px;
+    margin-bottom: 6px;
+}
+
+.match {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+}
+
+#kifekoi {
+    margin: auto;
+    margin-top: 20px;
+    background-color: lightgrey;
+    max-width: 500px;
+    padding: 10px;
+}
+
+.jour-kifekoi {
+    margin: auto;
+    margin-top: 20px;
+}
+
+.generer {
+    margin: auto;
+    max-width: 100px;
+}
+
+.tabGroupMain {
+    width: 1200px;
+}
+
+#insta_Invalid {
+    visibility: hidden;
+    display: none;
+}
+
+textarea {
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+}
+
+.alert__close-button {
+    align-items: baseline;
+}
+
+sl-icon>strong {}
+
+.alertHeader {
+    font-weight: bold;
+}
