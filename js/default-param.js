@@ -15,7 +15,8 @@ const sub_equipes = [
     ["U14m-44-exc-c-alliance Erdre Et Loire (chb-hbsl)", "All. Carquefou / Ste Luce"],
     ["U17FPL-C-AMBRIERES*MAY'N", "Ambrieres"],
     ["U13f-44-ha-e-sud Estuaire Hc / Hbc Pornic","Pornic"],
-    ["U17FPL-C-LA CHAIZE*LA FERRIERE","LA FERRIERE"]
+    ["U17FPL-C-LA CHAIZE*LA FERRIERE","LA FERRIERE"],
+    ["ST LOUIS DE CHAVAGNES EN PAILLERS","ST LOUIS DE CHAVAGNES"]
 ];
 
 const configurationEquipe = {

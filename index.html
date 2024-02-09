@@ -1,438 +1,142 @@
+<html>
+
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/themes/light.css" />
+    <!-- Css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/themes/light.css" />
+    <link rel="stylesheet" href="./generation-visuel.css" />
+
+    <!-- Javascript -->
+    <!-- UI web components -->
     <script type="module"
-        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/shoelace-autoloader.js"></script>
-</head>
-
-<body>
-    <div>
-        <form id="myForm" class="configuration">
-
-            <h2>CSV des résultats à copier coller de l'extract Gest'Hand. Menu "Compétitions" >
-                Rencontres à Venir et "Compétitions" > Rencontre passées. Pensez à extraire Chapelaine et Porterie.
-            </h2>
-            <textarea id="csvContent">
-semaine;"num poule";competition;poule;J;le;horaire;"club rec";"club vis";"club hote";"arb1 designe";"arb2 designe";observateur;delegue;"code renc";"nom salle";"adresse salle";CP;Ville;colle;"Coul. Rec";"Coul. Gard. Rec";"Coul. Vis";"Coul. Gard. Vis";"Ent. Rec";"Tel Ent. Rec";"Corresp. Rec";"Tel Corresp. Rec";"Ent. Vis";"Tel Ent. Vis";"Corresp. Vis";"Tel Corresp. Vis";"Num rec";"Num vis"
-2023-50;Z62448538P;"ecole de hand - 44";"TOURNOI 7 MIXTE";1;17/12/2023;10:00:00;"LA CHAPELAINE 1M.2M.3M";"CARQUEFOU HB 1M.2M.3M";"LA CHAPELAINE";;;;;TAFCTLE;"LA COUTANCIERE";" allee des favrieres";44240;"LA CHAPELLE SUR ERDRE";"Colle lavable à l'eau uniquement";Vert;;Jaune;Rouge;"FORVEILLE CORENTIN";+330631937784;"FORVEILLE CORENTIN";+330631937784;"DRONET LAETITIA";+330660079446;"OHOUO MAXIME";+330670026774;6244038;6244049
-2023-50;Z62448538P;"ecole de hand - 44";"TOURNOI 7 MIXTE";1;17/12/2023;10:00:00;"LA CHAPELAINE 1M.2M.3M";"HANDBALL CLUB MARSIEN 1M.2M";"LA CHAPELAINE";;;;;TAFCSKW;"LA COUTANCIERE";" allee des favrieres";44240;"LA CHAPELLE SUR ERDRE";"Colle lavable à l'eau uniquement";Vert;;;;"FORVEILLE CORENTIN";+330631937784;"FORVEILLE CORENTIN";+330631937784;;;;;6244038;6244078
-2023-50;Z62448538P;"ecole de hand - 44";"TOURNOI 7 MIXTE";1;17/12/2023;10:00:00;"CARQUEFOU HB 1M.2M.3M";"HANDBALL CLUB MARSIEN 1M.2M";"LA CHAPELAINE";;;;;TAFCTLF;"LA COUTANCIERE";" allee des favrieres";44240;"LA CHAPELLE SUR ERDRE";"Colle lavable à l'eau uniquement";Jaune;Rouge;;;"DRONET LAETITIA";+330660079446;"OHOUO MAXIME";+330670026774;;;;;6244049;6244078
-2023-50;F62001001U;"c-depfpl ; coupe dep feminin ""pays de la loire"" ";"C-DEPFPL-2; COUPE DEP FEM PDLL ; 2E TOUR";1;16/12/2023;21:00:00;"NORT AC HANDBALL";"D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE";"NORT AC HANDBALL";"ATHIMON CHRISTIAN";;;;TAFCUFY;"MARIE-AMELIE LE FUR";" impasse julie-victoire daubie";44390;"NORT SUR ERDRE";;Bleu;Orange;Vert-Noir;;"PERRAUX ALEXANDRE";+330782651510;;;"PINEAU THIERRY";;"PREVOTEAUX GILDAS";+330659682935;6244041;6244038
-2023-50;M62001002X;"c-regmpl ; coupe reg masculin ""pays de la loire""";"C-REGMPL-2 ; COUPE REG MASC PDLL - 2E TOUR";1;16/12/2023;19:00:00;"HMPL-C-CHAPELAINE*PORTE DE L ERDRE";"POUZAUGES VENDEE HB 2";"LA CHAPELAINE";"BRETAUD SOLENE";"GILBERT MANON";;;TAFCTUK;"LA COUTANCIERE";" allee des favrieres";44240;"LA CHAPELLE SUR ERDRE";"Colle lavable à l'eau uniquement";Vert-Noir;;;;"BOUTRUCHE CHRISTOPHE";+33698168924;;;;;;;6244038;6285028
-2023-50;F624470011;u11f-44;"U11F-44-HONNEUR A POULE 2";9;16/12/2023;13:30:00;"HIRONDELLE ST YO HB 1 ";"LA CHAPELAINE";"HIRONDELLE ST YO HB";;;;;TAEXFDA;"LE PALADIN";" route de la chapelle basse mer";44450;"ST JULIEN DE CONCELLES";"Colle lavable à l'eau uniquement";Vert;;Vert;;"GOGEON CHARLELIE";+33782771054;"BOUYER ANNIE";+330606778671;"BOUTRUCHE CHRISTOPHE";+33698168924;"BLAYO SEBASTIEN";+330603299629;6244071;6244038
-2023-50;Z624470011;u11m-44;"U11M-44-HONNEUR A POULE 2";9;17/12/2023;14:15:00;"HB STE LUCE SUR LOIRE";"LA CHAPELAINE 1";"HB STE LUCE SUR LOIRE";;;;;TAEXFOF;"HALLE SPORTIVE DE LA MINAIS";"27 rue olympe de gouges";44980;"STE LUCE SUR LOIRE";"Toutes colles interdites";Vert;Rouge;Vert;;"PIERRE ARTHUR";+330662924391;;;"GADAN MARION";+330620457492;;;6244056;6244038
-2023-50;Z624470041;u11m-44;"U11M-44-HONNEUR B POULE 1";9;16/12/2023;15:20:00;"HBAC STE PAZANNE";"LA CHAPELAINE 2";"HBAC STE PAZANNE";;;;;TAEXFRG;"COMPLEXE SPORTIF ARMAND GAUVRIT SALLE BLEUE";" avenue des sports";44680;"STE PAZANNE";"Colle lavable à l'eau uniquement";Vert;;Vert;;;;"GEOFFROY CYRIL";0670997798;"MARIE MAXIME";+330666341102;;;6244034;6244038
-2023-50;F624460011;u13f-44;"U13F-44-EXCELLENCE POULE B";10;17/12/2023;13:00:00;"ST SEBASTIEN SUD LOIRE HANDBALL 1";"U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)";"ST SEBASTIEN SUD LOIRE HANDBALL";;;;;TAESNQK;"GYMNASE DU CENTRE VILLE - SALLE LUC ABALO";"6 rue annie hure";44230;"ST SEBASTIEN SUR LOIRE";"Colle lavable à l'eau uniquement";Bleu-Blanc;;Noir-Vert;;"MESLET-HERICOURT CINDY";+330627818307;;;"FORVEILLE CORENTIN";+330631937784;"OLLIVIER DAVID";+330611046278;6244097;6244038
-2023-50;M624455001;u14m-44;"U14M-44-EXCELLENCE POULE A";10;17/12/2023;14:00:00;"U14M-44-EXC-C-ALLIANCE ERDRE ET LOIRE (CHB-HBSL)";"LA CHAPELAINE 1 ";"CARQUEFOU HB";;;;;TAESNEX;"MOULIN BOISSEAU (SALLE EERSEL 1)";" salle eersel 1";44470;CARQUEFOU;"Colle lavable à l'eau uniquement";Noir;Vert;Vert;Jaune;"DRONET LAETITIA";+330660079446;"DRONET LAETITIA";+330660079446;"BOUTRUCHE CHRISTOPHE";+33698168924;"DEWITTE PIERRE-ALBAN";330659556459;6244049;6244038
-2023-50;M624455061;u14m-44;"U14M-44-HONNEUR A POULE 4";10;16/12/2023;13:30:00;"LA CHAPELAINE 2";"RACC NANTES 1 ";"LA CHAPELAINE";;;;;TAESNLU;"LA COUTANCIERE";" allee des favrieres";44240;"LA CHAPELLE SUR ERDRE";"Colle lavable à l'eau uniquement";Vert;;Vert;Noir;"BEN HAROUN NICOLAS";+330658295272;"BOUTRUCHE CHRISTOPHE";+33698168924;"CHARTIER ADAME";;"BAZIN CLEMENTINE";;6244038;6244042
-2023-50;F624450021;u15f-44;"U15F-44-HONNEUR A POULE 1";10;16/12/2023;19:00:00;"HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE";"U15F-44-HA-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)";"HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE";;;;;TAESMWA;PAPINIERE;" la papiniere";44240;"SUCE SUR ERDRE";"Colle lavable à l'eau uniquement";Blanc-Rouge;Blanc-Noir;Noir-Vert;;"PODEVIN BRICE";+330620794076;"BERNARD SYLVIE";+330668798520;"BOUTRUCHE CHRISTOPHE";+33698168924;;;6244012;6244038
-2023-50;M624445011;u16m-44;"U16M-44-HONNEUR B POULE 1";9;17/12/2023;11:00:00;"HBAC STE PAZANNE 2";"U16M-44-HB-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)";"HBAC STE PAZANNE";;;;;TAFCYQM;"COMPLEXE SPORTIF ARMAND GAUVRIT SALLE BLEUE";" avenue des sports";44680;"STE PAZANNE";"Colle lavable à l'eau uniquement";Vert;;Vert-Noir;;;;;;"FORVEILLE CORENTIN";+330631937784;"SALMON ROMAIN";+33609757064;6244034;6244038
-2023-50;M62001014U;"c-depmpl ; coupe dep masculin ""pays de la loire""";"C-DEPMPL-2 ; COUPE DEP MASC PDLL; TOURNOI 12";1;17/12/2023;14:30:00;"HANDBALL LIGERIEN INGRANDES LE FRESNE";" 1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)";"HANDBALL LIGERIEN INGRANDES LE FRESNE";"FIFRE SEBASTIEN";;;;TAFCUFE;"LE FRESNE/LOIRE";" rue des moncellieres";49123;"LE FRESNE SUR LOIRE";"Colle lavable à l'eau uniquement";Jaune-Bleu;Rouge-Noir;;;"TORTAT MIKAEL";+330678193407;"TORTAT MIKAEL";+330678193407;;;;;6249065;6244021
-2023-50;M62001014U;"c-depmpl ; coupe dep masculin ""pays de la loire""";"C-DEPMPL-2 ; COUPE DEP MASC PDLL; TOURNOI 12";1;17/12/2023;14:30:00;" 1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)";"HBC BLINOIS";"HANDBALL LIGERIEN INGRANDES LE FRESNE";"FIFRE SEBASTIEN";;;;TAFCUFG;"LE FRESNE/LOIRE";" rue des moncellieres";49123;"LE FRESNE SUR LOIRE";"Colle lavable à l'eau uniquement";;;Noir-Jaune;Orange;;;;;"HUGRON STEPHANE";0631493659;"HUGRON LEO";+330673963240;6244021;6244035
-2023-50;Z624475041;u10m-44;"U10M-44-HONNEUR B POULE 3";9;16/12/2023;14:00:00;"HB STE LUCE SUR LOIRE 2";"PORTERIE HANDBALL";"HB STE LUCE SUR LOIRE";;;;;TAEXGCX;"HALLE SPORTIVE DE LA MINAIS";"27 rue olympe de gouges";44980;"STE LUCE SUR LOIRE";"Toutes colles interdites";Vert;Rouge;Noir-Orange;;"PIERRE ARTHUR";+330662924391;;;"FORVEILLE CORENTIN";+330631937784;;;6244056;6244021
-2023-50;M624455061;u14m-44;"U14M-44-HONNEUR A POULE 4";10;16/12/2023;14:00:00;"PORTERIE HANDBALL";"CARQUEFOU HB 2";"PORTERIE HANDBALL";;;;;TAESNLT;"st joseph de la porterie n°1 - jean jahan";"509  route de st joseph de la porterie";44300;NANTES;"Toutes colles interdites";Noir-Orange;;Jaune;Rouge;"BLANQUET MAELIA";+330620103650;"BOUTRUCHE CHRISTOPHE";+33698168924;"AZE CAMILLE";+330627111810;"PERREAU CHRISTOPHE";+330614416546;6244021;6244049
-2023-50;F624450051;u15f-44;"U15F-44-HONNEUR B POULE 1";9;16/12/2023;15:00:00;"U15F-44-HB-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)";"HBC HERBLINOIS";"PORTERIE HANDBALL";;;;;TAEXEMQ;"LA COUTANCIERE";" allee des favrieres";44240;"LA CHAPELLE SUR ERDRE";"Toutes colles interdites";Noir-Vert;;blanc;Rose;"BOUTRUCHE CHRISTOPHE";+33698168924;"ROYER SARAH";;"SAULNIER JORDAN";+330767020654;"LORCY KATELL";+33661584016;6244021;6244044
-2023-50;F624440001;u17f-44;"U17F-44-PRE REGION POULE A";10;16/12/2023;16:00:00;"U17F-44-PR-E-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)";"HERIC HANDBALL";"PORTERIE HANDBALL";;;;;TAESMZL;"st joseph de la porterie n°1 - jean jahan";"509  route de st joseph de la porterie";44300;NANTES;"Toutes colles autorisées";Noir-Vert;;Rouge-Noir;Jaune-Gris;"BOUTRUCHE CHRISTOPHE";+33698168924;"ROUILLER BENOIT";;"ESCANECRABE CLEMENCE";+330607687157;"CONNAN OLWEN";+330650314121;6244021;6244094
-2023-50;M624430001;u19m-44;"U19M-44-PRE REGION POULE A";10;16/12/2023;19:00:00;"NORT AC HANDBALL";"U19M-44-PR-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)";"NORT AC HANDBALL";;;;;TAESMAC;"MARIE-AMELIE LE FUR";" impasse julie-victoire daubie";44390;"NORT SUR ERDRE";;Bleu;Orange;Noir-Vert;;"AROKEUM PIERRE";+330656856673;"SCHILLINGER ELISE";+33662070027;"BILLY ROMAIN";+330638510471;"LE VIAVANT YVES";+330761896340;6244041;6244021
-</textarea><sl-divider></sl-divider>
-            <sl-details summary="Configuration avancée">
-                <h2>Nom des équipes locales</h2>
-                <textarea id="noms_equipes_dom">
-["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "PORTERIE HANDBALL", "(CHAP-PHB)", "PORTES DE L'ERDRE"]
-</textarea>
-                <sl-divider></sl-divider>
-                <h2>Substitions équipes. Ajouter ici les noms d'équipe que vous souhaitez voir afficher
-                    sous
-                    une forme plus "humaine"</h2>
-                <textarea id="sub_equipes">
-[
-["HANDBALL CLUB MARSIEN", "St Mars"],
-["U12M-44-EXC-C-GRAND LIEU SUD RETZ (PHB/ESL/MHC)","GRAND LIEU"],
-["HANDBALL CLUB DU GESVRES","Treillières"],
-["HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE","Suce sur Erdre"],
-["UNION SPORTIVE GRANDE PRESQU'ILE HANDBALL","Guérande"],
-["U13F-44-EXC-C-GRAND LIEU SUD RETZ (ESL-PHB-MHC)","Grand Lieu Sud Retz"],
-["1DTM-44-C-CONVENTION HERIC H/NOZAY OS HB","Heric Nozay"],
-["U15f-44-ha-c-hb Ste Luce-chb-thbc","Ste Luce"],
-["U14M-44-EXC-E-FHBL/HBCM","Ligné - St Mars"],
-["U14m-44-exc-c-alliance Erdre Et Loire (chb-hbsl)","All. Carquefou / Ste Luce"],
-["U17FPL-C-AMBRIERES*MAY'N","Ambrieres"]
-]
-</textarea>
-                <sl-divider></sl-divider>
-                <h3>Configuration des équipes. Format (division:{collectif:"nom collectif","nom
-                    equipe":"libellé court"}). Utiliser les logs de la console pour compléter en pensant à faire une PR.
-                </h3>
-                <textarea id="configurationEquipe">
-    {
-        "ecole de hand - 44": {
-            "collectif": "EDH-xx",
-            "LA CHAPELAINE 1F" : "EDH-F",
-            "LA CHAPELAINE 1M.2M.3M" : "EDH-M",
-            "color" : "#634928"
-        },
-        "c-depmpl ; coupe dep masculin pays de la loire":{
-            "collectif":"SM-2",
-            "1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)":"SM2",
-            "color":"#634928"
-        },
-        "c-regmpl ; coupe reg masculin pays de la loire":{
-            "collectif":"SM-1",
-            "HMPL-C-CHAPELAINE*PORTE DE L ERDRE":"SM-1",
-            "color":"#634928"
-        },        
-        "d1fpl ; division 1 feminine territoriale ;": {
-            "collectif": "SF-xx",
-            "D1F44-C-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE": "SF1",
-            "color": "#634928"
-        },
-        "d2fpl ; division 2 feminine territoriale ;": {
-            "collectif": "SF-xx",
-            "PORTERIE HANDBALL": "SF2",
-            "D2F44-C-PORTERIE*ALLIANCE PORTES DE L'ERDRE": "SF2",
-            "color": "#634928"
-        },
-        "1dtm-44": {
-            "collectif": "SM-2",
-            "1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "SM2",
-            "color": "#634928"
-        },
-        "coupe de france regionale masculine 2023-24":{
-            "collectif": "SM-xx",
-            "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
-            "color": "#634928"
-        },
-        "coupe de france departementale masculine 2023-24":{
-            "collectif": "SM-xx",
-            "LA CHAPELAINE": "SM-1",
-            "PORTERIE HANDBALL": "SM-2",
-            "color": "#634928"
-        },
-        "coupe de france departementale feminine 2023-24":{
-            "collectif": "SF-xx",
-            "LA CHAPELAINE": "SF-1",
-            "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
-            "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
-            "color": "#634928"
-        },
-        "c-depfpl ; coupe dep feminin pays de la loire":{
-            "collectif": "SF-xx",
-            "LA CHAPELAINE": "SF-1",
-            "PORTERIE HANDBALL": "SF-2",
-            "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
-            "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
-            "color": "#634928"
-        },
-        "hmpl ; honneur masculine regionale": {
-            "collectif": "SM-1",
-            "C-HMPL CHAPELAINE*PORTE DE L ERDRE": "SM1",
-            "color": "#634928"
-        },
-        "u10m-44": {
-            "collectif": "U10M-x",
-            "PORTERIE HANDBALL": "U10M-PORTERIE",
-            "color": "#29a659"
-        },
-        "u11m-44": {
-            "collectif": "U11M-x",
-            "LA CHAPELAINE 1": "U11M-1",
-            "LA CHAPELAINE 2": "U11M-2",
-            "color": "#29a659"
-        },
-        "u11f-44": {
-            "collectif": "U11F-x",
-            "LA CHAPELAINE": "U11F",
-            "color": "#29a659"
-        },
-        "u12m-44": {
-            "collectif": "U12M-x",
-            "LA CHAPELAINE 1": "U12M-1",
-            "LA CHAPELAINE 2": "U12M-2",
-            "color": "#29a659"
-        },
-        "u13f-44": {
-            "collectif": "U13F-x",
-            "U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U13F-1",
-            "color": "#29a659"
-        },
-        "u14m-44": {
-            "collectif": "U14M-x",
-            "LA CHAPELAINE 1": "U14M-CHAP-1",
-            "LA CHAPELAINE 1 ": "U14M-CHAP-1",
-            "LA CHAPELAINE 2": "U14M-CHAP-2",
-            "PORTERIE HANDBALL": "U14M-PORTERIE-1",
-            "color": "#29a659"
-        },
-        "u15f-44": {
-            "collectif": "U15F-x",
-            "U15F-44-HA-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U15F-1",
-            "U15F-44-HB-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U15F-2",
-            "color": "#634928"
-        },
-        "u16m-44": {
-            "collectif": "U16M-x",
-            "U16M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U16M-1",
-            "U16M-44-HB-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U16M-2",
-            "color": "#634928"
-        },
-        "u17f-44": {
-            "collectif": "U17F-x",
-            "U17F-44-PR-E-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U17F",
-            "color": "#634928"
-        },
-        "u17fpl ; u17 feminine regionale ; 2eme phase": {
-            "collectif": "U17F-x",
-            "PORTERIE HANDBALL": "U17F",
-            "U17FPL-C-CHAPELAINE*PORTERIE": "U17F",
-            "color": "#634928"
-        },
-        "u19m-44":{
-            "collectif": "U19M-x",
-            "U19M-44-PR-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U19M-1",
-            "U19M-44-HA-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U19M-2",
-            "color": "#634928"
-        }
-    }
-                
-</textarea>
-            </sl-details>
-            <sl-divider></sl-divider>
-            <sl-button variant="primary" onclick="generer()" class="generer" size="large">Générer</sl-button>
-            <sl-divider></sl-divider>
-        </form>
-    </div>
-    <div id="outputs">
-        <h2>Tableau pret à copier coller Kiefekoi</h2>
-        <div class="kifekoi" id="kifekoi"></div>
-        <sl-divider></sl-divider>
-        <h2>Illustrations matchs à venir Instagram</h2>
-        <div class="instagram matchs-we" id="insta_1">
-            <div class="sous-section-insta">
-                <div class="jour-match" id="date_we_feed_1"></div>
-            </div>
-        </div>
-        <div class="instagram matchs-we" id="insta_2">
-            <div class="sous-section-insta">
-                <div class="jour-match" id="date_we_feed_2"></div>
-            </div>
-        </div>
-        <div class="instagram" id="insta_3">
-            <div class="logo_1"></div>
-            <div class="jour-match">Les conclusions manquantes<br><span id="date_we_feed_3"></span></div>
-        </div>
-        <sl-divider></sl-divider>
-        <h2>Illustration résultat Instagram</h2>
-        <div class="instagram resultats-we">
-            <div id="resultats" class="sous-section-insta"></div>
-            <div class="insta-footer">Bravo à tous !</div>
-        </div>
-
-
-    </div>
-    </div>
-    </form>
+        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/shoelace-autoloader.js"></script>
+    <!-- CSV Parser -->
     <script src="https://cdn.jsdelivr.net/npm/d3-dsv@3"></script>
+    <!-- Utilities to manipulate structures -->
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script src="script.js"></script>
-    <style>
-        :root {
-            padding: 10px;
-            font-family: 'Contrail One', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            font-size: 24px;
-        }
 
-        .configuration {
-            display: flex;
-            flex-direction: column;
-        }
+    <!-- Date manipulation-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.js"></script>
 
-        #sub_equipes {
-            height: 10vh;
-        }
-
-        #configurationEquipe {
-            height: 75vh;
-        }
-
-        #csvContent {
-            height: 50vh;
-        }
-
-        #outputs {
-            margin: auto;
-            width: max(50%, 1200px);
-            text-align: center;
-        }
-
-        .instagram {
-            margin: auto;
-            background-color: #5BA17B;
-            color: white;
-            text-align: center;
-            align-items: center;
-            padding: 20px;
-            text-shadow: 1px 1px 2px green;
-            display: flex;
-            flex-direction: column;
-
-            margin-top: 20px;
-        }
-
-        .insta-footer {
-            width: calc(100% - 250px);
-            background: left / 25% no-repeat url(./logo_4.png);
-            height: 60px;
-            font-family: "Edo";
-            font-size: 40px;
-            text-align: right;
-            margin-top: 60px;
-            margin-left: 160px;
-
-        }
-
-        .session {
-            margin-left: 100px;
-        }
-        .resultats-we {
-            background-image: url("./fond_resultats.png");
-            height: 1320px;
-            width: 742px;
-        }
-
-        .matchs-we {
-            background-image: url("./fond_programme.png");
-            height: 1320px;
-            width: 742px;
-        }
-
-        .logo-alliance-blanc {
-            background: center / contain no-repeat url("./logo_4.png");
-            height: 120px;
-            width: 200px;
-            padding: 0px;
-            margin: 0px;
-        }
-
-        .msg-footer {
-            font-family: "Edo";
-            font-size: 32px;
-        }
-
-        .jour-match {
-            font-size: 32px;
-            padding: 10px;
-            min-width: 180px;
-        }
-
-        #weekend_a_venir {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sous-section-insta {
-            font-size: 24px;
-
-            margin-top: 300px;
-            margin-left: 100px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tableau-kifekoi {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .ligneResultat {
-            padding-top: 8px;
-            display: flex;
-        }
-
-        .lrl {
-            width: calc(40vh - 50px);
-            text-align: right;
-        }
-
-        .lrc {
-            width: 100px;
-        }
-
-        .lrr {
-            width: calc(40vh - 50px);
-            text-align: left;
-        }
-
-        .egalite {
-            font-family: "Edo";
-            color: orange;
-
-        }
-
-        .victoire {
-            font-family: "Edo";
-            color: green;
-
-        }
-
-        .defaite {
-            font-family: "Edo";
-            color: lemonchiffon;
-        }
-
-
-        .salle {
-            font-family: "Edo";
-            padding-top: 30px;
-            margin-bottom: 6px;
-        }
-
-        .match {
-            display: flex;
-            flex-direction: row;
-            padding-top: 10px;
-        }
-
-        #kifekoi {
-            margin: auto;
-            margin-top: 20px;
-            background-color: lightgrey;
-            max-width: 500px;
-            padding: 10px;
-        }
-
-        .jour-kifekoi {
-            margin: auto;
-            margin-top: 20px;
-        }
-
-        .generer {
-            margin: auto;
-            max-width: 100px;
-        }
+    <!-- Image generator-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 
 
-        textarea {
-            width: 100%;
-        }
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 10px;
-        }
-    </style>
+
+    <!-- Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Contrail+One" />
     <link href="https://fonts.cdnfonts.com/css/edo" rel="stylesheet">
+</head>
+
+<body>
+    <sl-dialog label="Dialog" class="dialog-scrolling">
+        <div>
+            <h2>TODO</h2>
+        </div>
+        <sl-button slot="footer" variant="primary">Close</sl-button>
+    </sl-dialog>
+    <sl-button id="btn-param" variant="default" size="large">
+        <sl-icon slot="prefix" name="gear"></sl-icon>
+        Paramètres
+    </sl-button>
+    <section>
+        <h2>Upload des fichiers</h2>
+        <sl-alert variant="primary" open>
+            <sl-icon slot="icon" name="info-circle"></sl-icon>
+            Fichiers résultats et matchs à venir à générer depuis Gest'hand
+        </sl-alert>
+        <div id="dropZone">Glisser les fichiers CSV ici</div>
+
+        <sl-select id="selSemaine" placeholder="Sélectionner une semaine" size="medium" disabled="true">
+        </sl-select>
+        <sl-button variant="success" size="large" id="btnGeneration">
+            <sl-icon slot="suffix" name="chevron-double-right"></sl-icon>
+            Générer les visuels
+        </sl-button>
+    </section>
+    <section id="sctProgrammeEtResultat">
+        <h2>Images</h2>
+        <sl-tab-group class="tabGroupMain">
+            <sl-tab slot="nav" panel="pan-resultats" id="tab_resultat" disabled>Résultats</sl-tab>
+            <sl-tab slot="nav" panel="pan-samedi" id="tab_samedi" disabled>Visuel Samedi</sl-tab>
+            <sl-tab slot="nav" panel="pan-dimanche" id="tab_dimanche" disabled>Visuel Dimanche</sl-tab>
+            <sl-tab slot="nav" panel="pan-kifekoi"  id="tab_kiefeKoi" disabled>Kifekoi</sl-tab>
+            <sl-tab-panel name="pan-resultats" id="tapPanResultat">
+                
+                <sl-alert variant="warning" id="alertResultats" closable>
+                    <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+                    <div class="alertHeader">Matchs non affichés faute de résultats connus</div>
+                    <div id="erreursResultats"></div>
+                </sl-alert>
+                <sl-button variant="default" size="medium" class="btnDl" id="btnDl_resultats">
+                    <sl-icon name="cloud-download" label="Download"></sl-icon>
+                    Download
+                </sl-button>
+                <div class="instagram resultats-we" id="insta_resultats">
+                    
+                    <div id="resultats" class="sous-section-insta"></div>
+                    <div class="insta-footer">Bravo à tous !</div>
+                </div>
+                
+            </sl-tab-panel>
+            <sl-tab-panel name="pan-samedi" id="tapPanSamedi">
+               
+                <sl-alert variant="warning" id="alert_samedi" closable>
+                    <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+                    <div class="alertHeader">Conclusion non reçue & nom d'équipe méritant votre attention</div>
+                    <div id="contenuAlert_samedi"></div>
+                </sl-alert>
+                <sl-button variant="default" size="medium" class="btnDl"  id="btnDl_samedi">
+                    <sl-icon name="cloud-download" label="Download"></sl-icon>
+                    Download
+                </sl-button>
+                <div class="instagram matchs-we" id="insta_samedi">
+                    <div class="sous-section-insta">
+                        <div class="jour-match" id="date_we_feed_samedi"></div>
+                    </div>
+                </div>
+                
+            </sl-tab-panel>
+            <sl-tab-panel name="pan-dimanche" id="tapPanDimanche">
+                
+                <sl-alert variant="warning" id="alert_dimanche" closable>
+                    <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
+                    <div class="alertHeader">Conclusion non reçue & nom d'équipe méritant votre attention</div>
+                    <div id="contenuAlert_dimanche"></div>
+                </sl-alert>
+                <sl-button variant="default" size="medium" class="btnDl" id="btnDl_dimanche">
+                    <sl-icon name="cloud-download" label="Download"></sl-icon>
+                    Download
+                </sl-button>
+                <div class="instagram matchs-we" id="insta_dimanche">
+                    <div class="sous-section-insta">
+                        <div class="jour-match" id="date_we_feed_dimanche"></div>
+                    </div>
+                </div>
+                
+            </sl-tab-panel>
+            <sl-tab-panel name="pan-kifekoi">
+                <div class="kifekoi" id="kifekoi"></div>
+                <div class="instagram" id="insta_Invalid">
+                    <div class="jour-match">Les conclusions manquantes<br><span id="date_we_feed_Invalid"></span></div>
+                </div>
+            </sl-tab-panel>
+        </sl-tab-group>
+    </section>
 </body>
+
+<script src="js/generation-visuel.js"></script>
+<script src="js/default-param.js"></script>
+<script src="js/ui-behaviors.js"></script>
+<script src="js/extractor.js"></script>
+<script src="js/data-cleaner.js"></script>
+
+
+
+
+</html>
