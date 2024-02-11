@@ -21,10 +21,6 @@
     <!-- Image generator-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-
-
-
-
     <!-- Fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,11 +30,32 @@
 </head>
 
 <body>
-    <sl-dialog label="Dialog" class="dialog-scrolling">
-        <div>
-            <h2>TODO</h2>
-        </div>
-        <sl-button slot="footer" variant="primary">Close</sl-button>
+    <sl-dialog label="Paramètres" class="dialog-scrolling">
+
+        <form id="form_param" class="configuration">
+            <div>Nom des équipes locales</div>
+            <textarea id="noms_equipes_dom"></textarea>
+            <sl-divider></sl-divider>
+
+            <div>Substitions équipes</div>
+            <sl-alert variant="primary" open>
+                <sl-icon slot="icon" name="info-circle"></sl-icon>
+                Ajouter ici les noms d'équipe que vous souhaitez voir afficher
+                sous
+                une forme plus "humaine"
+            </sl-alert>
+            <textarea id="substitution_equipes"></textarea>
+            <sl-divider></sl-divider>
+
+            <div>Configuration des équipes</div>
+            <sl-alert variant="primary" open>
+                <sl-icon slot="icon" name="info-circle"></sl-icon>
+                Format (division:{collectif:"nom collectif","nom
+                equipe":"libellé court"}). Utiliser les logs de la console pour compléter en pensant à faire une PR.
+            </sl-alert>
+            <textarea id="configuration_equipe"></textarea>
+        </form>
+        <sl-button slot="footer" variant="primary">Save</sl-button>
     </sl-dialog>
     <sl-button id="btn-param" variant="default" size="large">
         <sl-icon slot="prefix" name="gear"></sl-icon>
@@ -54,10 +71,17 @@
 
         <sl-select id="selSemaine" placeholder="Sélectionner une semaine" size="medium" disabled="true">
         </sl-select>
+        <div>
+            <sl-button variant="default" size="large" id="btnVerifier">
+                <sl-icon slot="suffix" name="patch-check
+                "></sl-icon>
+                Verifier les fichiers
+            </sl-button>
         <sl-button variant="success" size="large" id="btnGeneration">
             <sl-icon slot="suffix" name="chevron-double-right"></sl-icon>
             Générer les visuels
         </sl-button>
+    </div>
     </section>
     <section id="sctProgrammeEtResultat">
         <h2>Images</h2>
@@ -65,9 +89,9 @@
             <sl-tab slot="nav" panel="pan-resultats" id="tab_resultat" disabled>Résultats</sl-tab>
             <sl-tab slot="nav" panel="pan-samedi" id="tab_samedi" disabled>Visuel Samedi</sl-tab>
             <sl-tab slot="nav" panel="pan-dimanche" id="tab_dimanche" disabled>Visuel Dimanche</sl-tab>
-            <sl-tab slot="nav" panel="pan-kifekoi"  id="tab_kiefeKoi" disabled>Kifekoi</sl-tab>
+            <sl-tab slot="nav" panel="pan-kifekoi" id="tab_kiefeKoi" disabled>Kifekoi</sl-tab>
             <sl-tab-panel name="pan-resultats" id="tapPanResultat">
-                
+
                 <sl-alert variant="warning" id="alertResultats" closable>
                     <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
                     <div class="alertHeader">Matchs non affichés faute de résultats connus</div>
@@ -78,20 +102,20 @@
                     Download
                 </sl-button>
                 <div class="instagram resultats-we" id="insta_resultats">
-                    
+
                     <div id="resultats" class="sous-section-insta"></div>
                     <div class="insta-footer">Bravo à tous !</div>
                 </div>
-                
+
             </sl-tab-panel>
             <sl-tab-panel name="pan-samedi" id="tapPanSamedi">
-               
+
                 <sl-alert variant="warning" id="alert_samedi" closable>
                     <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
                     <div class="alertHeader">Conclusion non reçue & nom d'équipe méritant votre attention</div>
                     <div id="contenuAlert_samedi"></div>
                 </sl-alert>
-                <sl-button variant="default" size="medium" class="btnDl"  id="btnDl_samedi">
+                <sl-button variant="default" size="medium" class="btnDl" id="btnDl_samedi">
                     <sl-icon name="cloud-download" label="Download"></sl-icon>
                     Download
                 </sl-button>
@@ -100,10 +124,10 @@
                         <div class="jour-match" id="date_we_feed_samedi"></div>
                     </div>
                 </div>
-                
+
             </sl-tab-panel>
             <sl-tab-panel name="pan-dimanche" id="tapPanDimanche">
-                
+
                 <sl-alert variant="warning" id="alert_dimanche" closable>
                     <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
                     <div class="alertHeader">Conclusion non reçue & nom d'équipe méritant votre attention</div>
@@ -118,10 +142,11 @@
                         <div class="jour-match" id="date_we_feed_dimanche"></div>
                     </div>
                 </div>
-                
+
             </sl-tab-panel>
             <sl-tab-panel name="pan-kifekoi">
                 <div class="kifekoi" id="kifekoi"></div>
+                <div class="kifekoi" id="kifekoi-ext"></div>
                 <div class="instagram" id="insta_Invalid">
                     <div class="jour-match">Les conclusions manquantes<br><span id="date_we_feed_Invalid"></span></div>
                 </div>
