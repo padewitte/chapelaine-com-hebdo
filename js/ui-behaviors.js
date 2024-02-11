@@ -4,6 +4,23 @@ function removeAllChildNodes(parent) {
     }
 }
 
+function cleanGeneratedDiv() {
+    document.getElementById("alert_samedi").removeAttribute("open")
+    document.getElementById("alert_dimanche").removeAttribute("open")
+    document.getElementById("alertResultats").removeAttribute("open")
+    document.querySelectorAll(".hbgenerated").forEach(e => e.remove())
+    const resultats = document.getElementById("resultats");
+    resultats.innerHTML = "";
+
+}
+
+function createHtmlElement(type, className, innerHtml) {
+    const newDiv = document.createElement(type);
+    newDiv.className = className + " hbgenerated";
+    newDiv.innerHTML = innerHtml;
+    return newDiv;
+}
+
 function attach_btn_param() {
     const dialog = document.querySelector('.dialog-scrolling');
     const openButton = dialog.nextElementSibling;
@@ -89,44 +106,6 @@ function attachDropZone() {
     });
 }
 
-
-
-
-
-
-
-function attachBtnGeneration() {
-    const selSemaine = document.getElementById('selSemaine');
-    const btnGeneration = document.getElementById('btnGeneration');
-    btnGeneration.addEventListener('click', function (e) {
-        e.preventDefault();
-        generer_semaine(selSemaine.value);
-        //Scroll dans la section suivante
-        window.scrollTo({
-            top: document.getElementById('sctProgrammeEtResultat').offsetTop,
-            left: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-
-function cleanGeneratedDiv() {
-    document.getElementById("alert_samedi").removeAttribute("open")
-    document.getElementById("alert_dimanche").removeAttribute("open")
-    document.getElementById("alertResultats").removeAttribute("open")
-    document.querySelectorAll(".hbgenerated").forEach(e => e.remove())
-    const resultats = document.getElementById("resultats");
-    resultats.innerHTML = "";
-
-}
-
-function createHtmlElement(type, className, innerHtml) {
-    const newDiv = document.createElement(type);
-    newDiv.className = className + " hbgenerated";
-    newDiv.innerHTML = innerHtml;
-    return newDiv;
-}
-
 function insertLigneResultat(match) {
     let resultats = document.getElementById("resultats");
     if (!match.fdme_rec || !match.fdme_vis) {
@@ -145,6 +124,9 @@ function insertLigneResultat(match) {
 }
 
 function insertMatchsProgrammes(matchsClean) {
+
+    const EXTRA_TD_KIFEKOI = "<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>"
+
     //Tri des matchs à venir
     cleanGeneratedDiv()
     let matchAVenir = _.uniqWith(matchsClean, (x, y) => "" + x.equipe_dom + x.equipe_ext + x.salle + x.horaire === "" + y.equipe_dom + y.equipe_ext + y.salle + y.horaire);
@@ -180,9 +162,20 @@ function insertMatchsProgrammes(matchsClean) {
         //Pour chaque salle génération de la portion d'affichage
         salles_du_jour.forEach(salle => {
             console.log(salle)
+            const domicile = estSalleDomicile(salle);
+            
             //Generation ligne kifekoi
-            let jourKifekoi = createHtmlElement("div", "jour-kifekoi", "<div>" + jdm + " / " + salle + "</div");
-            let tableauKifekoi = createHtmlElement("table", "tableau-kifekoi", "<tr><td>Horaire Match</td><td>Equipe</td><td>Adversaire</td></tr>")
+            let tableauKifekoi;
+            
+            if (domicile) {
+                tableauKifekoi = createHtmlElement("table", "tableau-kifekoi","<thead><tr><td colspan='12' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
+                tableauKifekoi.appendChild(createHtmlElement("tr",undefined,"<td colspan='12' class='salleKifekoi'>" + salle + "</td>"))
+                tableauKifekoi.appendChild(createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td><td>Table</td><td>Arbitrage</td><td>Arbitrage backup</td><td>Suivi</td><td>Resp Salle</td><td>Resp animation</td><td>Photo</td><td>Indispo technique</td><td>Indispo anim</td>"))
+            } else {
+                tableauKifekoi = createHtmlElement("table", "tableau-kifekoi","<thead><tr><td colspan='3' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
+                tableauKifekoi.appendChild(createHtmlElement("tr",undefined,"<td colspan='3' class='salleKifekoi'>" + salle + "</td>"))
+                tableauKifekoi.appendChild(createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td>"))
+            }
 
             //Génération visuel insta
             const divSalle = createHtmlElement("div", "session", "<div class='salle'>" + salle + "</div>");
@@ -194,7 +187,14 @@ function insertMatchsProgrammes(matchsClean) {
                 if (lastMatch != match_a_afficher.equipe_dom + " # " + format_heure(match_a_afficher.horaire)) {
                     lastMatch = match_a_afficher.equipe_dom + " # " + format_heure(match_a_afficher.horaire)
                     divSalle.appendChild(createHtmlElement("div", "match", "<div class='lrl'>" + match_a_afficher.equipe_dom + "</div><div class='lrc horaire'>" + format_heure(match_a_afficher.horaire) + "</div><div class='lrr'>" + match_a_afficher.equipe_ext + "</div>"));
-                    tableauKifekoi.appendChild(createHtmlElement("tr", "", "<td>" + format_heure(match_a_afficher.horaire) + "</td><td>" + match_a_afficher.equipe_dom + "</td><td>" + match_a_afficher.equipe_ext + "</td>"))
+                    
+                    let ligneTableauKifekoi = "<td>" + format_heure(match_a_afficher.horaire) + "</td><td>" + match_a_afficher.equipe_dom + "</td><td>" + match_a_afficher.equipe_ext + "</td>";
+                    if (domicile) {
+                        ligneTableauKifekoi += EXTRA_TD_KIFEKOI
+                    }
+                    tableauKifekoi.appendChild(createHtmlElement("tr", "", ligneTableauKifekoi))
+                    
+                    //Ajout d'un warning si un libellé d'équipe est suspect
                     if (jour_we != 'Invalid' && (match_a_afficher.equipe_dom_warning || match_a_afficher.equipe_ext_warning)) {
                         const alertDiv = document.getElementById("alert_" + jour_we);
                         alertDiv.setAttribute("open", true)
@@ -208,14 +208,23 @@ function insertMatchsProgrammes(matchsClean) {
                 }
             })
             resultats.appendChild(divSalle);
-            jourKifekoi.appendChild(tableauKifekoi);
-            document.getElementById("kifekoi").appendChild(jourKifekoi);
+
+            //Ajout au tab kifekoi
+            if (domicile) {
+                document.getElementById("kifekoi").appendChild(tableauKifekoi);
+                document.getElementById("kifekoi").appendChild(document.createElement("br"));
+            } else {
+                document.getElementById("kifekoi-ext").appendChild(tableauKifekoi);
+                document.getElementById("kifekoi-ext").appendChild(document.createElement("br"));
+            }
 
             //Activation des tabs
             document.getElementById("tab_" + jour_we)?.removeAttribute("disabled")
             document.getElementById("tab_kiefeKoi").removeAttribute("disabled")
 
         })
+
+        // Ajout d'un warning si il existe des matchs non conclus sur le week-end
         if (jour_we == 'Invalid') {
             const message = "Attention conclusions manquantes sur ce week-end";
             document.getElementById("contenuAlert_samedi").appendChild(createHtmlElement("div", "erreurEquipe", message));
@@ -224,10 +233,7 @@ function insertMatchsProgrammes(matchsClean) {
             document.getElementById("alert_dimanche").open = true;
         }
 
-
         resultats.appendChild(createHtmlElement("div", "insta-footer", "Bon match à tous !"))
-
-
     })
 
 }
@@ -246,39 +252,19 @@ function generer_semaine(semaine) {
 
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    attach_btn_param();
-    attachDropZone();
-    attachBtnGeneration();
-    attachBtnDl("resultats");
-    attachBtnDl("samedi");
-    attachBtnDl("dimanche");
-});
-
-
-
-function attachBtnDl(suffix) {
-    const btnDl = document.getElementById('btnDl_'+suffix);
-    btnDl.addEventListener('click', function (e) {
-        e.preventDefault();
-        downloadDivAsImage("insta_"+suffix,"file-"+suffix)
-    });
-}
-
-
 function downloadDivAsImage(divId, fileName) {
     // Get the HTML element
     var element = document.getElementById(divId);
 
     // Create a canvas from the element
-    html2canvas(element).then(function(canvas) {
+    html2canvas(element).then(function (canvas) {
         // Create an "off-screen" anchor tag
         var downloadLink = document.createElement('a');
         downloadLink.setAttribute('href', canvas.toDataURL("image/png"));
         downloadLink.setAttribute('download', fileName + '.png');
         downloadLink.style.display = 'none';
         document.body.appendChild(downloadLink);
-        
+
         // Trigger the download
         downloadLink.click();
 
@@ -286,3 +272,43 @@ function downloadDivAsImage(divId, fileName) {
         document.body.removeChild(downloadLink);
     });
 }
+
+function attachBtnGeneration() {
+    const selSemaine = document.getElementById('selSemaine');
+    const btnGeneration = document.getElementById('btnGeneration');
+    btnGeneration.addEventListener('click', function (e) {
+        e.preventDefault();
+        generer_semaine(selSemaine.value);
+        //Scroll dans la section suivante
+        window.scrollTo({
+            top: document.getElementById('sctProgrammeEtResultat').offsetTop,
+            left: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+function attachBtnDl(suffix) {
+    const btnDl = document.getElementById('btnDl_' + suffix);
+    btnDl.addEventListener('click', function (e) {
+        e.preventDefault();
+        downloadDivAsImage("insta_" + suffix, "file-" + suffix)
+    });
+}
+
+function loadParametres() {
+
+    document.getElementById('noms_equipes_dom').innerHTML = JSON.stringify(noms_equipes_dom, null, '  ')
+    document.getElementById('substitution_equipes').innerHTML = JSON.stringify(sub_equipes, null, '  ')
+    document.getElementById('configuration_equipe').innerHTML = JSON.stringify(configurationEquipe, null, '  ')
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    attach_btn_param();
+    attachDropZone();
+    attachBtnGeneration();
+    attachBtnDl("resultats");
+    attachBtnDl("samedi");
+    attachBtnDl("dimanche");
+    loadParametres();
+});

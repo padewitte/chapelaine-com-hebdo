@@ -227,17 +227,28 @@ section>* {
     padding-top: 10px;
 }
 
-#kifekoi {
-    margin: auto;
-    margin-top: 20px;
-    background-color: lightgrey;
-    max-width: 500px;
-    padding: 10px;
+.kifekoi {
+    font-family: "Arial";
 }
-
+.enteteKifekoi{
+    font-weight: bold;
+}
 .jour-kifekoi {
     margin: auto;
     margin-top: 20px;
+    font-weight: bold;
+    
+}
+.jdmKifekoi {
+    background-color: lightblue;
+    text-align: left;
+    font-weight: bold;
+    font-size: 120%;
+}
+.salleKifekoi {
+    background-color: lightgray;
+    font-weight: bold;
+    font-size: 120%;
 }
 
 .generer {
@@ -274,4 +285,9 @@ sl-icon>strong {}
 
 .alertHeader {
     font-weight: bold;
+}
+
+.configuration > sl-alert {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

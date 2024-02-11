@@ -1,6 +1,10 @@
 const noms_equipes_dom = ["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "PORTERIE HANDBALL", "(CHAP-PHB)", "PORTES DE L'ERDRE"];
 
-const salles_domicile = ["JEAN JAHAN","COUTANCIERE"]
+const salles_domicile = ["JEAN JAHAN","COUTANCIERE"];
+
+function estSalleDomicile(salle){
+    return salles_domicile.some(x => salle.toUpperCase().includes(x.toUpperCase()))
+}
 
 const sub_equipes = [
     ["HANDBALL CLUB MARSIEN", "St Mars"],
