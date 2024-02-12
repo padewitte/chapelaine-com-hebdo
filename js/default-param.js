@@ -26,9 +26,11 @@ const sub_equipes = [
 const configurationEquipe = {
     "ecole de hand - 44": {
         "collectif": "EDH-xx",
-        "LA CHAPELAINE 1F": "EDH-F",
-        "LA CHAPELAINE 1M.2M.3M": "EDH-M",
-        "color": "#634928"
+        "LA CHAPELAINE 1F": "EDH-CHAP-F",
+        "LA CHAPELAINE 1M.2M.3M": "EDH-CHAP-M",
+        "PORTERIE HANDBALL 1M.2M": "EDH-PORTERIE",
+        "color": "#634928",
+        "edh": true
     },
     "c-depmpl ; coupe dep masculin pays de la loire": {
         "collectif": "SM-2",

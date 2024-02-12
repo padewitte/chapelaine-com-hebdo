@@ -4,12 +4,12 @@ function removeAllChildNodes(parent) {
     }
 }
 
-function resetTab(tabId){
+function resetTab(tabId) {
     const htmlElement = document.getElementById(tabId);
     htmlElement.removeAttribute("active")
     htmlElement.setAttribute("disabled", true)
 
-    
+
 }
 
 function cleanGeneratedDiv() {
@@ -42,7 +42,7 @@ function attach_btn_param() {
     closeButton.addEventListener('click', () => dialog.hide());
 }
 
-function getLibSemaine(semaine){
+function getLibSemaine(semaine) {
     const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
     return semaine + " (" + semMom.format('DD/MM') + " & " + semMom.add(1, 'days').format('DD/MM') + ")"
 }
@@ -51,18 +51,23 @@ function attachDropZone() {
 
     function majSemaines(semaines) {
         const selSemaine = document.getElementById("selSemaine");
+        
         selSemaine.setAttribute('disabled', true)
 
         removeAllChildNodes(selSemaine);
-        semaines.forEach(semaine => {
-            
-            let libSemaine = getLibSemaine(semaine)
-            const newDiv = document.createElement("sl-option");
-            newDiv.value = semaine
-            newDiv.innerHTML = libSemaine
-            selSemaine.appendChild(newDiv);
+        if(semaines && semaines.length > 0){
+            selSemaine.appendChild(document.createElement("sl-option"));
+            semaines.forEach(semaine => {
+                let libSemaine = getLibSemaine(semaine)
+                const newDiv = document.createElement("sl-option");
+                newDiv.value = semaine
+                newDiv.innerHTML = libSemaine
+                selSemaine.appendChild(newDiv);
+               
+                
+            });
             selSemaine.removeAttribute('disabled')
-        });
+        }
     }
 
     const dropZone = document.getElementById('dropZone');
@@ -155,7 +160,7 @@ function insertMatchsProgrammes(matchsClean, semaine) {
     let dates_week_end = undefined;
 
     //Ajout du titre Kiefekoi
-    document.getElementById("kifekoi").appendChild(createHtmlElement("table","semaineKifekoi","<tr><td>"+getLibSemaine(semaine)+"</td></tr>"));
+    document.getElementById("kifekoi").appendChild(createHtmlElement("table", "semaineKifekoi", "<tr><td>" + getLibSemaine(semaine) + "</td></tr>"));
     document.getElementById("kifekoi").appendChild(document.createElement("br"));
 
     jours_de_match.forEach(jdm => {
@@ -183,17 +188,17 @@ function insertMatchsProgrammes(matchsClean, semaine) {
         salles_du_jour.forEach(salle => {
             console.log(salle)
             const domicile = estSalleDomicile(salle);
-            
+
             //Generation ligne kifekoi
             let tableauKifekoi;
-            
+
             if (domicile) {
-                tableauKifekoi = createHtmlElement("table", "tableau-kifekoi","<thead><tr><td colspan='12' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
-                tableauKifekoi.appendChild(createHtmlElement("tr",undefined,"<td colspan='12' class='salleKifekoi'>" + salle + "</td>"))
+                tableauKifekoi = createHtmlElement("table", "tableau-kifekoi", "<thead><tr><td colspan='12' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
+                tableauKifekoi.appendChild(createHtmlElement("tr", undefined, "<td colspan='12' class='salleKifekoi'>" + salle + "</td>"))
                 tableauKifekoi.appendChild(createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td><td>Table</td><td>Arbitrage</td><td>Arbitrage backup</td><td>Suivi</td><td>Resp Salle</td><td>Resp animation</td><td>Photo</td><td>Indispo technique</td><td>Indispo anim</td>"))
             } else {
-                tableauKifekoi = createHtmlElement("table", "tableau-kifekoi","<thead><tr><td colspan='3' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
-                tableauKifekoi.appendChild(createHtmlElement("tr",undefined,"<td colspan='3' class='salleKifekoi'>" + salle + "</td>"))
+                tableauKifekoi = createHtmlElement("table", "tableau-kifekoi", "<thead><tr><td colspan='3' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
+                tableauKifekoi.appendChild(createHtmlElement("tr", undefined, "<td colspan='3' class='salleKifekoi'>" + salle + "</td>"))
                 tableauKifekoi.appendChild(createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td>"))
             }
 
@@ -201,19 +206,22 @@ function insertMatchsProgrammes(matchsClean, semaine) {
             const divSalle = createHtmlElement("div", "session", "<div class='salle'>" + salle + "</div>");
             const match_dans_la_salle = matchs_du_jour.filter(m => m.salle == salle);
             const match_dans_la_salle_trie = _.orderBy(match_dans_la_salle, ['horaire'], ['asc']);
-            let lastMatch = ""
+            let derniereSalle = ""
+            let precedentMatchEdh = false;
 
             match_dans_la_salle_trie.forEach(match_a_afficher => {
-                if (lastMatch != match_a_afficher.equipe_dom + " # " + format_heure(match_a_afficher.horaire)) {
-                    lastMatch = match_a_afficher.equipe_dom + " # " + format_heure(match_a_afficher.horaire)
+                if (!precedentMatchEdh || !match_a_afficher.edh || derniereSalle !== match_a_afficher.salle_orig ) {
+                    precedentMatchEdh = match_a_afficher.edh
+                    derniereSalle = match_a_afficher.salle_orig
+                    //lastMatch = match_a_afficher.equipe_dom + " # " + format_heure(match_a_afficher.horaire)
                     divSalle.appendChild(createHtmlElement("div", "match", "<div class='lrl'>" + match_a_afficher.equipe_dom + "</div><div class='lrc horaire'>" + format_heure(match_a_afficher.horaire) + "</div><div class='lrr'>" + match_a_afficher.equipe_ext + "</div>"));
-                    
+
                     let ligneTableauKifekoi = "<td>" + format_heure(match_a_afficher.horaire) + "</td><td>" + match_a_afficher.equipe_dom + "</td><td>" + match_a_afficher.equipe_ext + "</td>";
                     if (domicile) {
                         ligneTableauKifekoi += EXTRA_TD_KIFEKOI
                     }
                     tableauKifekoi.appendChild(createHtmlElement("tr", "", ligneTableauKifekoi))
-                    
+
                     //Ajout d'un warning si un libellé d'équipe est suspect
                     if (jour_we != 'Invalid' && (match_a_afficher.equipe_dom_warning || match_a_afficher.equipe_ext_warning)) {
                         const alertDiv = document.getElementById("alert_" + jour_we);
@@ -230,7 +238,7 @@ function insertMatchsProgrammes(matchsClean, semaine) {
             resultats.appendChild(divSalle);
 
             //Ajout au tab kifekoi
-            
+
             if (domicile) {
                 document.getElementById("kifekoi").appendChild(tableauKifekoi);
                 document.getElementById("kifekoi").appendChild(document.createElement("br"));
@@ -262,15 +270,17 @@ function insertMatchsProgrammes(matchsClean, semaine) {
 function generer_semaine(semaine) {
     cleanGeneratedDiv()
     const matchsJoueClean = lire_matchs(semaine, MATCHS_JOUES_PAR_SEMAINE);
+
     matchsJoueClean?.forEach(match => {
         insertLigneResultat(match)
     })
 
     const matchsProgClean = lire_matchs(semaine, MATCHS_PROGRAMMES_PAR_SEMAINE);
+
+
     if (matchsProgClean && matchsProgClean.length > 0) {
         insertMatchsProgrammes(matchsProgClean, semaine)
     }
-
 }
 
 function downloadDivAsImage(divId, fileName) {
@@ -314,7 +324,7 @@ function attachBtnDl(suffix) {
     btnDl.addEventListener('click', function (e) {
         const semaine = document.getElementById('selSemaine').value;
         e.preventDefault();
-        downloadDivAsImage("insta_" + suffix, "file-" +semaine + "-"+ suffix)
+        downloadDivAsImage("insta_" + suffix, "file-" + semaine + "-" + suffix)
     });
 }
 

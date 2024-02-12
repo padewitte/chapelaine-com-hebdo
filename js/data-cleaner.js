@@ -24,10 +24,10 @@ function capitalize_first_letter(str) {
     return str.toLowerCase().split(' ').map(capitalize).join(' ');
 }
 
-function nettoyer_nom_equipe(competition, nom_equipe_adverse) {
-    var str = mapper_collectif_club(competition, nom_equipe_adverse);
+function nettoyer_nom_equipe(competition, nom_equipe) {
+    var str = mapper_collectif_club(competition, nom_equipe);
     sub_equipes.forEach(sub => str = str.replace(capitalize_first_letter(sub[0]), capitalize_first_letter(sub[1])));
-    str = str.replace("Handball", "").replace("1m.2m.3m", "").replace("1m.2m", "").replace("OLYMPIQUE", "").replace("Olympique", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
+    str = str.replace("Handball", "").replace("1m.2m.3m", "").replace("1m.2m", "").replace("1f.2f", "").replace("OLYMPIQUE", "").replace("Olympique", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
     return capitalize_first_letter(str)
 }
 
@@ -51,11 +51,17 @@ function mapper_collectif_club(competition, nom_equipe_fdm) {
     return capitalize_first_letter(nom_collectif_club)
 }
 
+function isCompetEdh(competition) {
+    let compet = competition.replaceAll('"', '').trim();
+    var categorie = configurationEquipe[compet];
+    return categorie.edh
+}
+
 
 function clean_salle(match, salle_dom) {
-    if(salle_dom){
+    if (salle_dom) {
         return capitalize_first_letter(match['nom salle']).replace("St Joseph De La Porterie N°1 - ", "");
-    }else{
+    } else {
         return "Extérieur"
     }
 }
@@ -64,22 +70,22 @@ function is_salle_dom(match) {
     return match['nom salle'] != undefined && (match['nom salle'].toUpperCase().includes("COUTANCIERE") || match['nom salle'].toUpperCase().includes("JEAN JAHAN"));
 }
 
-function is_match_dom(match){
+function is_match_dom(match) {
     return noms_equipes_dom.find(g => match['club rec'].includes(g)) != undefined || (match['club hote'] != undefined && noms_equipes_dom.find(g => match['club hote'].includes(g)) != undefined);
 }
 
-function clean_jour(match){
+function clean_jour(match) {
     let dateSplitted = match.le.split("/");
     return new Date(dateSplitted[2] + "-" + dateSplitted[1] + "-" + dateSplitted[0]).toLocaleDateString('fr-fr', options_dates);
 }
 
 
-function isNomEquipeSuspicieux(nom_equipe){
-    if(nom_equipe){
-        if(nom_equipe.includes("*") || nom_equipe.includes("/")){
+function isNomEquipeSuspicieux(nom_equipe) {
+    if (nom_equipe) {
+        if (nom_equipe.includes("*") || nom_equipe.includes("/")) {
             return "Nom équipe contient un charactère * ou /"
         }
-        if(nom_equipe.length >= 34){
+        if (nom_equipe.length >= 34) {
             return "Nom équipe long de 34 charactères et plus"
         }
     }
@@ -113,10 +119,11 @@ function lire_matchs(semaine, matchs) {
         equipe_dom_warning = isNomEquipeSuspicieux(equipe_dom);
 
         equipe_ext = nettoyer_nom_equipe(match.competition, equipe_ext_orig);
-        equipe_ext_warning  = isNomEquipeSuspicieux(equipe_ext);
-        
-        return({
+        equipe_ext_warning = isNomEquipeSuspicieux(equipe_ext);
+
+        return ({
             competition: match.competition,
+            edh: isCompetEdh(match.competition),
             salle,
             jour: clean_jour(match),
             horaire: match.horaire,
@@ -128,6 +135,7 @@ function lire_matchs(semaine, matchs) {
             equipe_ext_warning,
             match_dom,
             salle_dom,
+            salle_orig: match['nom salle'],
             match_triangulaire,
             fdme_rec: match['fdme rec'],
             fdme_vis: match['fdme vis'],
