@@ -98,18 +98,14 @@ function lire_matchs(semaine, matchs) {
         var equipe_ext, equipe_ext_warning, equipe_ext_orig;
         var victoire;
         var salle = clean_salle(match, salle_dom)
-        
 
+        equipe_dom_orig = match['club rec'];
+        equipe_ext_orig = match['club vis'];
         if (match_dom) {
-            equipe_dom_orig = match['club rec'];
-            equipe_ext_orig = match['club vis'];
-            
             victoire = calculer_victoire(match['fdme rec'], match['fdme vis']);
             //Dans le cadre des triangulaires on ignore les matchs non porteri ou chapelain
             match_triangulaire = noms_equipes_dom.find(g => match['club rec'].includes(g)) == undefined;
         } else {
-            equipe_dom_orig = match['club vis'];
-            equipe_ext_orig = match['club rec'];
             victoire = calculer_victoire(match['fdme vis'], match['fdme rec']);
         }
 

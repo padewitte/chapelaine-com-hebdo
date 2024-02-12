@@ -300,8 +300,9 @@ function attachBtnGeneration() {
 function attachBtnDl(suffix) {
     const btnDl = document.getElementById('btnDl_' + suffix);
     btnDl.addEventListener('click', function (e) {
+        const semaine = document.getElementById('selSemaine').value;
         e.preventDefault();
-        downloadDivAsImage("insta_" + suffix, "file-" + suffix)
+        downloadDivAsImage("insta_" + suffix, "file-" +semaine + "-"+ suffix)
     });
 }
 
