@@ -4,7 +4,19 @@ function removeAllChildNodes(parent) {
     }
 }
 
+function resetTab(tabId){
+    const htmlElement = document.getElementById(tabId);
+    htmlElement.removeAttribute("active")
+    htmlElement.setAttribute("disabled", true)
+
+    
+}
+
 function cleanGeneratedDiv() {
+    resetTab("tab_resultat")
+    resetTab("tab_samedi")
+    resetTab("tab_dimanche")
+    resetTab("tab_kiefeKoi")
     document.getElementById("alert_samedi").removeAttribute("open")
     document.getElementById("alert_dimanche").removeAttribute("open")
     document.getElementById("alertResultats").removeAttribute("open")
