@@ -73,6 +73,7 @@ function clean_jour(match){
     return new Date(dateSplitted[2] + "-" + dateSplitted[1] + "-" + dateSplitted[0]).toLocaleDateString('fr-fr', options_dates);
 }
 
+
 function isNomEquipeSuspicieux(nom_equipe){
     if(nom_equipe){
         if(nom_equipe.includes("*") || nom_equipe.includes("/")){

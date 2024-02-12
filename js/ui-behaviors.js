@@ -30,6 +30,11 @@ function attach_btn_param() {
     closeButton.addEventListener('click', () => dialog.hide());
 }
 
+function getLibSemaine(semaine){
+    const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
+    return semaine + " (" + semMom.format('DD/MM') + " & " + semMom.add(1, 'days').format('DD/MM') + ")"
+}
+
 function attachDropZone() {
 
     function majSemaines(semaines) {
@@ -38,9 +43,8 @@ function attachDropZone() {
 
         removeAllChildNodes(selSemaine);
         semaines.forEach(semaine => {
-            // <sl-option value="option-1">Sem. 1 (27/01 & 28/01)</sl-option>
-            const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
-            let libSemaine = semaine + " (" + semMom.format('DD/MM') + " & " + semMom.add(1, 'days').format('DD/MM') + ")"
+            
+            let libSemaine = getLibSemaine(semaine)
             const newDiv = document.createElement("sl-option");
             newDiv.value = semaine
             newDiv.innerHTML = libSemaine
@@ -123,7 +127,7 @@ function insertLigneResultat(match) {
     document.getElementById("tab_resultat").removeAttribute("disabled")
 }
 
-function insertMatchsProgrammes(matchsClean) {
+function insertMatchsProgrammes(matchsClean, semaine) {
 
     const EXTRA_TD_KIFEKOI = "<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>"
 
@@ -137,6 +141,10 @@ function insertMatchsProgrammes(matchsClean) {
     console.log(jours_de_match)
 
     let dates_week_end = undefined;
+
+    //Ajout du titre Kiefekoi
+    document.getElementById("kifekoi").appendChild(createHtmlElement("table","semaineKifekoi","<tr><td>"+getLibSemaine(semaine)+"</td></tr>"));
+    document.getElementById("kifekoi").appendChild(document.createElement("br"));
 
     jours_de_match.forEach(jdm => {
         console.log(jdm)
@@ -210,6 +218,7 @@ function insertMatchsProgrammes(matchsClean) {
             resultats.appendChild(divSalle);
 
             //Ajout au tab kifekoi
+            
             if (domicile) {
                 document.getElementById("kifekoi").appendChild(tableauKifekoi);
                 document.getElementById("kifekoi").appendChild(document.createElement("br"));
@@ -247,7 +256,7 @@ function generer_semaine(semaine) {
 
     const matchsProgClean = lire_matchs(semaine, MATCHS_PROGRAMMES_PAR_SEMAINE);
     if (matchsProgClean && matchsProgClean.length > 0) {
-        insertMatchsProgrammes(matchsProgClean)
+        insertMatchsProgrammes(matchsProgClean, semaine)
     }
 
 }
