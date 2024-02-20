@@ -46,6 +46,7 @@ const configurationEquipe = {
         "collectif": "SF-xx",
         "D1F44-C-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE": "SF1",
         "CHAPELAINE*P DE L'E": "SF1",
+        "CHAPELAINE*PORTERIE": "SF1",
         "color": "#634928"
     },
     "d2fpl ; division 2 feminine territoriale ;": {
@@ -53,6 +54,7 @@ const configurationEquipe = {
         "PORTERIE HANDBALL": "SF2",
         "D2F44-C-PORTERIE*ALLIANCE PORTES DE L'ERDRE": "SF2",
         "CHAPELAINE*P DE L'E": "SF2",
+        "PORTERIE*CHAPELAINE": "SF2",
         "color": "#634928"
     },
     "1dtm-44": {
@@ -146,6 +148,7 @@ const configurationEquipe = {
     "u17fpl ; u17 feminine regionale ; 2eme phase": {
         "collectif": "U17F-x",
         "PORTERIE HANDBALL": "U17F",
+        "CHAPELAINE*PORTERIE": "U17F",
         "U17FPL-C-CHAPELAINE*PORTERIE": "U17F",
         "color": "#634928"
     },

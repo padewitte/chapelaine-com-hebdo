@@ -137,7 +137,7 @@ function insertLigneResultat(match) {
     const newDiv = document.createElement("div");
     newDiv.className = "ligneResultat hbgenerated"
     //const newContent = document.createTextNode(nom_collectif_club + " : " + match['club rec'] + ":" +  match['fdme rec'] + " vs " + match['club vis'] + ":" + match['fdme vis']);
-    newDiv.innerHTML = "<div class='lrl hbgenerated'>" + match.equipe_dom + "</div><div class='lrc " + match.victoire + "'>" + match.fdme_rec + " - " + match.fdme_vis + "</div><div class='lrr'>" + match.equipe_ext + "</div>";//+ " : " + equipe_ext;
+    newDiv.innerHTML = "<div class='lrl hbgenerated'>" + match.equipe_dom + "</div><div competition="+ match.competition +" class='lrc " + match.victoire + "'>" + match.fdme_rec + " - " + match.fdme_vis + "</div><div class='lrr'>" + match.equipe_ext + "</div>";//+ " : " + equipe_ext;
     resultats.appendChild(newDiv);
 
     //Activation du tab
