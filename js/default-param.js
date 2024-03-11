@@ -20,7 +20,8 @@ const sub_equipes = [
     ["U17FPL-C-AMBRIERES*MAY'N", "Ambrieres"],
     ["U13f-44-ha-e-sud Estuaire Hc / Hbc Pornic","Pornic"],
     ["U17FPL-C-LA CHAIZE*LA FERRIERE","LA FERRIERE"],
-    ["ST LOUIS DE CHAVAGNES EN PAILLERS","ST LOUIS DE CHAVAGNES"]
+    ["ST LOUIS DE CHAVAGNES EN PAILLERS","ST LOUIS DE CHAVAGNES"],
+    ["LA CHAIZE*LA FERRIERE","LA CHAIZE - LA FERRIERE"]
 ];
 
 const configurationEquipe = {
@@ -65,6 +66,7 @@ const configurationEquipe = {
     "coupe de france regionale masculine 2023-24": {
         "collectif": "SM-xx",
         "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
+        "CHAPELAINE*PORTE DE L'E": "SM-1",
         "color": "#634928"
     },
     "coupe de france departementale masculine 2023-24": {
@@ -91,6 +93,7 @@ const configurationEquipe = {
     "hmpl ; honneur masculine regionale": {
         "collectif": "SM-1",
         "C-HMPL CHAPELAINE*PORTE DE L ERDRE": "SM1",
+        "CHAPELAINE*PORTE DE L'E": "SM1",
         "color": "#634928"
     },
     "u10m-44": {
