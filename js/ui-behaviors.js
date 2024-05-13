@@ -176,7 +176,9 @@ function insertMatchsProgrammes(matchsClean, semaine) {
 
         //Affichage du jour dans le titre général
         const resultats = document.getElementById("insta_" + jour_we);
-        document.getElementById("date_we_feed_" + jour_we).innerHTML = jdm
+        if(document.getElementById("date_we_feed_" + jour_we)){
+            document.getElementById("date_we_feed_" + jour_we).innerHTML = jdm
+        }
 
         //Filtrage des maths du jours
         const matchs_du_jour = matchAVenir.filter(match => match.jour == jdm);
@@ -235,7 +237,9 @@ function insertMatchsProgrammes(matchsClean, semaine) {
                     }
                 }
             })
-            resultats.appendChild(divSalle);
+            if(resultats){
+                resultats.appendChild(divSalle);
+            }
 
             //Ajout au tab kifekoi
 
@@ -261,8 +265,9 @@ function insertMatchsProgrammes(matchsClean, semaine) {
             document.getElementById("contenuAlert_dimanche").appendChild(createHtmlElement("div", "erreurEquipe", message));
             document.getElementById("alert_dimanche").open = true;
         }
-
-        resultats.appendChild(createHtmlElement("div", "insta-footer", "Bon match à tous !"))
+        if(resultats){
+            resultats.appendChild(createHtmlElement("div", "insta-footer", "Bon match à tous !"))
+        }
     })
 
 }
