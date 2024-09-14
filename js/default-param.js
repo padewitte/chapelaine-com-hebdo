@@ -97,6 +97,7 @@ const configurationEquipe = {
         "C-HMPL CHAPELAINE*PORTE DE L ERDRE": "SM1",
         "CHAPELAINE*PORTE DE L'E": "SM1",
         "LA CHAPELAINE": "SM1",
+        "LA CHAPELAINE*": "SM1",
         "color": "#634928"
     },
     "u10m-44": {
@@ -113,11 +114,14 @@ const configurationEquipe = {
     "u11f-44": {
         "collectif": "U11F-x",
         "LA CHAPELAINE": "U11F",
+        "LA CHAPELAINE 1": "U11F-1",
+        "LA CHAPELAINE 2": "U11F-2",
         "color": "#29a659"
     },
     "u12m-44": {
         "collectif": "U12M-x",
         "LA CHAPELAINE": "U12M-1",
+        "LA CHAPELAINE 1": "U12M-1",
         "LA CHAPELAINE 2": "U12M-2",
         "color": "#29a659"
     },
@@ -125,12 +129,14 @@ const configurationEquipe = {
         "collectif": "U13F-x",
         "U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U13F-1",
         "LA CHAPELAINE": "U13F-1",
+        "LA CHAPELAINE  1": "U13F-1",
+        "LA CHAPELAINE 2": "U13F-2",
         "color": "#29a659"
     },
     "u14m-44": {
         "collectif": "U14M-x",
         "LA CHAPELAINE 1": "U14M-1",
-        "LA CHAPELAINE 1 ": "U14M-1",
+        "LA CHAPELAINE  1 ": "U14M-1",
         "LA CHAPELAINE 2": "U14M-2",
         "color": "#29a659"
     },
@@ -162,6 +168,12 @@ const configurationEquipe = {
         "collectif": "U19M-x",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB/CHAP)": "U19M-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (CHAP/PHB)": "U19M-2",
+        "color": "#634928"
+    },
+    "u20fpl; u20feminine territoriale":{
+        "collectif": "U20F-x",
+        "LA CHAPELAINE*": "U20F",
+        "LA CHAPELAINE": "U20F",
         "color": "#634928"
     }
 };
