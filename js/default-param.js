@@ -180,12 +180,6 @@ const configurationEquipe = {
         "LA CHAPELAINE*": "U20F",
         "LA CHAPELAINE": "U20F",
         "color": "#634928"
-    },
-    "u20fpl; u20feminine territoriale":{
-        "collectif": "U20F-x",
-        "LA CHAPELAINE*": "U20F",
-        "LA CHAPELAINE": "U20F",
-        "color": "#634928"
     }
 };
 
