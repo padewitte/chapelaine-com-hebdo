@@ -55,6 +55,7 @@ const configurationEquipe = {
     "d2fpl ; division 2 feminine territoriale ;": {
         "collectif": "SF-xx",
         "PORTERIE HANDBALL": "SF2",
+        "PORTERIE HANDBALL*": "SF2",
         "D2F44-C-PORTERIE*ALLIANCE PORTES DE L'ERDRE": "SF2",
         "CHAPELAINE*P DE L'E": "SF2",
         "PORTERIE*CHAPELAINE": "SF2",
@@ -97,6 +98,7 @@ const configurationEquipe = {
         "C-HMPL CHAPELAINE*PORTE DE L ERDRE": "SM1",
         "CHAPELAINE*PORTE DE L'E": "SM1",
         "LA CHAPELAINE": "SM1",
+        "LA CHAPELAINE*": "SM1",
         "color": "#634928"
     },
     "u10m-44": {
@@ -108,16 +110,20 @@ const configurationEquipe = {
         "collectif": "U11M-x",
         "LA CHAPELAINE 1": "U11M-1",
         "LA CHAPELAINE 2": "U11M-2",
+        "PORTERIE HANDBALL 1": "U11M-PORTERIE",
         "color": "#29a659"
     },
     "u11f-44": {
         "collectif": "U11F-x",
         "LA CHAPELAINE": "U11F",
+        "LA CHAPELAINE 1": "U11F-1",
+        "LA CHAPELAINE 2": "U11F-2",
         "color": "#29a659"
     },
     "u12m-44": {
         "collectif": "U12M-x",
         "LA CHAPELAINE": "U12M-1",
+        "LA CHAPELAINE 1": "U12M-1",
         "LA CHAPELAINE 2": "U12M-2",
         "color": "#29a659"
     },
@@ -125,25 +131,30 @@ const configurationEquipe = {
         "collectif": "U13F-x",
         "U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U13F-1",
         "LA CHAPELAINE": "U13F-1",
+        "LA CHAPELAINE  1": "U13F-1",
+        "LA CHAPELAINE 2": "U13F-2",
         "color": "#29a659"
     },
     "u14m-44": {
         "collectif": "U14M-x",
         "LA CHAPELAINE 1": "U14M-1",
-        "LA CHAPELAINE 1 ": "U14M-1",
+        "LA CHAPELAINE  1 ": "U14M-1",
         "LA CHAPELAINE 2": "U14M-2",
         "color": "#29a659"
     },
     "u15f-44": {
         "collectif": "U15F-x",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (CHAP/PHB)": "U15F-1",
-        "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB-CHAP)": "U15F-2",
+        "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB-CHAP)": "U15F-1",
+        "C - ALLIANCE PORTES DE L'ERDRE 2 (PHB/CHAP)": "U15F-2",
         "color": "#634928"
     },
     "u16m-44": {
         "collectif": "U16M-x",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (CHAP/PHB)": "U16M-1",
+        "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB/CHAP)": "U16M-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (CHAP/PHB)": "U16M-2",
+        "C - ALLIANCE PORTES DE L'ERDRE 2 (PHB/CHAP)": "U16M-2",
         "color": "#634928"
     },
     "u17f-44": {
@@ -162,6 +173,12 @@ const configurationEquipe = {
         "collectif": "U19M-x",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB/CHAP)": "U19M-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (CHAP/PHB)": "U19M-2",
+        "color": "#634928"
+    },
+    "u20fpl; u20feminine territoriale ":{
+        "collectif": "U20F-x",
+        "LA CHAPELAINE*": "U20F",
+        "LA CHAPELAINE": "U20F",
         "color": "#634928"
     }
 };
