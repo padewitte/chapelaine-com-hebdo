@@ -26,11 +26,17 @@ const sub_equipes = [
 ];
 
 const configurationEquipe = {
-    "ecole de hand - 44": {
+    "ecole de hand mixte - 44": {
         "collectif": "EDH-xx",
         "LA CHAPELAINE 1F": "EDH-CHAP-F",
         "LA CHAPELAINE 1M.2M.3M": "EDH-CHAP-M",
         "PORTERIE HANDBALL 1M.2M": "EDH-PORTERIE",
+        "color": "#634928",
+        "edh": true
+    },
+    "ecole de hand feminine - 44": {
+        "collectif": "EDH-xx",
+        "LA CHAPELAINE 1F": "EDH-CHAP-F",
         "color": "#634928",
         "edh": true
     },
@@ -50,6 +56,7 @@ const configurationEquipe = {
         "CHAPELAINE*P DE L'E": "SF1",
         "CHAPELAINE*PORTERIE": "SF1",
         "LA CHAPELAINE": "SF1",
+        "LA CHAPELAINE*": "SF1",
         "color": "#634928"
     },
     "d2fpl ; division 2 feminine territoriale ;": {
@@ -59,6 +66,7 @@ const configurationEquipe = {
         "D2F44-C-PORTERIE*ALLIANCE PORTES DE L'ERDRE": "SF2",
         "CHAPELAINE*P DE L'E": "SF2",
         "PORTERIE*CHAPELAINE": "SF2",
+        "PORTERIE*": "SF2",
         "color": "#634928"
     },
     "1dtm-44": {
@@ -66,10 +74,15 @@ const configurationEquipe = {
         "C - ALLIANCE PORTES DE L'ERDRE (PHB/CHAP)": "SM2",
         "color": "#634928"
     },
-    "coupe de france regionale masculine 2023-24": {
+    "coupe de france regionale masculine 2024-25": {
         "collectif": "SM-xx",
         "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
         "CHAPELAINE*PORTE DE L'E": "SM-1",
+        "color": "#634928"
+    },
+    "coupe de france regionale feminine 2024-25":{
+        "LA CHAPELAINE": "SF1",
+        "LA CHAPELAINE*": "SF1",
         "color": "#634928"
     },
     "coupe de france departementale masculine 2023-24": {
@@ -175,7 +188,7 @@ const configurationEquipe = {
         "C - ALLIANCE PORTES DE L'ERDRE 2 (CHAP/PHB)": "U19M-2",
         "color": "#634928"
     },
-    "u20fpl; u20feminine territoriale ":{
+    "u20fpl; u20feminine territoriale":{
         "collectif": "U20F-x",
         "LA CHAPELAINE*": "U20F",
         "LA CHAPELAINE": "U20F",
