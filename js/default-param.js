@@ -78,6 +78,7 @@ const configurationEquipe = {
         "collectif": "SM-xx",
         "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
         "CHAPELAINE*PORTE DE L'E": "SM-1",
+        "LA CHAPELAINE":"SM-1",
         "color": "#634928"
     },
     "coupe de france regionale feminine 2024-25":{
@@ -85,13 +86,13 @@ const configurationEquipe = {
         "LA CHAPELAINE*": "SF1",
         "color": "#634928"
     },
-    "coupe de france departementale masculine 2023-24": {
+    "coupe de france departementale masculine 2024-25": {
         "collectif": "SM-xx",
         "LA CHAPELAINE": "SM-1",
         "PORTERIE HANDBALL": "SM-2",
         "color": "#634928"
     },
-    "coupe de france departementale feminine 2023-24": {
+    "coupe de france departementale feminine 2024-25": {
         "collectif": "SF-xx",
         "LA CHAPELAINE": "SF-1",
         "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
