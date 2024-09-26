@@ -95,6 +95,7 @@ const configurationEquipe = {
     "coupe de france departementale feminine 2024-25": {
         "collectif": "SF-xx",
         "LA CHAPELAINE": "SF-1",
+        "PORTERIE HANDBALL": "SF-2",
         "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
         "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
         "color": "#634928"
