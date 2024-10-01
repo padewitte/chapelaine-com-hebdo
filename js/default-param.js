@@ -90,6 +90,7 @@ const configurationEquipe = {
         "collectif": "SM-xx",
         "LA CHAPELAINE": "SM-1",
         "PORTERIE HANDBALL": "SM-2",
+        "PORTES DE L'ERDRE (PHB)": "SM-2",
         "color": "#634928"
     },
     "coupe de france departementale feminine 2024-25": {
@@ -98,6 +99,7 @@ const configurationEquipe = {
         "PORTERIE HANDBALL": "SF-2",
         "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
         "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
+        "PORTES DE L'ERDRE (PHB)": "SF-2",
         "color": "#634928"
     },
     "c-depfpl ; coupe dep feminin pays de la loire": {
