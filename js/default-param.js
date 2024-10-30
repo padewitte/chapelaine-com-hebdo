@@ -40,6 +40,21 @@ const configurationEquipe = {
         "color": "#634928",
         "edh": true
     },
+    "coupe pays de la loire departementale feminine":{
+        "collectif": "SF-2",
+        "PORTES DE L'ERDRE (PHB)": "SF-2",
+        "color": "#634928"
+    },
+    "coupe pays de la loire departementale masculine":{
+        "collectif": "SM-2",
+        "PORTES DE L'ERDRE (PHB)": "SM-2",
+        "color": "#634928"
+    },
+    "coupe pays de la loire regionale masculine 24_25":{
+        "collectif": "SM-1",
+        "PORTES DE L'ERDRE (CHAPELAINE)": "SM-1",
+        "color": "#634928"
+    },
     "c-depmpl ; coupe dep masculin pays de la loire": {
         "collectif": "SM-2",
         "1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "SM2",
