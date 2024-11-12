@@ -1,4 +1,4 @@
-const noms_equipes_dom = ["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "PORTERIE HANDBALL", "(CHAP-PHB)", "PORTES DE L'ERDRE"];
+const noms_equipes_dom = ["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "PORTERIE HANDBALL","PORTERIE*", "PORTERIE", "(CHAP-PHB)", "PORTES DE L'ERDRE"];
 
 const salles_domicile = ["JEAN JAHAN","COUTANCIERE"];
 
