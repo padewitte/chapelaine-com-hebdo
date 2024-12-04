@@ -55,6 +55,11 @@ const configurationEquipe = {
         "PORTES DE L'ERDRE (CHAPELAINE)": "SM-1",
         "color": "#634928"
     },
+    "coupe pays de la loire regionale feminine 24_25":{
+        "collectif": "SF-1",
+        "PORTES DE L'ERDRE (CHAPELAINE)": "SF-1",
+        "color": "#634928"
+    },
     "c-depmpl ; coupe dep masculin pays de la loire": {
         "collectif": "SM-2",
         "1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "SM2",
