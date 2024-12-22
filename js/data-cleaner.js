@@ -13,6 +13,10 @@ function calculer_victoire(pScoreClub, pScoreAutre) {
 
 }
 
+function isStringEmptyOrFalsy(str) {
+    return !str || str.trim().length === 0;
+  }
+
 function format_heure(string_heure) {
     return string_heure.slice(0, -3);
 }
@@ -24,10 +28,16 @@ function capitalize_first_letter(str) {
     return str.toLowerCase().split(' ').map(capitalize).join(' ');
 }
 
+function removeTrailingStar(str) {
+    return str.replace(/ \*$/, "").replace(/\*$/, "");
+  }
+  
 function nettoyer_nom_equipe(competition, nom_equipe) {
     var str = mapper_collectif_club(competition, nom_equipe);
     sub_equipes.forEach(sub => str = str.replace(capitalize_first_letter(sub[0]), capitalize_first_letter(sub[1])));
     str = str.replace("Handball", "").replace("1m.2m.3m", "").replace("1m.2m", "").replace("1f.2f", "").replace("OLYMPIQUE", "").replace("Olympique", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
+    str = removeTrailingStar(str)
+
     return capitalize_first_letter(str)
 }
 
@@ -60,7 +70,11 @@ function isCompetEdh(competition) {
 
 function clean_salle(match, salle_dom) {
     if (salle_dom) {
-        return capitalize_first_letter(match['nom salle']).replace("St Joseph De La Porterie N°1 - ", "");
+        if(isStringEmptyOrFalsy(match['nom salle'])){
+            return match['club hote'];
+        }else {
+            return capitalize_first_letter(match['nom salle']).replace("St Joseph De La Porterie N°1 - ", "");
+        }
     } else {
         return "Extérieur"
     }
@@ -96,7 +110,7 @@ function lire_matchs(semaine, matchs) {
         console.log(match)
         //Recherche du collectif
         const match_dom = is_match_dom(match);
-        const salle_dom = is_salle_dom(match);
+        const salle_dom = is_match_dom(match);
 
         //génération de la structure
         let match_triangulaire = false;

@@ -9,6 +9,9 @@ function estSalleDomicile(salle){
 const sub_equipes = [
     ["HANDBALL CLUB MARSIEN", "St Mars"],
     ["U12M-44-EXC-C-GRAND LIEU SUD RETZ (PHB/ESL/MHC)", "GRAND LIEU"],
+    ["C - Grand Lieu Sud Retz (phb/esl/mhc)", "GRAND LIEU"],
+    ["C - Grand Lieu Sud Retz 1 (esl/mhc/phb)", "GRAND LIEU"],
+    ["E - Grand Lieu Sud Retz (phb/esl/mhc)", "GRAND LIEU"],
     ["HANDBALL CLUB DU GESVRES", "Treillières"],
     ["HANDBALL CLUB LEO LAGRANGE SUCE SUR ERDRE", "Suce sur Erdre"],
     ["UNION SPORTIVE GRANDE PRESQU'ILE HANDBALL", "Guérande"],
@@ -22,7 +25,8 @@ const sub_equipes = [
     ["U13f-44-ha-e-sud Estuaire Hc / Hbc Pornic","Pornic"],
     ["U17FPL-C-LA CHAIZE*LA FERRIERE","LA FERRIERE"],
     ["ST LOUIS DE CHAVAGNES EN PAILLERS","ST LOUIS DE CHAVAGNES"],
-    ["LA CHAIZE*LA FERRIERE","LA CHAIZE - LA FERRIERE"]
+    ["LA CHAIZE*LA FERRIERE","LA CHAIZE - LA FERRIERE"],
+    ["Honm72c-us Flechois*ctsf","Us Flechois"]
 ];
 
 const configurationEquipe = {
@@ -74,6 +78,7 @@ const configurationEquipe = {
         "CHAPELAINE*P DE L'E": "SF2",
         "PORTERIE*CHAPELAINE": "SF2",
         "PORTERIE*": "SF2",
+        "PORTERIE*PE": "SF2",
     },
     "1dtm-44": {
         "collectif": "SM-2",
@@ -141,6 +146,7 @@ const configurationEquipe = {
         "LA CHAPELAINE": "U12M-1",
         "LA CHAPELAINE 1": "U12M-1",
         "LA CHAPELAINE 2": "U12M-2",
+        "LA CHAPELAINE 3": "U12M-3",
         "color": "#29a659"
     },
     "u13f-44": {
@@ -148,6 +154,7 @@ const configurationEquipe = {
         "U13F-44-EXC-E-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U13F-1",
         "LA CHAPELAINE": "U13F-1",
         "LA CHAPELAINE  1": "U13F-1",
+        "LA CHAPELAINE 1": "U13F-1",
         "LA CHAPELAINE 2": "U13F-2",
         "color": "#29a659"
     },
