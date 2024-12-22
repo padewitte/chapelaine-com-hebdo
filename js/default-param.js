@@ -31,39 +31,32 @@ const configurationEquipe = {
         "LA CHAPELAINE 1F": "EDH-CHAP-F",
         "LA CHAPELAINE 1M.2M.3M": "EDH-CHAP-M",
         "PORTERIE HANDBALL 1M.2M": "EDH-PORTERIE",
-        "color": "#634928",
         "edh": true
     },
     "ecole de hand feminine - 44": {
         "collectif": "EDH-xx",
         "LA CHAPELAINE 1F": "EDH-CHAP-F",
-        "color": "#634928",
         "edh": true
     },
     "coupe pays de la loire departementale feminine":{
         "collectif": "SF-2",
         "PORTES DE L'ERDRE (PHB)": "SF-2",
-        "color": "#634928"
     },
     "coupe pays de la loire departementale masculine":{
         "collectif": "SM-2",
         "PORTES DE L'ERDRE (PHB)": "SM-2",
-        "color": "#634928"
     },
     "coupe pays de la loire regionale masculine 24_25":{
         "collectif": "SM-1",
         "PORTES DE L'ERDRE (CHAPELAINE)": "SM-1",
-        "color": "#634928"
     },
     "c-depmpl ; coupe dep masculin pays de la loire": {
         "collectif": "SM-2",
         "1DTM-44-C-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "SM2",
-        "color": "#634928"
     },
     "c-regmpl ; coupe reg masculin pays de la loire": {
         "collectif": "SM-1",
         "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
-        "color": "#634928"
     },
     "hfpl ; honneur feminine regionale": {
         "collectif": "SF-xx",
@@ -72,7 +65,6 @@ const configurationEquipe = {
         "CHAPELAINE*PORTERIE": "SF1",
         "LA CHAPELAINE": "SF1",
         "LA CHAPELAINE*": "SF1",
-        "color": "#634928"
     },
     "d2fpl ; division 2 feminine territoriale ;": {
         "collectif": "SF-xx",
@@ -82,31 +74,26 @@ const configurationEquipe = {
         "CHAPELAINE*P DE L'E": "SF2",
         "PORTERIE*CHAPELAINE": "SF2",
         "PORTERIE*": "SF2",
-        "color": "#634928"
     },
     "1dtm-44": {
         "collectif": "SM-2",
         "C - ALLIANCE PORTES DE L'ERDRE (PHB/CHAP)": "SM2",
-        "color": "#634928"
     },
     "coupe de france regionale masculine 2024-25": {
         "collectif": "SM-xx",
         "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
         "CHAPELAINE*PORTE DE L'E": "SM-1",
         "LA CHAPELAINE":"SM-1",
-        "color": "#634928"
     },
     "coupe de france regionale feminine 2024-25":{
         "LA CHAPELAINE": "SF1",
         "LA CHAPELAINE*": "SF1",
-        "color": "#634928"
     },
     "coupe de france departementale masculine 2024-25": {
         "collectif": "SM-xx",
         "LA CHAPELAINE": "SM-1",
         "PORTERIE HANDBALL": "SM-2",
         "PORTES DE L'ERDRE (PHB)": "SM-2",
-        "color": "#634928"
     },
     "coupe de france departementale feminine 2024-25": {
         "collectif": "SF-xx",
@@ -115,7 +102,6 @@ const configurationEquipe = {
         "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
         "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
         "PORTES DE L'ERDRE (PHB)": "SF-2",
-        "color": "#634928"
     },
     "c-depfpl ; coupe dep feminin pays de la loire": {
         "collectif": "SF-xx",
@@ -123,7 +109,6 @@ const configurationEquipe = {
         "PORTERIE HANDBALL": "SF-2",
         "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
         "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
-        "color": "#634928"
     },
     "hmpl ; honneur masculine regionale": {
         "collectif": "SM-1",
@@ -131,7 +116,6 @@ const configurationEquipe = {
         "CHAPELAINE*PORTE DE L'E": "SM1",
         "LA CHAPELAINE": "SM1",
         "LA CHAPELAINE*": "SM1",
-        "color": "#634928"
     },
     "u10m-44": {
         "collectif": "U10M-x",
@@ -179,7 +163,6 @@ const configurationEquipe = {
         "C - ALLIANCE PORTES DE L'ERDRE 1 (CHAP/PHB)": "U15F-1",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB-CHAP)": "U15F-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (PHB/CHAP)": "U15F-2",
-        "color": "#634928"
     },
     "u16m-44": {
         "collectif": "U16M-x",
@@ -187,31 +170,26 @@ const configurationEquipe = {
         "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB/CHAP)": "U16M-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (CHAP/PHB)": "U16M-2",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (PHB/CHAP)": "U16M-2",
-        "color": "#634928"
     },
     "u17f-44": {
         "collectif": "U17F-x",
         "U17F-44-PR-E-ALLIANCE PORTES DE L'ERDRE (PHB-CHAP)": "U17F",
-        "color": "#634928"
     },
     "u17fpl ; u17 feminine regionale ; 2eme phase": {
         "collectif": "U17F-x",
         "PORTERIE HANDBALL": "U17F",
         "CHAPELAINE*PORTERIE": "U17F",
         "U17FPL-C-CHAPELAINE*PORTERIE": "U17F",
-        "color": "#634928"
     },
     "u19m-44": {
         "collectif": "U19M-x",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB/CHAP)": "U19M-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (CHAP/PHB)": "U19M-2",
-        "color": "#634928"
     },
     "u20fpl; u20feminine territoriale":{
         "collectif": "U20F-x",
         "LA CHAPELAINE*": "U20F",
         "LA CHAPELAINE": "U20F",
-        "color": "#634928"
     }
 };
 
