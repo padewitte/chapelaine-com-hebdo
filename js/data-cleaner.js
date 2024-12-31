@@ -24,6 +24,10 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+function remove_spaces(str) {
+    return str.replace(/ /g, "_");
+}
+
 function capitalize_first_letter(str) {
     return str.toLowerCase().split(' ').map(capitalize).join(' ');
 }

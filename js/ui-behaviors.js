@@ -8,8 +8,6 @@ function resetTab(tabId) {
     const htmlElement = document.getElementById(tabId);
     htmlElement.removeAttribute("active")
     htmlElement.setAttribute("disabled", true)
-
-
 }
 
 function cleanGeneratedDiv() {
@@ -51,22 +49,40 @@ function attachDropZone() {
 
     function majSemaines(semaines) {
         const selSemaine = document.getElementById("selSemaine");
-        
-        selSemaine.setAttribute('disabled', true)
+        if(selSemaine){
+            selSemaine.setAttribute('disabled', true)
 
-        removeAllChildNodes(selSemaine);
-        if(semaines && semaines.length > 0){
-            selSemaine.appendChild(document.createElement("sl-option"));
-            semaines.forEach(semaine => {
-                let libSemaine = getLibSemaine(semaine)
-                const newDiv = document.createElement("sl-option");
-                newDiv.value = semaine
-                newDiv.innerHTML = libSemaine
-                selSemaine.appendChild(newDiv);
-               
+            removeAllChildNodes(selSemaine);
+            if(semaines && semaines.length > 0){
+                selSemaine.appendChild(document.createElement("sl-option"));
+                semaines.forEach(semaine => {
+                    let libSemaine = getLibSemaine(semaine)
+                    const newDiv = document.createElement("sl-option");
+                    newDiv.value = semaine
+                    newDiv.innerHTML = libSemaine
+                    selSemaine.appendChild(newDiv);
                 
-            });
-            selSemaine.removeAttribute('disabled')
+                    
+                });
+                selSemaine.removeAttribute('disabled')
+            }
+        }
+    }
+    function majChampionnat(championnats) {
+        const selChampionnat = document.getElementById("selChampionnat");
+        if(selChampionnat){
+            selChampionnat.setAttribute('disabled', true)
+            removeAllChildNodes(selChampionnat);
+            if(championnats && championnats.length > 0){
+                selChampionnat.appendChild(document.createElement("sl-option"));
+                championnats.forEach(championnat => {
+                    const newDiv = document.createElement("sl-option");
+                    newDiv.value = championnat
+                    newDiv.innerHTML = championnat
+                    selChampionnat.appendChild(newDiv);
+                });
+                selChampionnat.removeAttribute('disabled')
+            }
         }
     }
 
@@ -112,6 +128,7 @@ function attachDropZone() {
                         console.log(nouveauFichier)
                         extraireData(nouveauFichier)
                         majSemaines(SEMAINES)
+                        majChampionnat(CHAMP)
                     };
 
                     reader.onerror = function (event) {
@@ -309,29 +326,6 @@ function downloadDivAsImage(divId, fileName) {
     });
 }
 
-function attachBtnGeneration() {
-    const selSemaine = document.getElementById('selSemaine');
-    const btnGeneration = document.getElementById('btnGeneration');
-    btnGeneration.addEventListener('click', function (e) {
-        e.preventDefault();
-        generer_semaine(selSemaine.value);
-        //Scroll dans la section suivante
-        window.scrollTo({
-            top: document.getElementById('sctProgrammeEtResultat').offsetTop,
-            left: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-
-function attachBtnDl(suffix) {
-    const btnDl = document.getElementById('btnDl_' + suffix);
-    btnDl.addEventListener('click', function (e) {
-        const semaine = document.getElementById('selSemaine').value;
-        e.preventDefault();
-        downloadDivAsImage("insta_" + suffix, "file-" + semaine + "-" + suffix)
-    });
-}
 
 function loadParametres() {
 
@@ -340,12 +334,3 @@ function loadParametres() {
     document.getElementById('configuration_equipe').innerHTML = JSON.stringify(configurationEquipe, null, '  ')
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    attach_btn_param();
-    attachDropZone();
-    attachBtnGeneration();
-    attachBtnDl("resultats");
-    attachBtnDl("samedi");
-    attachBtnDl("dimanche");
-    loadParametres();
-});

@@ -30,13 +30,12 @@
 </head>
 
 <body>
-    <sl-dialog label="Paramètres" class="dialog-scrolling">
 
+    <sl-dialog label="Paramètres" class="dialog-scrolling">
         <form id="form_param" class="configuration">
             <div>Nom des équipes locales</div>
             <textarea id="noms_equipes_dom"></textarea>
             <sl-divider></sl-divider>
-
             <div>Substitions équipes</div>
             <sl-alert variant="primary" open>
                 <sl-icon slot="icon" name="info-circle"></sl-icon>
@@ -61,6 +60,8 @@
         <sl-icon slot="prefix" name="gear"></sl-icon>
         Paramètres
     </sl-button>
+
+
     <section>
         <h2>Upload des fichiers</h2>
         <sl-alert variant="primary" open>
@@ -155,11 +156,12 @@
     </section>
 </body>
 
-<script src="js/generation-visuel.js"></script>
+
 <script src="js/default-param.js"></script>
 <script src="js/ui-behaviors.js"></script>
 <script src="js/extractor.js"></script>
 <script src="js/data-cleaner.js"></script>
+<script src="js/ui-behaviors-index.js"></script>
 
 
 
