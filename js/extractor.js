@@ -20,7 +20,7 @@ function extraireSemaines(nouveauFichier) {
     const tmpChamp = new Set();
     nouveauFichier.data.forEach(match => {
         tmpSemaine.add(match.semaine)
-        tmpChamp.add(match.poule)
+        tmpChamp.add(remove_spaces(match.poule))
         if (nouveauFichier.type == 'programme') {
             pushMap(match.semaine, match, MATCHS_PROGRAMMES_PAR_SEMAINE)
             pushMap(remove_spaces(match.poule), match, MATCHS_PROGRAMMES_PAR_CHAMP)

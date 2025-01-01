@@ -44,6 +44,10 @@ function getLibSemaine(semaine) {
     const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
     return semaine + " (" + semMom.format('DD/MM') + " & " + semMom.add(1, 'days').format('DD/MM') + ")"
 }
+function getSamediSemaine(semaine) {
+    const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
+    return semMom.format('DD/MM/YYYY')
+}
 
 function attachDropZone() {
 
@@ -142,6 +146,15 @@ function attachDropZone() {
             }
         }
     });
+}
+
+function scrollToMainSection(idscroll){
+//Scroll dans la section suivante
+window.scrollTo({
+    top: document.getElementById(idscroll).offsetTop,
+    left: 0,
+    behavior: 'smooth'
+});
 }
 
 function insertLigneResultat(match) {

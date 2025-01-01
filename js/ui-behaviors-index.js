@@ -4,12 +4,7 @@ function attachBtnGeneration() {
     btnGeneration.addEventListener('click', function (e) {
         e.preventDefault();
         generer_semaine(selSemaine.value);
-        //Scroll dans la section suivante
-        window.scrollTo({
-            top: document.getElementById('sctProgrammeEtResultat').offsetTop,
-            left: 0,
-            behavior: 'smooth'
-        });
+        scrollToMainSection('sctProgrammeEtResultat')
     });
 }
 
