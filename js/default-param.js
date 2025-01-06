@@ -26,7 +26,9 @@ const sub_equipes = [
     ["U17FPL-C-LA CHAIZE*LA FERRIERE","LA FERRIERE"],
     ["ST LOUIS DE CHAVAGNES EN PAILLERS","ST LOUIS DE CHAVAGNES"],
     ["LA CHAIZE*LA FERRIERE","LA CHAIZE - LA FERRIERE"],
-    ["Honm72c-us Flechois*ctsf","Us Flechois"]
+    ["Honm72c-us Flechois*ctsf","Us Flechois"],
+    ["U16m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
+    ["U14m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"]
 ];
 
 const configurationEquipe = {
@@ -97,6 +99,7 @@ const configurationEquipe = {
     "coupe pays de la loire regionale feminine 24_25":{
         "LA CHAPELAINE": "SF1",
         "LA CHAPELAINE*": "SF1",
+        "PORTES DE L'ERDRE (CHAPELAINE)":"SF1"
     },
     "coupe de france departementale masculine 2024-25": {
         "collectif": "SM-xx",
