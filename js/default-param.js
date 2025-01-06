@@ -94,6 +94,10 @@ const configurationEquipe = {
         "LA CHAPELAINE": "SF1",
         "LA CHAPELAINE*": "SF1",
     },
+    "coupe pays de la loire regionale feminine 24_25":{
+        "LA CHAPELAINE": "SF1",
+        "LA CHAPELAINE*": "SF1",
+    },
     "coupe de france departementale masculine 2024-25": {
         "collectif": "SM-xx",
         "LA CHAPELAINE": "SM-1",
