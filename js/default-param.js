@@ -28,7 +28,8 @@ const sub_equipes = [
     ["LA CHAIZE*LA FERRIERE","LA CHAIZE - LA FERRIERE"],
     ["Honm72c-us Flechois*ctsf","Us Flechois"],
     ["U16m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
-    ["U14m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"]
+    ["U14m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
+    ["U12m-44-exc-c-grand Lieu Sud Retz (esl.mhc.phb)","Grand Lieu"]
 ];
 
 const configurationEquipe = {
@@ -204,6 +205,7 @@ const configurationEquipe = {
         "collectif": "U20F-x",
         "LA CHAPELAINE*": "U20F",
         "LA CHAPELAINE": "U20F",
+        "U20F44C_CHAPELAINE HB*ALLIANCE PORTES DE L ERDRE": "U20F",
     }
 };
 
