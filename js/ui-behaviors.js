@@ -90,6 +90,13 @@ function attachDropZone() {
         }
     }
 
+    function majStats() {
+        const sctStats = document.getElementById("sctStats");
+        if(sctStats){
+            loadStats()
+        }
+    }
+
     const dropZone = document.getElementById('dropZone');
 
     // Prevent default behavior (open as link for some elements)
@@ -133,6 +140,7 @@ function attachDropZone() {
                         extraireData(nouveauFichier)
                         majSemaines(SEMAINES)
                         majChampionnat(CHAMP)
+                        majStats()
                     };
 
                     reader.onerror = function (event) {
