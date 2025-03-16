@@ -72,6 +72,7 @@ const configurationEquipe = {
         "CHAPELAINE*PORTERIE": "SF1",
         "LA CHAPELAINE": "SF1",
         "LA CHAPELAINE*": "SF1",
+        "HONF62C-CHAPELAINE HANDBALL*ALLIANCE PORTE DE L'ERDRE": "SF1"
     },
     "d2fpl ; division 2 feminine territoriale ;": {
         "collectif": "SF-xx",
@@ -177,6 +178,7 @@ const configurationEquipe = {
         "collectif": "U15F-x",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (CHAP/PHB)": "U15F-1",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB-CHAP)": "U15F-1",
+        "U15F 1-44-PR-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U15F-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (PHB/CHAP)": "U15F-2",
     },
     "u16m-44": {
