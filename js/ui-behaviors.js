@@ -184,7 +184,7 @@ function insertLigneResultat(match) {
 
 function insertMatchsProgrammes(matchsClean, semaine) {
 
-    const EXTRA_TD_KIFEKOI = "<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>"
+    const EXTRA_TD_KIFEKOI = "<td></td><td></td><td></td><td></td><td></td><td></td><td></td>"
 
     //Tri des matchs à venir
     cleanGeneratedDiv()
@@ -235,7 +235,7 @@ function insertMatchsProgrammes(matchsClean, semaine) {
             if (domicile) {
                 tableauKifekoi = createHtmlElement("table", "tableau-kifekoi", "<thead><tr><td colspan='12' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
                 tableauKifekoi.appendChild(createHtmlElement("tr", undefined, "<td colspan='12' class='salleKifekoi'>" + salle + "</td>"))
-                tableauKifekoi.appendChild(createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td><td>Table</td><td>Arbitrage</td><td>Arbitrage backup</td><td>Suivi</td><td>Resp Salle</td><td>Resp animation</td><td>Photo</td><td>Indispo technique</td><td>Indispo anim</td>"))
+                tableauKifekoi.appendChild(createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td><td>Table</td><td>Arbitrage</td><td>Arbitrage backup</td><td>Suivi</td><td>Resp Salle</td><td>Resp animation</td><td>Indispo anim</td>"))
             } else {
                 tableauKifekoi = createHtmlElement("table", "tableau-kifekoi", "<thead><tr><td colspan='3' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
                 tableauKifekoi.appendChild(createHtmlElement("tr", undefined, "<td colspan='3' class='salleKifekoi'>" + salle + "</td>"))
