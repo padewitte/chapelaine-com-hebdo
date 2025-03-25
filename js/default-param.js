@@ -202,6 +202,7 @@ const configurationEquipe = {
         "collectif": "U19M-x",
         "C - ALLIANCE PORTES DE L'ERDRE 1 (PHB/CHAP)": "U19M-1",
         "C - ALLIANCE PORTES DE L'ERDRE 2 (CHAP/PHB)": "U19M-2",
+        "U19M 2-44-HA-C-ALLIANCE PORTES DE L'ERDRE (CHAP-PHB)": "U19M-2",
     },
     "u20fpl; u20feminine territoriale":{
         "collectif": "U20F-x",
