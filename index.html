@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -27,63 +28,25 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Contrail+One" />
     <link href="https://fonts.cdnfonts.com/css/edo" rel="stylesheet">
+
+    <script src="js/core/base.js"></script>
 </head>
 
 <body>
-
-    <sl-dialog label="Paramètres" class="dialog-scrolling">
-        <form id="form_param" class="configuration">
-            <div>Nom des équipes locales</div>
-            <textarea id="noms_equipes_dom"></textarea>
-            <sl-divider></sl-divider>
-            <div>Substitions équipes</div>
-            <sl-alert variant="primary" open>
-                <sl-icon slot="icon" name="info-circle"></sl-icon>
-                Ajouter ici les noms d'équipe que vous souhaitez voir afficher
-                sous
-                une forme plus "humaine"
-            </sl-alert>
-            <textarea id="substitution_equipes"></textarea>
-            <sl-divider></sl-divider>
-
-            <div>Configuration des équipes</div>
-            <sl-alert variant="primary" open>
-                <sl-icon slot="icon" name="info-circle"></sl-icon>
-                Format (division:{collectif:"nom collectif","nom
-                equipe":"libellé court"}). Utiliser les logs de la console pour compléter en pensant à faire une PR.
-            </sl-alert>
-            <textarea id="configuration_equipe"></textarea>
-        </form>
-        <sl-button slot="footer" variant="primary">Save</sl-button>
-    </sl-dialog>
-    <sl-button id="btn-param" variant="default" size="large">
-        <sl-icon slot="prefix" name="gear"></sl-icon>
-        Paramètres
-    </sl-button>
-
-
-    <section>
-        <h2>Upload des fichiers</h2>
-        <sl-alert variant="primary" open>
-            <sl-icon slot="icon" name="info-circle"></sl-icon>
-            Fichiers résultats et matchs à venir à générer depuis Gest'hand
-        </sl-alert>
-        <div id="dropZone">Glisser les fichiers CSV ici</div>
-
-        <sl-select id="selSemaine" placeholder="Sélectionner une semaine" size="medium" disabled="true">
-        </sl-select>
+    <script>
+         // Add upload section with parameters
+    const weekSelector = '<sl-select id="selSemaine" placeholder="Sélectionner une semaine" size="medium" disabled="true"></sl-select>';
+    const buttons = `
         <div>
-            <sl-button variant="default" size="large" id="btnVerifier">
-                <sl-icon slot="suffix" name="patch-check
-                "></sl-icon>
-                Verifier les fichiers
+            <sl-button variant="success" size="large" id="btnGeneration">
+                <sl-icon slot="suffix" name="chevron-double-right"></sl-icon>
+                Générer les visuels
             </sl-button>
-        <sl-button variant="success" size="large" id="btnGeneration">
-            <sl-icon slot="suffix" name="chevron-double-right"></sl-icon>
-            Générer les visuels
-        </sl-button>
-    </div>
-    </section>
+        </div>
+    `;
+        // Initialize common elements
+        initializeCommonElements(weekSelector, buttons);
+    </script>
     <section id="sctProgrammeEtResultat">
         <h2>Images</h2>
         <sl-tab-group class="tabGroupMain">
@@ -92,7 +55,6 @@
             <sl-tab slot="nav" panel="pan-dimanche" id="tab_dimanche" disabled>Visuel Dimanche</sl-tab>
             <sl-tab slot="nav" panel="pan-kifekoi" id="tab_kiefeKoi" disabled>Kifekoi</sl-tab>
             <sl-tab-panel name="pan-resultats" id="tapPanResultat">
-
                 <sl-alert variant="warning" id="alertResultats" closable>
                     <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
                     <div class="alertHeader">Matchs non affichés faute de résultats connus</div>
@@ -103,14 +65,11 @@
                     Download
                 </sl-button>
                 <div class="instagram resultats-we" id="insta_resultats">
-
                     <div id="resultats" class="sous-section-insta"></div>
                     <div class="insta-footer">Bravo à tous !</div>
                 </div>
-
             </sl-tab-panel>
             <sl-tab-panel name="pan-samedi" id="tapPanSamedi">
-
                 <sl-alert variant="warning" id="alert_samedi" closable>
                     <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
                     <div class="alertHeader">Conclusion non reçue & nom d'équipe méritant votre attention</div>
@@ -125,10 +84,8 @@
                         <div class="jour-match" id="date_we_feed_samedi"></div>
                     </div>
                 </div>
-
             </sl-tab-panel>
             <sl-tab-panel name="pan-dimanche" id="tapPanDimanche">
-
                 <sl-alert variant="warning" id="alert_dimanche" closable>
                     <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
                     <div class="alertHeader">Conclusion non reçue & nom d'équipe méritant votre attention</div>
@@ -143,7 +100,6 @@
                         <div class="jour-match" id="date_we_feed_dimanche"></div>
                     </div>
                 </div>
-
             </sl-tab-panel>
             <sl-tab-panel name="pan-kifekoi">
                 <div class="kifekoi" id="kifekoi"></div>
@@ -154,16 +110,7 @@
             </sl-tab-panel>
         </sl-tab-group>
     </section>
+
+    <script type="module" src="js/pages/index.js"></script>
 </body>
-
-
-<script src="js/default-param.js"></script>
-<script src="js/ui-behaviors.js"></script>
-<script src="js/extractor.js"></script>
-<script src="js/data-cleaner.js"></script>
-<script src="js/ui-behaviors-index.js"></script>
-
-
-
-
 </html>
