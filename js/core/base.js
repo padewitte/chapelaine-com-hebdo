@@ -10,16 +10,6 @@ const commonElements = {
         <!-- UI web components -->
         <script type="module"
             src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/shoelace-autoloader.js"></script>
-        <!-- CSV Parser -->
-        <script src="https://cdn.jsdelivr.net/npm/d3-dsv@3"></script>
-        <!-- Utilities to manipulate structures -->
-        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-
-        <!-- Date manipulation-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.js"></script>
-
-        <!-- Image generator-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
         <!-- Fonts-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +19,7 @@ const commonElements = {
         <link href="https://fonts.cdnfonts.com/css/edo" rel="stylesheet">
     `,
     paramsDialog: `
+
         <sl-dialog label="Paramètres" class="dialog-scrolling">
             <form id="form_param" class="configuration">
                 <div>Nom des équipes locales</div>
@@ -60,7 +51,12 @@ const commonElements = {
         </sl-button>
     `,
     uploadSection: (weekSelector = '', buttons = '') => `
-        <section>
+            <div class="menu-container">
+            <a href="index.html">Kifekoi et visuels</a>
+            <a href="stats.html">Statistiques</a>
+            <a href="championnats.html">Championnats</a>
+        </div>    
+    <section>
             <h2>Upload des fichiers</h2>
             <sl-alert variant="primary" open>
                 <sl-icon slot="icon" name="info-circle"></sl-icon>
@@ -81,6 +77,32 @@ function initializeCommonElements(selector, buttons) {
     // Add params dialog and button
     document.body.insertAdjacentHTML('afterbegin', commonElements.paramsDialog);    
     document.body.insertAdjacentHTML('afterbegin', commonElements.uploadSection(selector, buttons));
+
+    const externalScripts = [
+        {
+            src: 'https://cdn.jsdelivr.net/npm/d3-dsv@3',
+            type: 'text/javascript'
+        },
+        {
+            src: 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js',
+            type: 'text/javascript'
+        },
+        {
+            src: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.js',
+            type: 'text/javascript'
+        },
+        {
+            src: 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
+            type: 'text/javascript'
+        }
+    ];
+
+    externalScripts.forEach(script => {
+        const scriptElement = document.createElement('script');
+        scriptElement.type = script.type;
+        scriptElement.src = script.src;
+        document.head.appendChild(scriptElement);
+    });
     
     // Load common scripts
     const commonScripts = [

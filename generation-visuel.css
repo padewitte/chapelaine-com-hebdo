@@ -10,6 +10,21 @@ body {
     font-size: 1rem;
 }
 
+.menu-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: flex-start;
+    padding: 24px;
+    font-size: 0.8rem;
+}
+
+.menu-container a {
+    text-decoration: none;
+    color: rgb(8, 39, 2);
+    padding-right: 24px;
+}
+
 /* Button Parameters */
 #btn-param {
     position: absolute;
