@@ -1,10 +1,8 @@
 import { BaseUI } from './base-ui.js';
 import { DataExtractor } from '../core/extractor.js';
-import { DateUtils } from '../core/date-utils.js';
-import { StatsUI } from './stats-ui.js';
 
 export class DropzoneUI extends BaseUI {
-    static attachDropZone() {
+    static attachDropZone(page) {
         const dropZone = document.getElementById('dropZone');
 
         dropZone.addEventListener('dragover', function (e) {
@@ -22,8 +20,25 @@ export class DropzoneUI extends BaseUI {
             DataExtractor.SEMAINES = [];
 
             const files = e.dataTransfer.files;
+            let filesToProcess = 0;
+            let processedFiles = 0;
 
             if (files.length > 0) {
+                // Count valid files to process
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (file.type === 'text/csv' || file.type === 'text/txt') {
+                        filesToProcess++;
+                    }
+                }
+
+                // If no valid files, show error and return
+                if (filesToProcess === 0) {
+                    console.error('No valid CSV or TXT files found');
+                    return;
+                }
+
+                // Process each file
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
 
@@ -32,7 +47,7 @@ export class DropzoneUI extends BaseUI {
                         const reader = new FileReader();
 
                         reader.onload = function (event) {
-                            console.log('onload');
+                            console.log('Processing file:', fileName);
                             const csvContent = event.target.result;
                             const csv = d3.dsvFormat(";");
                             const data = csv.parse(csvContent);
@@ -44,13 +59,23 @@ export class DropzoneUI extends BaseUI {
                             }
                             console.log(nouveauFichier)
                             DataExtractor.extractData(nouveauFichier)
-                            DropzoneUI.updateWeeks(DataExtractor.SEMAINES)
-                            DropzoneUI.updateChampionship(DataExtractor.CHAMP)
-                            DropzoneUI.updateStats()
+
+                            // Increment processed counter
+                            processedFiles++;
+                            
+                            // Check if all files are processed
+                            if (processedFiles === filesToProcess) {
+                                console.log('All files processed successfully');
+                                DropzoneUI.uploadComplete(page);
+                            }
                         };
 
                         reader.onerror = function (event) {
                             console.error('File could not be read! Code ' + event.target.error.code);
+                            processedFiles++;
+                            if (processedFiles === filesToProcess) {
+                                DropzoneUI.uploadComplete(page)
+                            }
                         };
 
                         reader.readAsText(file);
@@ -59,52 +84,13 @@ export class DropzoneUI extends BaseUI {
                     }
                 }
             }
-
-            BaseUI.minimizeUploadAndShowDataSelector()
         });
     }
-
-    static updateWeeks(semaines) {
-        const selSemaine = document.getElementById("selSemaine");
-        if(selSemaine){
-            selSemaine.setAttribute('disabled', true)
-            this.removeAllChildNodes(selSemaine);
-            if(semaines && semaines.length > 0){
-                selSemaine.appendChild(document.createElement("sl-option"));
-                semaines.forEach(semaine => {
-                    let libSemaine = DateUtils.getLibSemaine(semaine)
-                    const newDiv = document.createElement("sl-option");
-                    newDiv.value = semaine
-                    newDiv.innerHTML = libSemaine
-                    selSemaine.appendChild(newDiv);
-                });
-                selSemaine.removeAttribute('disabled')
-            }
-        }
+    static uploadComplete(page) {
+        page.updateWeekSelector(DataExtractor.SEMAINES)
+        page.updateChampionshipSelector(DataExtractor.CHAMP)
+        page.updateStats(DataExtractor.STATS)
+        BaseUI.minimizeUploadAndShowDataSelector();
     }
 
-    static updateChampionship(championnats) {
-        const selChampionnat = document.getElementById("selChampionnat");
-        if(selChampionnat){
-            selChampionnat.setAttribute('disabled', true)
-            this.removeAllChildNodes(selChampionnat);
-            if(championnats && championnats.length > 0){
-                selChampionnat.appendChild(document.createElement("sl-option"));
-                championnats.forEach(championnat => {
-                    const newDiv = document.createElement("sl-option");
-                    newDiv.value = championnat
-                    newDiv.innerHTML = championnat
-                    selChampionnat.appendChild(newDiv);
-                });
-                selChampionnat.removeAttribute('disabled')
-            }
-        }
-    }
-
-    static updateStats() {
-        const sctStats = document.getElementById("sctStats");
-        if(sctStats){
-            StatsUI.loadStats()
-        }
-    }
 } 

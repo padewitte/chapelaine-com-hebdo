@@ -34,7 +34,8 @@ class ChampionnatsPage extends HandballApp {
         });
     }
 
-    updateChampionshipSelector() {
+    updateChampionshipSelector(newChampionships) {
+        this.championships = newChampionships;
         DomUtils.setAttribute(this.championshipSelector, 'disabled', true);
         DomUtils.removeAllChildNodes(this.championshipSelector);
         

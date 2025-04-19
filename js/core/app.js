@@ -23,6 +23,14 @@ class HandballApp {
         // This will be overridden by page-specific initialization
         console.log('Base app initialized');
     }
+
+    updateWeekSelector(newWeeks) {};
+
+    updateChampionshipSelector(newChampionships) {};
+
+    updateStats(newStats) {};
+
+
 }
 
 // Export the app class

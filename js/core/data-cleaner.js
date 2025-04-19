@@ -44,6 +44,10 @@ export class DataCleaner {
         return Configuration.noms_equipes_dom.find(g => match['club rec'].includes(g)) != undefined || (match['club hote'] != undefined && Configuration.noms_equipes_dom.find(g => match['club hote'].includes(g)) != undefined);
     }
 
+    static isFriendlyMatch(match) {
+        return match['competition'].includes("amicale");
+    }
+
     static cleanSalle(match, salle_dom) {
         if (salle_dom) {
             if(this.isStringEmptyOrFalsy(match['nom salle'])){
@@ -105,7 +109,7 @@ export class DataCleaner {
     }
     
     static lireMatchs(semaine, matchs) {
-        const matchsCleans = matchs.get(semaine)?.map(match => {
+        const matchsCleans = matchs.get(semaine)?.filter(match => !this.isFriendlyMatch(match)).map(match => {
             console.log(match)
             //Recherche du collectif
             const match_dom = this.isMatchDom(match);

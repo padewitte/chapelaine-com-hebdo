@@ -16,7 +16,7 @@ class IndexPage extends HandballApp {
     initializePage() {
         this.initializeWeekSelector();
         this.initializeButtons();
-        DropzoneUI.attachDropZone();
+        DropzoneUI.attachDropZone(this);
         this.attachBtnDl("resultats");
         this.attachBtnDl("samedi");
         this.attachBtnDl("dimanche");
@@ -46,13 +46,15 @@ class IndexPage extends HandballApp {
     }
 
 
-    updateWeekSelector() {
+    updateWeekSelector(newWeeks) {
+        this.weeks = newWeeks;
         DomUtils.setAttribute(this.weekSelector, 'disabled', true);
         DomUtils.removeAllChildNodes(this.weekSelector);
         
         if (this.weeks.length > 0) {
-            const defaultOption = DomUtils.createElement('sl-option');
-            DomUtils.appendChild(this.weekSelector, defaultOption);
+
+            //week format "2025-17"
+            const bestWeek = DateUtils.chooseBestWeek(this.weeks);
 
             this.weeks.forEach(week => {
                 const option = DomUtils.createElement('sl-option');
@@ -60,18 +62,18 @@ class IndexPage extends HandballApp {
                 option.innerHTML = DateUtils.getWeekLabel(week);
                 DomUtils.appendChild(this.weekSelector, option);
             });
-
             DomUtils.removeAttribute(this.weekSelector, 'disabled');
+            console.log("bestWeek", bestWeek)
+            this.generateWeek(bestWeek)
+            //add a 10000ms delay
+            setTimeout(() => {
+                DomUtils.setAttribute(this.weekSelector, 'value', bestWeek);
+            }, 50);
         }
     }
 
     generateWeek(week){
         MatchUI.genererSemaine(week);
-    }
-
-    generateVisuals() {
-        // Implementation of visual generation
-        console.log('Generating visuals...');
     }
 
 }

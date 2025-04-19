@@ -36,13 +36,8 @@ const commonElements = {
                 ${dataSelector}
             </div>
         </section>
-        <section>
-          
-        </section>
     `
 };
-
-
 
 // Function to initialize common elements
 function initializeCommonElements(dataSelector) {
@@ -78,7 +73,6 @@ function initializeCommonElements(dataSelector) {
         document.head.appendChild(scriptElement);
     });
     
-
 }
 
 // Export the initialization function

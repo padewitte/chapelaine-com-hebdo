@@ -153,6 +153,12 @@ html {
     padding-top: 10px;
 }
 
+.salle {
+    font-family: "Edo";
+    padding-top: 30px;
+    margin-bottom: 6px;
+}
+
 .ligneResultat {
     padding-top: 8px;
     display: flex;

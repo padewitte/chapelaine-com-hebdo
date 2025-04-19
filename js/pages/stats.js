@@ -24,7 +24,8 @@ class StatsPage extends HandballApp {
         return tr;
     }
 
-    loadStats() {
+    updateStats(newStats) {
+        this.statsData = newStats;
         const statsSection = DomUtils.getElement('sctStats');
         if (!statsSection) return;
 

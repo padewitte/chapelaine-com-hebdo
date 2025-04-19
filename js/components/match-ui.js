@@ -158,5 +158,12 @@ export class MatchUI extends BaseUI {
         if (matchsProgClean && matchsProgClean.length > 0) {
             this.insertMatchsProgrammes(matchsProgClean, semaine)
         }
+        if(DateUtils.isWeekBeforeToday(semaine)){
+            //Select Resultats Tab
+            document.querySelector('sl-tab-panel[name="pan-resultats"]').active = true;
+        }else{
+            //Select Kiefkoi Tab
+            document.querySelector('sl-tab-panel[name="pan-kifekoi"]').active = true;
+        }
     }
 } 

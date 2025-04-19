@@ -33,5 +33,23 @@ export const DateUtils = {
     getSamediSemaine(semaine) {
         const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
         return semMom.format('DD/MM/YYYY')
+    },
+
+    isWeekBeforeToday(week) {
+        return moment(week,'YYYY-WW').isBefore(moment());
+    },
+
+    isWeekAfterToday(week) {
+        return moment(week,'YYYY-WW').isAfter(moment());
+    },
+
+    chooseBestWeek(weeks) {
+        const today = moment();
+        const bestWeek = weeks.reverse().find(week => this.isWeekBeforeToday(week));
+        if(bestWeek) {
+            return bestWeek;
+        }else{
+            return weeks.reverse().find(week => this.isWeekAfterToday(week));
+        }
     }
 }; 

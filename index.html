@@ -19,10 +19,17 @@
     <section id="sctProgrammeEtResultat">
         <h2>Images</h2>
         <sl-tab-group class="tabGroupMain">
+            <sl-tab slot="nav" panel="pan-kifekoi" id="tab_kiefeKoi" disabled>Kifekoi</sl-tab>
             <sl-tab slot="nav" panel="pan-resultats" id="tab_resultat" disabled>Résultats</sl-tab>
             <sl-tab slot="nav" panel="pan-samedi" id="tab_samedi" disabled>Visuel Samedi</sl-tab>
             <sl-tab slot="nav" panel="pan-dimanche" id="tab_dimanche" disabled>Visuel Dimanche</sl-tab>
-            <sl-tab slot="nav" panel="pan-kifekoi" id="tab_kiefeKoi" disabled>Kifekoi</sl-tab>
+            <sl-tab-panel name="pan-kifekoi">
+                <div class="kifekoi" id="kifekoi"></div>
+                <div class="kifekoi" id="kifekoi-ext"></div>
+                <div class="instagram" id="insta_Invalid">
+                    <div class="jour-match">Les conclusions manquantes<br><span id="date_we_feed_Invalid"></span></div>
+                </div>
+            </sl-tab-panel>
             <sl-tab-panel name="pan-resultats" id="tapPanResultat">
                 <sl-alert variant="warning" id="alertResultats" closable>
                     <sl-icon slot="icon" name="exclamation-triangle"></sl-icon>
@@ -70,13 +77,7 @@
                     </div>
                 </div>
             </sl-tab-panel>
-            <sl-tab-panel name="pan-kifekoi">
-                <div class="kifekoi" id="kifekoi"></div>
-                <div class="kifekoi" id="kifekoi-ext"></div>
-                <div class="instagram" id="insta_Invalid">
-                    <div class="jour-match">Les conclusions manquantes<br><span id="date_we_feed_Invalid"></span></div>
-                </div>
-            </sl-tab-panel>
+           
         </sl-tab-group>
     </section>
 
