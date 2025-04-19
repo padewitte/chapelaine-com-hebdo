@@ -59,6 +59,8 @@ export class DropzoneUI extends BaseUI {
                     }
                 }
             }
+
+            BaseUI.minimizeUploadAndShowDataSelector()
         });
     }
 

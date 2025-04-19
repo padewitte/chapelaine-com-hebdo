@@ -18,66 +18,39 @@ const commonElements = {
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Contrail+One" />
         <link href="https://fonts.cdnfonts.com/css/edo" rel="stylesheet">
     `,
-    paramsDialog: `
-
-        <sl-dialog label="Paramètres" class="dialog-scrolling">
-            <form id="form_param" class="configuration">
-                <div>Nom des équipes locales</div>
-                <textarea id="noms_equipes_dom"></textarea>
-                <sl-divider></sl-divider>
-                <div>Substitions équipes</div>
-                <sl-alert variant="primary" open>
-                    <sl-icon slot="icon" name="info-circle"></sl-icon>
-                    Ajouter ici les noms d'équipe que vous souhaitez voir afficher
-                    sous
-                    une forme plus "humaine"
-                </sl-alert>
-                <textarea id="substitution_equipes"></textarea>
-                <sl-divider></sl-divider>
-
-                <div>Configuration des équipes</div>
-                <sl-alert variant="primary" open>
-                    <sl-icon slot="icon" name="info-circle"></sl-icon>
-                    Format (division:{collectif:"nom collectif","nom
-                    equipe":"libellé court"}). Utiliser les logs de la console pour compléter en pensant à faire une PR.
-                </sl-alert>
-                <textarea id="configuration_equipe"></textarea>
-            </form>
-            <sl-button slot="footer" variant="primary">Save</sl-button>
-        </sl-dialog>
-        <sl-button id="btn-param" variant="default" size="large">
-            <sl-icon slot="prefix" name="gear"></sl-icon>
-            Paramètres
-        </sl-button>
-    `,
-    uploadSection: (dataSelector = '', buttons = '') => `
-        <div class="menu-container">
+    uploadSection: (dataSelector = '') => `
             <a href="index.html">Kifekoi et visuels</a>
             <a href="stats.html">Statistiques</a>
             <a href="championnats.html">Championnats</a>
         </div>    
         <section>
-            <h2>Upload des fichiers</h2>
-            <sl-alert variant="primary" open>
-                <sl-icon slot="icon" name="info-circle"></sl-icon>
-                Fichiers résultats et matchs à venir à générer depuis Gest'hand
+            <div id="dropZone">
+                Glisser les fichiers CSV GestHand Extraction ici
+
+            </div>
+            <sl-alert variant="primary" id="upload-alert" open>
+                    <sl-icon slot="icon" name="info-circle"></sl-icon>
+                    Fichiers résultats et matchs à venir à générer depuis Gest'hand
             </sl-alert>
-            <div id="dropZone">Glisser les fichiers CSV ici</div>
+            <div id="dataSelector">
+                ${dataSelector}
+            </div>
         </section>
         <section>
-            ${dataSelector}
+          
         </section>
     `
 };
 
+
+
 // Function to initialize common elements
-function initializeCommonElements(dataSelector, buttons) {
+function initializeCommonElements(dataSelector) {
     // Add head content
     document.head.innerHTML = commonElements.head;
     
-    // Add params dialog and button
-    document.body.insertAdjacentHTML('afterbegin', commonElements.paramsDialog);    
-    document.body.insertAdjacentHTML('afterbegin', commonElements.uploadSection(dataSelector, buttons));
+    // Add params dialog and button    document.body.insertAdjacentHTML('afterbegin', commonElements.paramsDialog);    
+    document.body.insertAdjacentHTML('afterbegin', commonElements.uploadSection(dataSelector));
 
     const externalScripts = [
         {

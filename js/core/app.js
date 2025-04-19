@@ -1,5 +1,4 @@
 import { Config } from './config.js';
-import { Dialog } from '../components/dialog.js';
 import { Dropzone } from '../components/dropzone.js';
 import { TabManager } from '../components/tab-manager.js';
 
@@ -13,7 +12,6 @@ class HandballApp {
         Config.init();
 
         // Initialize components
-        Dialog.init();
         Dropzone.init();
         TabManager.init();
 

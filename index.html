@@ -12,17 +12,9 @@
 <body>
     <script>
          // Add upload section with parameters
-    const weekSelector = '<sl-select id="selSemaine" placeholder="Sélectionner une semaine" size="medium" disabled="true"></sl-select>';
-    const buttons = `
-        <div>
-            <sl-button variant="success" size="large" id="btnGeneration">
-                <sl-icon slot="suffix" name="chevron-double-right"></sl-icon>
-                Générer les visuels
-            </sl-button>
-        </div>
-    `;
+    const dataSelector = '<sl-select id="selSemaine" placeholder="Sélectionner une semaine" size="medium" disabled="true"></sl-select>';
         // Initialize common elements
-        initializeCommonElements(weekSelector, buttons);
+        initializeCommonElements(dataSelector);
     </script>
     <section id="sctProgrammeEtResultat">
         <h2>Images</h2>

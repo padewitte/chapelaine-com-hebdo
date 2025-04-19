@@ -17,12 +17,9 @@ class IndexPage extends HandballApp {
         this.initializeWeekSelector();
         this.initializeButtons();
         DropzoneUI.attachDropZone();
-        BaseUI.attachBtnParam();
-        this.attachBtnGeneration();
         this.attachBtnDl("resultats");
         this.attachBtnDl("samedi");
         this.attachBtnDl("dimanche");
-        BaseUI.loadParametres();
     }
 
     initializeWeekSelector() {
@@ -48,15 +45,6 @@ class IndexPage extends HandballApp {
         });
     }
 
-    attachBtnGeneration() {
-        const selSemaine = document.getElementById('selSemaine');
-        const btnGeneration = document.getElementById('btnGeneration');
-        btnGeneration.addEventListener('click', function (e) {
-            e.preventDefault();
-            MatchUI.genererSemaine(selSemaine.value);
-            TabManager.scrollToSection('sctProgrammeEtResultat')
-        });
-    }
 
     updateWeekSelector() {
         DomUtils.setAttribute(this.weekSelector, 'disabled', true);

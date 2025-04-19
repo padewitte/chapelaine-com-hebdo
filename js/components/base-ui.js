@@ -1,5 +1,3 @@
-import { Configuration } from '../core/default-param.js';
-
 export class BaseUI {
     static removeAllChildNodes(parent) {
         while (parent.firstChild) {
@@ -14,19 +12,10 @@ export class BaseUI {
         return newDiv;
     }
 
-
-    static loadParametres() {
-        document.getElementById('noms_equipes_dom').innerHTML = JSON.stringify(Configuration.noms_equipes_dom, null, '  ')
-        document.getElementById('substitution_equipes').innerHTML = JSON.stringify(Configuration.sub_equipes, null, '  ')
-        document.getElementById('configuration_equipe').innerHTML = JSON.stringify(Configuration.configurationEquipe, null, '  ')
+    static minimizeUploadAndShowDataSelector() {
+        document.querySelector('#upload-alert').hide();
+        const dataSelector = document.querySelector('#dataSelector');
+        dataSelector.style.display = 'block';
     }
 
-    static attachBtnParam() {
-        const dialog = document.querySelector('.dialog-scrolling');
-        const openButton = dialog.nextElementSibling;
-        const closeButton = dialog.querySelector('sl-button[slot="footer"]');
-
-        openButton.addEventListener('click', () => dialog.show());
-        closeButton.addEventListener('click', () => dialog.hide());
-    }
 } 
