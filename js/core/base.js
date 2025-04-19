@@ -4,7 +4,7 @@ const commonElements = {
         <meta charset="utf-8">
         <!-- Css-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.13.1/cdn/themes/light.css" />
-        <link rel="stylesheet" href="./generation-visuel.css" />
+        <link rel="stylesheet" href="./css/generation-visuel.css" />
 
         <!-- Javascript -->
         <!-- UI web components -->
@@ -105,18 +105,18 @@ function initializeCommonElements(selector, buttons) {
     });
     
     // Load common scripts
-    const commonScripts = [
-        'js/default-param.js',
-        'js/ui-behaviors.js',
-        'js/extractor.js',
-        'js/data-cleaner.js'
+ /*   const commonScripts = [
+        'js/core/default-param.js',
+        'js/ui/ui-behaviors.js',
+        'js/core/extractor.js',
+        'js/core/data-cleaner.js'
     ];
     
     commonScripts.forEach(script => {
         const scriptElement = document.createElement('script');
         scriptElement.src = script;
         document.body.appendChild(scriptElement);
-    });
+    });*/
 }
 
 // Export the initialization function

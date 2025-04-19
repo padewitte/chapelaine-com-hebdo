@@ -1,8 +1,10 @@
-import HandballApp from '../app.js';
+import HandballApp from '../core/app.js';
 import { DomUtils } from '../core/dom-utils.js';
 import { DateUtils } from '../core/date-utils.js';
-import { Config } from '../core/config.js';
 import { Dropzone } from '../components/dropzone.js';
+import { DataExtractor } from '../core/extractor.js';
+import { generer_semaine } from '../ui/ui-behaviors.js';
+
 
 class IndexPage extends HandballApp {
     constructor() {
@@ -31,9 +33,9 @@ class IndexPage extends HandballApp {
     initializeDropzone() {
         Dropzone.onFilesProcessed = (results) => {
             results.forEach(result => {
-                extraireData(result);
+                DataExtractor.extraireData(result);
             });
-            this.weeks = SEMAINES;
+            this.weeks = DataExtractor.SEMAINES;
             this.updateWeekSelector();
         };
     }

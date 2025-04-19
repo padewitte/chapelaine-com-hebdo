@@ -1,7 +1,7 @@
-import { Config } from './core/config.js';
-import { Dialog } from './components/dialog.js';
-import { Dropzone } from './components/dropzone.js';
-import { TabManager } from './components/tab-manager.js';
+import { Config } from './config.js';
+import { Dialog } from '../components/dialog.js';
+import { Dropzone } from '../components/dropzone.js';
+import { TabManager } from '../components/tab-manager.js';
 
 class HandballApp {
     constructor() {

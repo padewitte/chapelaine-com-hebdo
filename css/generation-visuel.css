@@ -125,7 +125,7 @@ section>* {
 
 .insta-footer {
     width: calc(100% - 250px);
-    background: left / 25% no-repeat url(./logo_4.png);
+    background: left / 25% no-repeat url(../assets/img/logo_4.png);
     height: 60px;
     font-family: "Edo";
     font-size: 40px;
@@ -140,19 +140,19 @@ section>* {
 }
 
 .resultats-we {
-    background-image: url("./fond_resultats.png");
+    background-image: url("../assets/img/fond_resultats.png");
     padding-bottom: 100px;
     width: 742px;
 }
 
 .matchs-we {
-    background-image: url("./fond_programme.png");
+    background-image: url("../assets/img/fond_programme.png");
     padding-bottom: 100px;
     width: 742px;
 }
 
 .logo-alliance-blanc {
-    background: center / contain no-repeat url("./logo_4.png");
+    background: center / contain no-repeat url("../assets/img/logo_4.png");
     height: 120px;
     width: 200px;
     padding: 0px;

@@ -20,5 +20,8 @@ export const DateUtils = {
     isWeekend(date) {
         const day = moment(date).day();
         return day === 6 || day === 0; // 6 is Saturday, 0 is Sunday
+    },
+    formatHeure (string_heure){
+        return string_heure.slice(0, -3);
     }
 }; 

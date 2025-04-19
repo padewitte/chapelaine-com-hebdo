@@ -1,3 +1,6 @@
+import { DataCleaner } from '../core/data-cleaner.js';
+import { DataExtractor } from '../core/extractor.js';
+import { Configuration } from '../default-param.js';
 
 function genereLigneStat(ligne){
     let extraHtml = "";

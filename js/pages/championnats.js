@@ -1,4 +1,4 @@
-import HandballApp from '../app.js';
+import HandballApp from '../core/app.js';
 import { DomUtils } from '../core/dom-utils.js';
 import { FileHandler } from '../core/file-handler.js';
 import { Config } from '../core/config.js';

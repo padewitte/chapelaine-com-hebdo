@@ -1,10 +1,15 @@
+import { DataCleaner } from '../core/data-cleaner.js';
+import { DataExtractor } from '../core/extractor.js';
+import { Configuration } from '../default-param.js';
+import { generer_semaine, attach_btn_param } from '../ui/ui-behaviors.js';
+
 function attachBtnGenerationChamp() {
     const selChampionnat = document.getElementById('selChampionnat');
     const btnGenerationChamp = document.getElementById('btnGenerationChamp');
     btnGenerationChamp.addEventListener('click', function (e) {
         e.preventDefault();
         generer_champ(selChampionnat.value);
-        scrollToMainSection('sctChampionnat')
+        BaseUI.scrollToMainSection('sctChampionnat')
         return true
     });
 }
