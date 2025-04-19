@@ -40,18 +40,18 @@ export class DataExtractor {
         }
     }
 
-    static extraireSemaines(nouveauFichier) {
+    static extractWeeks(nouveauFichier) {
         const tmpSemaine = new Set();
         const tmpChamp = new Set();
         nouveauFichier.data.forEach(match => {
             tmpSemaine.add(match.semaine)
-            tmpChamp.add(DataCleaner.remove_spaces(match.poule))
+            tmpChamp.add(DataCleaner.removeSpaces(match.poule))
             if (nouveauFichier.type == 'programme') {
                 this.pushMap(match.semaine, match, this.MATCHS_PROGRAMMES_PAR_SEMAINE)
-                this.pushMap(DataCleaner.remove_spaces(match.poule), match, this.MATCHS_PROGRAMMES_PAR_CHAMP)
+                this.pushMap(DataCleaner.removeSpaces(match.poule), match, this.MATCHS_PROGRAMMES_PAR_CHAMP)
             } else {
                 this.pushMap(match.semaine, match, this.MATCHS_JOUES_PAR_SEMAINE)
-                this.compute_stats(match)
+                this.computeStats(match)
             }
         })
         this.FICHIERS.push(nouveauFichier);
@@ -63,12 +63,12 @@ export class DataExtractor {
         this.sortStats();
     }
 
-    static extraireData(nouveauFichier) {
-        this.extraireSemaines(nouveauFichier)
+    static extractData(nouveauFichier) {
+        this.extractWeeks(nouveauFichier)
     }
 
-    static compute_stats(match) {
-        if(DataCleaner.is_match_dom(match)) {
+    static computeStats(match) {
+        if(DataCleaner.isMatchDom(match)) {
             //On ne compte pas les arbitrages designés
             if(DataCleaner.isStringEmptyOrFalsy(match['arb1 designe'])){
                 this.incrementMapStat(match['arb1 sifle'], this.RAW_STATS.ARBITRES);

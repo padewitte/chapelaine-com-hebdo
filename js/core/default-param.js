@@ -3,8 +3,8 @@ export class Configuration {
 
     static salles_domicile = ["JEAN JAHAN","COUTANCIERE"];
 
-    static estSalleDomicile(salle) {
-        return this.salles_domicile.some(x => salle.toUpperCase().includes(x.toUpperCase()));
+    static isHomeVenue(salle) {
+        return this.salles_domicile.includes(salle);
     }
 
     static sub_equipes = [

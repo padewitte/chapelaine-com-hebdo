@@ -50,33 +50,34 @@ const commonElements = {
             Paramètres
         </sl-button>
     `,
-    uploadSection: (weekSelector = '', buttons = '') => `
-            <div class="menu-container">
+    uploadSection: (dataSelector = '', buttons = '') => `
+        <div class="menu-container">
             <a href="index.html">Kifekoi et visuels</a>
             <a href="stats.html">Statistiques</a>
             <a href="championnats.html">Championnats</a>
         </div>    
-    <section>
+        <section>
             <h2>Upload des fichiers</h2>
             <sl-alert variant="primary" open>
                 <sl-icon slot="icon" name="info-circle"></sl-icon>
                 Fichiers résultats et matchs à venir à générer depuis Gest'hand
             </sl-alert>
             <div id="dropZone">Glisser les fichiers CSV ici</div>
-            ${weekSelector}
-            ${buttons}
+        </section>
+        <section>
+            ${dataSelector}
         </section>
     `
 };
 
 // Function to initialize common elements
-function initializeCommonElements(selector, buttons) {
+function initializeCommonElements(dataSelector, buttons) {
     // Add head content
     document.head.innerHTML = commonElements.head;
     
     // Add params dialog and button
     document.body.insertAdjacentHTML('afterbegin', commonElements.paramsDialog);    
-    document.body.insertAdjacentHTML('afterbegin', commonElements.uploadSection(selector, buttons));
+    document.body.insertAdjacentHTML('afterbegin', commonElements.uploadSection(dataSelector, buttons));
 
     const externalScripts = [
         {
@@ -104,19 +105,7 @@ function initializeCommonElements(selector, buttons) {
         document.head.appendChild(scriptElement);
     });
     
-    // Load common scripts
- /*   const commonScripts = [
-        'js/core/default-param.js',
-        'js/ui/ui-behaviors.js',
-        'js/core/extractor.js',
-        'js/core/data-cleaner.js'
-    ];
-    
-    commonScripts.forEach(script => {
-        const scriptElement = document.createElement('script');
-        scriptElement.src = script;
-        document.body.appendChild(scriptElement);
-    });*/
+
 }
 
 // Export the initialization function

@@ -54,7 +54,7 @@ export class MatchUI extends BaseUI {
 
             salles_du_jour.forEach(salle => {
                 console.log(salle)
-                const domicile = Configuration.estSalleDomicile(salle);
+                const domicile = Configuration.isHomeVenue(salle);
 
                 let tableauKifekoi;
                 if (domicile) {
@@ -147,13 +147,13 @@ export class MatchUI extends BaseUI {
 
     static genererSemaine(semaine) {
         this.cleanGeneratedDiv()
-        const matchsJoueClean = DataCleaner.lire_matchs(semaine, DataExtractor.MATCHS_JOUES_PAR_SEMAINE);
+        const matchsJoueClean = DataCleaner.lireMatchs(semaine, DataExtractor.MATCHS_JOUES_PAR_SEMAINE);
 
         matchsJoueClean?.forEach(match => {
             this.insertLigneResultat(match)
         })
 
-        const matchsProgClean = DataCleaner.lire_matchs(semaine, DataExtractor.MATCHS_PROGRAMMES_PAR_SEMAINE);
+        const matchsProgClean = DataCleaner.lireMatchs(semaine, DataExtractor.MATCHS_PROGRAMMES_PAR_SEMAINE);
 
         if (matchsProgClean && matchsProgClean.length > 0) {
             this.insertMatchsProgrammes(matchsProgClean, semaine)

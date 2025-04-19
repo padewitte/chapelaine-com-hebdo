@@ -43,10 +43,10 @@ export class DropzoneUI extends BaseUI {
                                 nouveauFichier = { type: 'programme', data, fileName }
                             }
                             console.log(nouveauFichier)
-                            DataExtractor.extraireData(nouveauFichier)
-                            DropzoneUI.majSemaines(DataExtractor.SEMAINES)
-                            DropzoneUI.majChampionnat(DataExtractor.CHAMP)
-                            DropzoneUI.majStats()
+                            DataExtractor.extractData(nouveauFichier)
+                            DropzoneUI.updateWeeks(DataExtractor.SEMAINES)
+                            DropzoneUI.updateChampionship(DataExtractor.CHAMP)
+                            DropzoneUI.updateStats()
                         };
 
                         reader.onerror = function (event) {
@@ -62,7 +62,7 @@ export class DropzoneUI extends BaseUI {
         });
     }
 
-    static majSemaines(semaines) {
+    static updateWeeks(semaines) {
         const selSemaine = document.getElementById("selSemaine");
         if(selSemaine){
             selSemaine.setAttribute('disabled', true)
@@ -81,7 +81,7 @@ export class DropzoneUI extends BaseUI {
         }
     }
 
-    static majChampionnat(championnats) {
+    static updateChampionship(championnats) {
         const selChampionnat = document.getElementById("selChampionnat");
         if(selChampionnat){
             selChampionnat.setAttribute('disabled', true)
@@ -99,7 +99,7 @@ export class DropzoneUI extends BaseUI {
         }
     }
 
-    static majStats() {
+    static updateStats() {
         const sctStats = document.getElementById("sctStats");
         if(sctStats){
             StatsUI.loadStats()
