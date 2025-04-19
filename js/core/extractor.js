@@ -95,4 +95,63 @@ export class DataExtractor {
         this.STATS.SALLES = [...this.RAW_STATS.SALLES.entries()].sort(this.statsSorter);
         this.STATS.IMPLICATION_POINTS = [...this.RAW_STATS.IMPLICATION_POINTS.entries()].sort(this.statsSorter);
     }
+
+    static load(storedData) {
+        // Restore arrays
+        /*
+        this.FICHIERS = storedData.FICHIERS || [];
+        this.SEMAINES = storedData.SEMAINES || [];
+        this.CHAMP = storedData.CHAMP || [];
+
+        // Restore Maps
+        this.MATCHS_PROGRAMMES_PAR_SEMAINE = new Map(Object.entries(storedData.MATCHS_PROGRAMMES_PAR_SEMAINE || {}));
+        this.MATCHS_JOUES_PAR_SEMAINE = new Map(Object.entries(storedData.MATCHS_JOUES_PAR_SEMAINE || {}));
+        this.MATCHS_PROGRAMMES_PAR_CHAMP = new Map(Object.entries(storedData.MATCHS_PROGRAMMES_PAR_CHAMP || {}));
+
+        // Restore RAW_STATS Maps
+        this.RAW_STATS = {
+            SUIVEURS: new Map(Object.entries(storedData.RAW_STATS?.SUIVEURS || {})),
+            ARBITRES: new Map(Object.entries(storedData.RAW_STATS?.ARBITRES || {})),
+            TABLES: new Map(Object.entries(storedData.RAW_STATS?.TABLES || {})),
+            TUTEURS: new Map(Object.entries(storedData.RAW_STATS?.TUTEURS || {})),
+            SALLES: new Map(Object.entries(storedData.RAW_STATS?.SALLES || {})),
+            IMPLICATION_POINTS: new Map(Object.entries(storedData.RAW_STATS?.IMPLICATION_POINTS || {}))
+        };
+
+        // Restore STATS object
+        this.STATS = storedData.STATS || {};
+
+        console.log('DataExtractor state restored from storage');
+        */
+    }
+
+    static clean() {
+        // Reset arrays
+        this.FICHIERS = [];
+        this.SEMAINES = [];
+        this.CHAMP = [];
+
+        // Reset Maps
+        this.MATCHS_PROGRAMMES_PAR_SEMAINE = new Map();
+        this.MATCHS_JOUES_PAR_SEMAINE = new Map();
+        this.MATCHS_PROGRAMMES_PAR_CHAMP = new Map();
+
+        // Reset RAW_STATS Maps
+        this.RAW_STATS = {
+            SUIVEURS: new Map(),
+            ARBITRES: new Map(),
+            TABLES: new Map(),
+            TUTEURS: new Map(),
+            SALLES: new Map(),
+            IMPLICATION_POINTS: new Map()
+        };
+
+        // Reset STATS object
+        this.STATS = {};
+
+        // Clear localStorage
+        localStorage.removeItem('DataExtractor');
+
+        console.log('DataExtractor state cleaned');
+    }
 }

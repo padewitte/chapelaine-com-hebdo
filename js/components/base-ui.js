@@ -13,9 +13,11 @@ export class BaseUI {
     }
 
     static minimizeUploadAndShowDataSelector() {
-        document.querySelector('#upload-alert').hide();
-        const dataSelector = document.querySelector('#dataSelector');
-        dataSelector.style.display = 'block';
+        if(document.querySelector('#upload-alert').hide){
+            document.querySelector('#upload-alert').hide();
+            const dataSelector = document.querySelector('#dataSelector');
+            dataSelector.style.display = 'block';
+        }
     }
 
 } 

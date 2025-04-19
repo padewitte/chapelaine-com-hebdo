@@ -68,7 +68,7 @@ class IndexPage extends HandballApp {
             //add a 10000ms delay
             setTimeout(() => {
                 DomUtils.setAttribute(this.weekSelector, 'value', bestWeek);
-            }, 50);
+            }, 500);
         }
     }
 

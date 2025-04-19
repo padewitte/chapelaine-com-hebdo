@@ -37,7 +37,7 @@ export class DropzoneUI extends BaseUI {
                     console.error('No valid CSV or TXT files found');
                     return;
                 }
-
+                DataExtractor.clean()
                 // Process each file
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
@@ -86,11 +86,25 @@ export class DropzoneUI extends BaseUI {
             }
         });
     }
-    static uploadComplete(page) {
+    static refreshDataExtractor(page) {
         page.updateWeekSelector(DataExtractor.SEMAINES)
         page.updateChampionshipSelector(DataExtractor.CHAMP)
         page.updateStats(DataExtractor.STATS)
         BaseUI.minimizeUploadAndShowDataSelector();
+    }
+
+    static uploadComplete(page) {
+        DropzoneUI.refreshDataExtractor(page)
+        //Store DataExtractor in local storage
+        localStorage.setItem('DataExtractor', JSON.stringify(DataExtractor));
+    }
+
+    static loadDataExtractor(page) {
+        const dataExtractor = localStorage.getItem('DataExtractor');
+        if (dataExtractor && dataExtractor !== 'undefined') {
+            DataExtractor.load(JSON.parse(dataExtractor));
+        }
+        DropzoneUI.refreshDataExtractor(page)
     }
 
 } 

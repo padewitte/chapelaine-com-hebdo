@@ -15,7 +15,7 @@ class ChampionnatsPage extends HandballApp {
     initializePage() {
         this.initializeChampionshipSelector();
         this.initializeButtons();
-        DropzoneUI.attachDropZone();
+        DropzoneUI.attachDropZone(this);
     }
 
     initializeChampionshipSelector() {
@@ -27,11 +27,11 @@ class ChampionnatsPage extends HandballApp {
     }
 
     initializeButtons() {
-        const generateButton = DomUtils.getElement('btnGenerationChamp');
+        /*const generateButton = DomUtils.getElement('btnGenerationChamp');
         generateButton.addEventListener('click', () => {
             this.generateChampionshipView();
             TabManager.scrollToSection('sctChampionnat');
-        });
+        });*/
     }
 
     updateChampionshipSelector(newChampionships) {

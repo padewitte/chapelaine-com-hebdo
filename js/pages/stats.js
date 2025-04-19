@@ -1,7 +1,6 @@
 import HandballApp from '../core/app.js';
 import { DomUtils } from '../core/dom-utils.js';
-import { DropzoneUI } from '../ui/ui-behaviors.js';
-
+import { DropzoneUI } from '../components/dropzone-ui.js';
 
 class StatsPage extends HandballApp {
     constructor() {
@@ -10,7 +9,7 @@ class StatsPage extends HandballApp {
     }
 
     initializePage() {
-        DropzoneUI.attachDropZone();
+        DropzoneUI.attachDropZone(this);
     }
 
     generateStatRow(row) {
@@ -27,12 +26,10 @@ class StatsPage extends HandballApp {
     updateStats(newStats) {
         this.statsData = newStats;
         const statsSection = DomUtils.getElement('sctStats');
-        if (!statsSection) return;
-
         // Clear existing stats
         DomUtils.clearElement(statsSection);
 
-        if (!STATS) {
+        if (!this.statsData) {
             // Show message if no stats data
             const noDataMessage = DomUtils.createElement('div', 'no-stats-message');
             noDataMessage.innerHTML = 'Aucune donnée statistique disponible. Veuillez charger des fichiers CSV.';
@@ -41,12 +38,12 @@ class StatsPage extends HandballApp {
         }
 
         // Generate stats tables
-        this.generateStatsTable(STATS.ARBITRES, 'ARBITRES');
-        this.generateStatsTable(STATS.TABLES, 'TABLES');
-        this.generateStatsTable(STATS.TUTEURS, 'TUTEURS');
-        this.generateStatsTable(STATS.SUIVEURS, 'SUIVEURS');
-        this.generateStatsTable(STATS.SALLES, 'SALLES');
-        this.generateStatsTable(STATS.IMPLICATION_POINTS, 'IMPLICATION_POINTS');
+        this.generateStatsTable(this.statsData.ARBITRES, 'ARBITRES');
+        this.generateStatsTable(this.statsData.TABLES, 'TABLES');
+        this.generateStatsTable(this.statsData.TUTEURS, 'TUTEURS');
+        this.generateStatsTable(this.statsData.SUIVEURS, 'SUIVEURS');
+        this.generateStatsTable(this.statsData.SALLES, 'SALLES');
+        this.generateStatsTable(this.statsData.IMPLICATION_POINTS, 'IMPLICATION_POINTS');
     }
 
     generateStatsTable(statsArray, title) {

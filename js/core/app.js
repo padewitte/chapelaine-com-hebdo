@@ -1,5 +1,6 @@
 import { Config } from './config.js';
 import { Dropzone } from '../components/dropzone.js';
+import { DropzoneUI } from '../components/dropzone-ui.js';
 import { TabManager } from '../components/tab-manager.js';
 
 class HandballApp {
@@ -17,6 +18,7 @@ class HandballApp {
 
         // Initialize page-specific logic
         this.initializePage();
+        DropzoneUI.loadDataExtractor(this);
     }
 
     initializePage() {
