@@ -96,6 +96,7 @@ export class DropzoneUI extends BaseUI {
     static uploadComplete(page) {
         DropzoneUI.refreshDataExtractor(page)
         //Store DataExtractor in local storage
+        //TODO change the serialisation now working with a class
         localStorage.setItem('DataExtractor', JSON.stringify(DataExtractor));
     }
 
