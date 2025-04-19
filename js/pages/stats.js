@@ -10,16 +10,7 @@ class StatsPage extends HandballApp {
     }
 
     initializePage() {
-        this.initializeDropzone();
-    }
-
-    initializeDropzone() {
-        Dropzone.onFilesProcessed = (results) => {
-            results.forEach(result => {
-                extraireData(result);
-            });
-            this.loadStats();
-        };
+        DropzoneUI.attachDropZone();
     }
 
     generateStatRow(row) {

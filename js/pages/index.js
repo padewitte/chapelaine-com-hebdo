@@ -3,8 +3,7 @@ import { DomUtils } from '../core/dom-utils.js';
 import { DateUtils } from '../core/date-utils.js';
 import { Dropzone } from '../components/dropzone.js';
 import { DataExtractor } from '../core/extractor.js';
-import { generer_semaine } from '../ui/ui-behaviors.js';
-
+import { DropzoneUI, DownloadUI, BaseUI, generer_semaine, attach_btn_param, loadParametres } from '../ui/ui-behaviors.js';
 
 class IndexPage extends HandballApp {
     constructor() {
@@ -15,7 +14,13 @@ class IndexPage extends HandballApp {
     initializePage() {
         this.initializeWeekSelector();
         this.initializeButtons();
-        this.initializeDropzone();
+        DropzoneUI.attachDropZone();
+        attach_btn_param();
+        this.attachBtnGeneration();
+        this.attachBtnDl("resultats");
+        this.attachBtnDl("samedi");
+        this.attachBtnDl("dimanche");
+        loadParametres();
     }
 
     initializeWeekSelector() {
@@ -30,14 +35,24 @@ class IndexPage extends HandballApp {
         generateButton?.addEventListener('click', () => this.generateVisuals());
     }
 
-    initializeDropzone() {
-        Dropzone.onFilesProcessed = (results) => {
-            results.forEach(result => {
-                DataExtractor.extraireData(result);
-            });
-            this.weeks = DataExtractor.SEMAINES;
-            this.updateWeekSelector();
-        };
+
+    attachBtnDl(suffix) {
+        const btnDl = document.getElementById('btnDl_' + suffix);
+        btnDl.addEventListener('click', function (e) {
+            const semaine = document.getElementById('selSemaine').value;
+            e.preventDefault();
+            DownloadUI.downloadDivAsImage("insta_" + suffix, "file-" + semaine + "-" + suffix)
+        });
+    }
+
+    attachBtnGeneration() {
+        const selSemaine = document.getElementById('selSemaine');
+        const btnGeneration = document.getElementById('btnGeneration');
+        btnGeneration.addEventListener('click', function (e) {
+            e.preventDefault();
+            generer_semaine(selSemaine.value);
+            BaseUI.scrollToMainSection('sctProgrammeEtResultat')
+        });
     }
 
     updateWeekSelector() {

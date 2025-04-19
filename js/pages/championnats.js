@@ -1,9 +1,9 @@
 import HandballApp from '../core/app.js';
 import { DomUtils } from '../core/dom-utils.js';
-import { FileHandler } from '../core/file-handler.js';
 import { Config } from '../core/config.js';
 import { DateUtils } from '../core/date-utils.js';
-import { Dropzone } from '../components/dropzone.js';
+import { DropzoneUI } from '../ui/ui-behaviors.js';
+import { DataExtractor } from '../core/extractor.js';
 
 class ChampionnatsPage extends HandballApp {
     constructor() {
@@ -15,7 +15,7 @@ class ChampionnatsPage extends HandballApp {
     initializePage() {
         this.initializeChampionshipSelector();
         this.initializeButtons();
-        this.initializeDropzone();
+        DropzoneUI.attachDropZone();
     }
 
     initializeChampionshipSelector() {
@@ -32,16 +32,6 @@ class ChampionnatsPage extends HandballApp {
             this.generateChampionshipView();
             TabManager.scrollToSection('sctChampionnat');
         });
-    }
-
-    initializeDropzone() {
-        Dropzone.onFilesProcessed = (results) => {
-            results.forEach(result => {
-                extraireData(result);
-            });
-            this.championships = CHAMP;
-            this.updateChampionshipSelector();
-        };
     }
 
     updateChampionshipSelector() {
@@ -82,7 +72,7 @@ class ChampionnatsPage extends HandballApp {
             return;
         }
 
-        const matches = MATCHS_PROGRAMMES_PAR_CHAMP.get(this.selectedChampionship);
+        const matches = DataExtractor.MATCHS_PROGRAMMES_PAR_CHAMP.get(this.selectedChampionship);
         if (!matches || matches.length === 0) {
             const noMatchesMessage = DomUtils.createElement('div', 'no-matches-message');
             noMatchesMessage.innerHTML = 'Aucun match programmé pour ce championnat.';
