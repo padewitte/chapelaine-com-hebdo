@@ -23,5 +23,15 @@ export const DateUtils = {
     },
     formatHeure (string_heure){
         return string_heure.slice(0, -3);
+    },
+
+    getLibSemaine(semaine) {
+        const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
+        return semaine + " (" + semMom.format('DD/MM') + " & " + semMom.add(1, 'days').format('DD/MM') + ")"
+    },
+
+    getSamediSemaine(semaine) {
+        const semMom = moment(semaine, 'YYYY-WW').add(5, 'days')
+        return semMom.format('DD/MM/YYYY')
     }
 }; 

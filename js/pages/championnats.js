@@ -2,8 +2,8 @@ import HandballApp from '../core/app.js';
 import { DomUtils } from '../core/dom-utils.js';
 import { Config } from '../core/config.js';
 import { DateUtils } from '../core/date-utils.js';
-import { DropzoneUI } from '../ui/ui-behaviors.js';
 import { DataExtractor } from '../core/extractor.js';
+import { DropzoneUI } from '../components/dropzone-ui.js';
 
 class ChampionnatsPage extends HandballApp {
     constructor() {

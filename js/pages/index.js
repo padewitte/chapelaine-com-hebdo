@@ -1,9 +1,11 @@
 import HandballApp from '../core/app.js';
 import { DomUtils } from '../core/dom-utils.js';
 import { DateUtils } from '../core/date-utils.js';
-import { Dropzone } from '../components/dropzone.js';
-import { DataExtractor } from '../core/extractor.js';
-import { DropzoneUI, DownloadUI, BaseUI, generer_semaine, attach_btn_param, loadParametres } from '../ui/ui-behaviors.js';
+import { BaseUI } from '../components/base-ui.js';
+import { DropzoneUI } from '../components/dropzone-ui.js';
+import { MatchUI } from '../components/match-ui.js';
+import { DownloadUI } from '../components/download-ui.js';
+import { TabManager } from '../components/tab-manager.js';
 
 class IndexPage extends HandballApp {
     constructor() {
@@ -15,18 +17,19 @@ class IndexPage extends HandballApp {
         this.initializeWeekSelector();
         this.initializeButtons();
         DropzoneUI.attachDropZone();
-        attach_btn_param();
+        BaseUI.attachBtnParam();
         this.attachBtnGeneration();
         this.attachBtnDl("resultats");
         this.attachBtnDl("samedi");
         this.attachBtnDl("dimanche");
-        loadParametres();
+        BaseUI.loadParametres();
     }
 
     initializeWeekSelector() {
         this.weekSelector = DomUtils.getElement('selSemaine');
         this.weekSelector?.addEventListener('sl-change', (e) => {
             this.generateWeek(e.target.value);
+            TabManager.scrollToSection('sctProgrammeEtResultat')
         });
     }
 
@@ -50,8 +53,8 @@ class IndexPage extends HandballApp {
         const btnGeneration = document.getElementById('btnGeneration');
         btnGeneration.addEventListener('click', function (e) {
             e.preventDefault();
-            generer_semaine(selSemaine.value);
-            BaseUI.scrollToMainSection('sctProgrammeEtResultat')
+            MatchUI.genererSemaine(selSemaine.value);
+            TabManager.scrollToMainSection('sctProgrammeEtResultat')
         });
     }
 
@@ -75,7 +78,7 @@ class IndexPage extends HandballApp {
     }
 
     generateWeek(week){
-        generer_semaine(week)
+        MatchUI.genererSemaine(week);
     }
 
     generateVisuals() {

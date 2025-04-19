@@ -1,7 +1,7 @@
 import HandballApp from '../core/app.js';
 import { DomUtils } from '../core/dom-utils.js';
-import { FileHandler } from '../core/file-handler.js';
-import { Dropzone } from '../components/dropzone.js';
+import { DropzoneUI } from '../ui/ui-behaviors.js';
+
 
 class StatsPage extends HandballApp {
     constructor() {
