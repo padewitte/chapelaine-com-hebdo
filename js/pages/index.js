@@ -54,7 +54,7 @@ class IndexPage extends HandballApp {
         btnGeneration.addEventListener('click', function (e) {
             e.preventDefault();
             MatchUI.genererSemaine(selSemaine.value);
-            TabManager.scrollToMainSection('sctProgrammeEtResultat')
+            TabManager.scrollToSection('sctProgrammeEtResultat')
         });
     }
 
