@@ -1,11 +1,12 @@
 #!/bin/bash
-lineno=0
+# pdfseparate LA-CHAPELAINE-HANDBALL.pdf  nhf-celles-%d.pdf
+lineno=2
 while IFS=',' read -r mail nom prenom; do
   ((lineno++))
   echo "$prenom $nom $mail $lineno"
 #  echo "Corps de l'e-mail" | muxxtt -s "Sujet de l'e-mail 2" -- padewitte+test@gmail.com
 #  echo "Bonjour $prenom $nom\n\nVoici votre place offerte pour assister au match Nantes Handball Féminin vs Vaulx en Velin Samedi 22 mars 2025 à 20h, Salle Mangin à Nantes.\n" "[Chapelaine] Place offerte Nantes Handball Féminin vs Vaulx en Velin" $mail "nhf-vault-$lineno.pdf"
-  echo -e "Bonjour $prenom $nom,\nVoici votre place offerte pour assister au match Nantes Handball Féminin vs Vaulx en Velin Samedi 22 mars 2025 à 20h, Salle Mangin à Nantes.\n\n Sportivement, l'équipe communication de la Chapelaine Handball." | mutt -s "[Chapelaine] Place offerte Nantes Handball Féminin vs Vaulx en Velin" -a "NHF/nhf-vault-$lineno.pdf" -- $mail 
+  echo -e "Bonjour $prenom $nom,\nVoici votre place offerte pour assister au match Nantes Handball Féminin vs Celles sur Belle Samedi 31 mai 2025 à 20h, Salle Mangin à Nantes.\n\n Sportivement, l'équipe communication de la Chapelaine Handball." | mutt -s "[Chapelaine] Place offerte Nantes Handball Féminin vs Celles sur Belle" -a "NHF/nhf-celles-$lineno.pdf" -- $mail 
 
   #Randomess of 2 to 15 seconds
   sleep $((RANDOM % 7 + 2))
