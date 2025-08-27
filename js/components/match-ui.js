@@ -67,7 +67,7 @@ export class MatchUI extends BaseUI {
                     tableauKifekoi.appendChild(this.createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td>"))
                 }
 
-                const divSalle = this.createHtmlElement("div", "session", "<div class='salle'>" + salle + "</div>");
+                const divSalle = this.createHtmlElement("div", "session", "<div class='salle "+ salle.replaceAll(" ","-").toLowerCase() +"'>" + salle + "</div>");
                 const match_dans_la_salle = matchs_du_jour.filter(m => m.salle == salle);
                 const match_dans_la_salle_trie = _.orderBy(match_dans_la_salle, ['horaire'], ['asc']);
                 let derniereSalle = ""
@@ -120,9 +120,9 @@ export class MatchUI extends BaseUI {
                 document.getElementById("contenuAlert_dimanche").appendChild(this.createHtmlElement("div", "erreurEquipe", message));
                 document.getElementById("alert_dimanche").open = true;
             }
-            if(resultats){
+            /*if(resultats){
                 resultats.appendChild(this.createHtmlElement("div", "insta-footer", "Bon match à tous !"))
-            }
+            }*/
         })
     }
 

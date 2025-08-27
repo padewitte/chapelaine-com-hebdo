@@ -16,6 +16,7 @@ const commonElements = {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Contrail+One" />
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Bebas+Neue" />
         <link href="https://fonts.cdnfonts.com/css/edo" rel="stylesheet">
     `,
     uploadSection: (dataSelector = '') => `

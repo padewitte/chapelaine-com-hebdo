@@ -95,6 +95,7 @@ html {
     margin: auto;
     font-size: 24px;
     background-color: #5BA17B;
+ 
     color: white;
     text-align: center;
     align-items: center;
@@ -106,27 +107,58 @@ html {
 }
 
 .resultats-we {
-    background-image: url("../assets/img/fond_resultats.png");
-    padding-bottom: 100px;
+    background: center / 80% auto no-repeat url("../assets/img/grim.png"), radial-gradient(circle at top left, #ff7828 0%, transparent 40%), radial-gradient(circle at bottom right, #00da00 0%, transparent 40%), #2c3338;
     width: 742px;
 }
 
-.matchs-we {
+/*.matchs-we {
     background-image: url("../assets/img/fond_programme.png");
+
+    background-size: 100px 100px;
+    background-position: 0 0, 100px 100px;
+    background-repeat: repeat;
+    padding-bottom: 100px;
+    width: 742px;
+}*/
+.matchs-we {
     padding-bottom: 100px;
     width: 742px;
 }
 
+.samedi {
+    background: center / 80% auto no-repeat url("../assets/img/lapin.png"), radial-gradient(circle at top left, #ff7828 0%, transparent 40%), radial-gradient(circle at bottom right, #00da00 0%, transparent 40%), #000000;
+}
+
+.dimanche {
+    background: center / 80% auto no-repeat url("../assets/img/grim.png"), radial-gradient(circle at top left, #ff7828 0%, transparent 40%), radial-gradient(circle at bottom right, #00da00 0%, transparent 40%), #000000;
+}
 /* ===== FOOTER & LOGO ===== */
 .insta-footer {
-    width: calc(100% - 250px);
-    background: left / 25% no-repeat url(../assets/img/logo_4.png);
     height: 60px;
     font-family: "Edo";
     font-size: 40px;
     text-align: right;
     margin-top: 60px;
-    margin-left: 160px;
+}
+
+.insta-header {
+    width: calc(100% - 20px);
+    background: left / 25% no-repeat url(../assets/img/logo_4.png);
+    height: 70px;
+    font-family: "Bebas Neue";
+    font-size: 60px;
+    text-align: right;
+    margin-top: 10px;
+    /* margin-left: 160px;*/
+}
+
+.jour-match {
+    font-family: "Edo";
+    font-size: 32px;
+}
+
+.orange {
+    color: #ff7828;
 }
 
 .logo-alliance-blanc {
@@ -144,8 +176,20 @@ html {
 
 /* ===== MATCH & RESULTS ===== */
 .session {
-    margin-left: 100px;
+
 }
+.la-coutanciere {
+    color: #00da00;
+}
+
+.jean-jahan {
+    color: #ff7828;
+}
+.extérieur {
+    color: grey;
+}
+
+
 
 .match {
     display: flex;
@@ -294,8 +338,7 @@ textarea {
 
 .sous-section-insta {
     font-size: 24px;
-    margin-top: 300px;
-    margin-left: 100px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
