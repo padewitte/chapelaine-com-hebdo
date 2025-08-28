@@ -41,7 +41,14 @@ export class DataCleaner {
     }
 
     static isMatchDom(match) {
-        return Configuration.noms_equipes_dom.find(g => match['club rec'].includes(g)) != undefined || (match['club hote'] != undefined && Configuration.noms_equipes_dom.find(g => match['club hote'].includes(g)) != undefined);
+        const nomsEquipesDom = Configuration.noms_equipes_dom;
+        const clubRecevant = match['club rec'] || '';
+        const clubHote = match['club hote'] || '';
+
+        const isRecevantKnown = nomsEquipesDom.some(nomEquipe => clubRecevant.includes(nomEquipe));
+        const isHoteKnown = !this.isStringEmptyOrFalsy(clubHote) && nomsEquipesDom.some(nomEquipe => clubHote.includes(nomEquipe));
+        const isTournoi = match['competition'].includes("tournoi");
+        return (!isTournoi && isRecevantKnown) || isHoteKnown;
     }
 
     static isFriendlyMatch(match) {
