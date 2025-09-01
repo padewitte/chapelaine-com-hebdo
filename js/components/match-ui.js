@@ -58,7 +58,7 @@ export class MatchUI extends BaseUI {
 
                 let tableauKifekoi;
                 if (domicile) {
-                    tableauKifekoi = this.createHtmlElement("table", "tableau-kifekoi", "<thead><tr><td colspan='12' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
+                    tableauKifekoi = this.createHtmlElement("table", "tableau-kifekoi", "<thead><tr><td colspan='10' class='jdmKifekoi'>" + jdm + "</td></tr></thead>")
                     tableauKifekoi.appendChild(this.createHtmlElement("tr", undefined, "<td colspan='12' class='salleKifekoi'>" + salle + "</td>"))
                     tableauKifekoi.appendChild(this.createHtmlElement("tr", "enteteKifekoi", "<td>Horaire Match</td><td>Equipe</td><td>Adversaire</td><td>Table</td><td>Arbitrage</td><td>Arbitrage backup</td><td>Suivi</td><td>Resp Salle</td><td>Resp animation</td><td>Indispo anim</td>"))
                 } else {

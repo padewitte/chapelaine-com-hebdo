@@ -1,10 +1,10 @@
 export class Configuration {
     static noms_equipes_dom = ["CHAPELAINE", "LA CHAPELAINE", "PORTERIE HB", "PORTERIE HANDBALL","PORTERIE*", "PORTERIE", "(CHAP-PHB)", "PORTES DE L'ERDRE"];
 
-    static salles_domicile = ["JEAN JAHAN","COUTANCIERE"];
+    static salles_domicile = ["JEAN JAHAN","COUTANCIERE","LA COUTANCIERE"];
 
     static isHomeVenue(salle) {
-        return this.salles_domicile.includes(salle);
+        return this.salles_domicile.includes(salle.toUpperCase());
     }
 
     static sub_equipes = [
