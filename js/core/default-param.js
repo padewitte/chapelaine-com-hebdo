@@ -98,7 +98,7 @@ export class Configuration {
             "collectif": "SM-1",
             "PORTES DE L'ERDRE (CHAPELAINE)": "SM-1",
         },
-        "d1fpl ; division 1 feminine territoriale ;": {
+        "d1fpl ; division 1 feminine territoriale": {
             "collectif": "SF-xx",
             "D1F62C-PORTERIE* ALLIANCE PORTES DE L ERDRE": "SF2"
         },
