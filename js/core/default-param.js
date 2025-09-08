@@ -125,7 +125,8 @@ export class Configuration {
         },
         "hmpl; honneur masculine regionale": {
             "collectif": "SM-1",
-            "HM62C-LA CHAPELAINE* ALLIANCE PORTES DE L ERDRE": "SM1"
+            "HM62C-LA CHAPELAINE* ALLIANCE PORTES DE L ERDRE": "SM1",
+            "CHAPELAINE*PORTES DE L ERDRE": "SM1"
         },
         "tournois de detection u13f": {
             "collectif": "U13F-x",
