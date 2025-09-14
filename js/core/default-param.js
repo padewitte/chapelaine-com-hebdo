@@ -161,7 +161,9 @@ export class Configuration {
             "collectif": "U11M-x",
             "LA CHAPELAINE 1": "U11M-1",
             "LA CHAPELAINE 2": "U11M-2",
-            "PORTERIE HANDBALL 1": "U11M-PORTERIE"
+            "LA CHAPELAINE 3": "U11M-3",
+            "PORTERIE HANDBALL 1": "U11M1-PORTERIE",
+            "PORTERIE HANDBALL 2": "U11M2-PORTERIE"
         },
         "u12m-44": {
             "collectif": "U12M-x",
