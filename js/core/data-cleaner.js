@@ -94,7 +94,7 @@ export class DataCleaner {
         str = str.replace("Handball", "").replace("1m.2m.3m", "").replace("1m.2m", "").replace("1f.2f", "").replace("OLYMPIQUE", "").replace("Olympique", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
         str = this.removeTrailingStar(str)
         str = str.replace(/^[^*]*\*/, ''); //Suppression du contenu avant etoile
-        return this.capitalizeFirstLetter(str)
+        return this.capitalizeFirstLetter(str.trim())
     }
 
     static isCompetEdh(competition) {

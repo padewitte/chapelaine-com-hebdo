@@ -57,7 +57,7 @@ export class Configuration {
             "collectif": "SM-1",
             "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
         },
-        "coupe de france departementale feminine 2024-25": {
+        "coupe de france departementale feminine 2025-26": {
             "collectif": "SF-xx",
             "LA CHAPELAINE": "SF-1",
             "PORTERIE HANDBALL": "SF-2",
@@ -65,21 +65,22 @@ export class Configuration {
             "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
             "PORTES DE L'ERDRE (PHB)": "SF-2",
         },
-        "coupe de france departementale masculine 2024-25": {
+        "coupe de france departementale masculine 2025-26": {
             "collectif": "SM-xx",
             "LA CHAPELAINE": "SM-1",
             "PORTERIE HANDBALL": "SM-2",
             "PORTES DE L'ERDRE (PHB)": "SM-2",
         },
-        "coupe de france regionale feminine 2024-25":{
+        "coupe de france regionale feminine 2025-26":{
             "LA CHAPELAINE": "SF1",
             "LA CHAPELAINE*": "SF1",
         },
-        "coupe de france regionale masculine 2024-25": {
+        "coupe de france regionale masculine 2025-26": {
             "collectif": "SM-xx",
             "HMPL-C-CHAPELAINE*PORTE DE L ERDRE": "SM-1",
             "CHAPELAINE*PORTE DE L'E": "SM-1",
             "LA CHAPELAINE":"SM-1",
+            "HM62C-LA CHAPELAINE* ALLIANCE PORTES DE L ERDRE":"SM-1",
         },
         "coupe pays de la loire departementale feminine":{
             "collectif": "SF-2",
@@ -89,12 +90,12 @@ export class Configuration {
             "collectif": "SM-2",
             "PORTES DE L'ERDRE (PHB)": "SM-2",
         },
-        "coupe pays de la loire regionale feminine 24_25":{
+        "coupe pays de la loire regionale feminine 25_26":{
             "LA CHAPELAINE": "SF1",
             "LA CHAPELAINE*": "SF1",
             "PORTES DE L'ERDRE (CHAPELAINE)":"SF1"
         },
-        "coupe pays de la loire regionale masculine 24_25":{
+        "coupe pays de la loire regionale masculine 25_26":{
             "collectif": "SM-1",
             "PORTES DE L'ERDRE (CHAPELAINE)": "SM-1",
         },
