@@ -30,7 +30,8 @@ export class Configuration {
         ["Honm72c-us Flechois*ctsf","Us Flechois"],
         ["U16m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
         ["U14m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
-        ["U12m-44-exc-c-grand Lieu Sud Retz (esl.mhc.phb)","Grand Lieu"]
+        ["U12m-44-exc-c-grand Lieu Sud Retz (esl.mhc.phb)","Grand Lieu"],
+        ["Hau15f44e-asbr-arhb","Asb Rezé"]
     ];
 
     static configurationEquipe = {
