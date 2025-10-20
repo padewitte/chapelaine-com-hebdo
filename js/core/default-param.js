@@ -31,7 +31,8 @@ export class Configuration {
         ["U16m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
         ["U14m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
         ["U12m-44-exc-c-grand Lieu Sud Retz (esl.mhc.phb)","Grand Lieu"],
-        ["Hau15f44e-asbr-arhb","Asb Rezé"]
+        ["Hau15f44e-asbr-arhb","Asb Rezé"],
+        ["ESH PAYS DU MANS*   2","ESH Pays du Mans"]
     ];
 
     static configurationEquipe = {
