@@ -93,15 +93,18 @@ export class Configuration {
         "coupe pays de la loire departementale masculine":{
             "collectif": "SM-2",
             "PORTES DE L'ERDRE (PHB)": "SM-2",
+            "1DTM44C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE": "SM-2",
         },
         "coupe pays de la loire regionale feminine 25_26":{
             "LA CHAPELAINE": "SF-1",
             "LA CHAPELAINE*": "SF-1",
-            "PORTES DE L'ERDRE (CHAPELAINE)":"SF-1"
+            "PORTES DE L'ERDRE (CHAPELAINE)":"SF-1",
+            "HONF62C-CHAPELAINE* ALLIANCE PORTES DE L ERDRE":"SF-1"
         },
         "coupe pays de la loire regionale masculine 25_26":{
             "collectif": "SM-1",
             "PORTES DE L'ERDRE (CHAPELAINE)": "SM-1",
+            "HM62C-LA CHAPELAINE* ALLIANCE PORTES DE L ERDRE": "SM-1"
         },
         "d1fpl ; division 1 feminine territoriale": {
             "collectif": "SF-xx",
@@ -118,6 +121,7 @@ export class Configuration {
             "collectif": "EDH-xx",
             "LA CHAPELAINE 1F": "EDH-CHAP-F",
             "LA CHAPELAINE 1M.2M.3M": "EDH-CHAP-M",
+            "LA CHAPELAINE 1M.2M.3M.4M": "EDH-CHAP-M",
             "PORTERIE HANDBALL 1M.2M": "EDH-PORTERIE",
             "edh": true
         },

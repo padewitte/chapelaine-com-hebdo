@@ -91,7 +91,7 @@ export class DataCleaner {
     static nettoyerNomEquipe(competition, nom_equipe) {
         var str = this.mapperCollectifClub(competition, nom_equipe);
         Configuration.sub_equipes.forEach(sub => str = str.replace(this.capitalizeFirstLetter(sub[0]), this.capitalizeFirstLetter(sub[1])));
-        str = str.replace("Handball", "").replace("1m.2m.3m", "").replace("1m.2m", "").replace("1f.2f", "").replace("OLYMPIQUE", "").replace("Olympique", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
+        str = str.replace("Handball", "").replace("1m.2m.3m.4m", "").replace("1m.2m.3m", "").replace("1m.2m", "").replace("1f.2f", "").replace("OLYMPIQUE", "").replace("Olympique", "").replace("Club", "").replace("*HTE SARTHE", "").trim();
         str = this.removeTrailingStar(str)
         str = str.replace(/^[^*]*\*/, ''); //Suppression du contenu avant etoile
         return this.capitalizeFirstLetter(str.trim())
