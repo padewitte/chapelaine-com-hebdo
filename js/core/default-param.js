@@ -106,6 +106,19 @@ export class Configuration {
             "PORTES DE L'ERDRE (CHAPELAINE)": "SM-1",
             "HM62C-LA CHAPELAINE* ALLIANCE PORTES DE L ERDRE": "SM-1"
         },
+        "coupe tag perform u19m 44":{
+            "collectif":"U19M-x",
+            "U19M44C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE":"U19M-1"
+        },
+        "coupe u16m 44":{
+            "collectif":"U16M-x",
+            "U16M44C-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE":"U16M-1",
+            "U16M44C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE":"U16M-2"
+        },
+        "coupe u17f 44":{
+            "collectif":"U17F-x",
+            "U17F44E-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE":"U17F"
+        },
         "d1fpl ; division 1 feminine territoriale": {
             "collectif": "SF-xx",
             "D1F62C-PORTERIE* ALLIANCE PORTES DE L ERDRE": "SF-2",
