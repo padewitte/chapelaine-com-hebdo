@@ -62,6 +62,7 @@ export class Configuration {
         "coupe de france departementale feminine 2025-26": {
             "collectif": "SF-xx",
             "LA CHAPELAINE": "SF-1",
+            "CHAPELAINE*PE 1": "SF-1",
             "PORTERIE HANDBALL": "SF-2",
             "D1FPL-C-CHAPELAINE*PORTES DE L'ERDRE": "SF-1",
             "D2FPL-C-PORTERIE*PORTES DE L'ERDRE": "SF-2",
@@ -123,7 +124,8 @@ export class Configuration {
             "collectif": "SF-xx",
             "D1F62C-PORTERIE* ALLIANCE PORTES DE L ERDRE": "SF-2",
             "ALLIANCE PORTES DE L ERDRE": "SF-2",
-            "PORTERIE*PORTES... 2": "SF-2"
+            "PORTERIE*PORTES... 2": "SF-2",
+            "PORTERIE*PE": "SF-2"
         },
         "ecole de hand feminine - 44": {
             "collectif": "EDH-xx",
@@ -146,7 +148,8 @@ export class Configuration {
             "LA CHAPELAINE": "SF-1",
             "LA CHAPELAINE*": "SF-1",
             "HONF62C-CHAPELAINE* ALLIANCE PORTES DE L ERDRE": "SF-1",
-            "CHAPELAINE*PORTES... 1": "SF-1"
+            "CHAPELAINE*PORTES... 1": "SF-1",
+            "CHAPELAINE*PE 1": "SF-1"
         },
         "hmpl; honneur masculine regionale": {
             "collectif": "SM-1",
