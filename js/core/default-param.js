@@ -228,6 +228,10 @@ export class Configuration {
             "PRU19M44C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE": "U19M-1",
             "HAU19M44C-LA CHAPELAINE*ALLIANCE PORTES DE L'ERDRE": "U19M-2",
         },
+        "u19mpl ; u19 masculine regionale ; 2eme phase": {
+            "collectif": "U19M-x",
+            "U19M62C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE": "U19M-1",
+        },
         "u20fpl; u20feminine territoriale":{
             "collectif": "U20F-x",
             "LA CHAPELAINE*": "U20F",
