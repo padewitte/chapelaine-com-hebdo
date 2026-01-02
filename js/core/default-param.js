@@ -109,7 +109,8 @@ export class Configuration {
         },
         "coupe tag perform u19m 44":{
             "collectif":"U19M-x",
-            "U19M44C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE":"U19M-1"
+            "U19M44C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE":"U19M-1",
+            "U19M62C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE":"U19M-1"
         },
         "coupe u16m 44":{
             "collectif":"U16M-x",
@@ -154,6 +155,7 @@ export class Configuration {
         "hmpl; honneur masculine regionale": {
             "collectif": "SM-1",
             "HM62C-LA CHAPELAINE* ALLIANCE PORTES DE L ERDRE": "SM-1",
+            "LA CHAPELAINE*PORTES DE L ERDRE": "SM-1",
             "CHAPELAINE*PORTES DE L ERDRE": "SM-1",
             "ALLIANCE PORTES DE L ERDRE": "SM-1",
             "CHAPELAINE*PORTERIE 1": "SM-1"
