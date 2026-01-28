@@ -32,7 +32,8 @@ export class Configuration {
         ["U14m-44-ha-e-grand Lieu Sud Retz (phb.esl.mhc)","Grand Lieu"],
         ["U12m-44-exc-c-grand Lieu Sud Retz (esl.mhc.phb)","Grand Lieu"],
         ["Hau15f44e-asbr-arhb","Asb Rezé"],
-        ["ESH PAYS DU MANS*   2","ESH Pays du Mans"]
+        ["ESH PAYS DU MANS*   2","ESH Pays du Mans"],
+        ["Hau11m44e-trignac Hb-la Stephanoise" ,"Trignac"]
     ];
 
     static configurationEquipe = {
@@ -126,7 +127,8 @@ export class Configuration {
             "D1F62C-PORTERIE* ALLIANCE PORTES DE L ERDRE": "SF-2",
             "ALLIANCE PORTES DE L ERDRE": "SF-2",
             "PORTERIE*PORTES... 2": "SF-2",
-            "PORTERIE*PE": "SF-2"
+            "PORTERIE*PE": "SF-2",
+            "PORTERIE*PORTES...": "SF-2"
         },
         "ecole de hand feminine - 44": {
             "collectif": "EDH-xx",
@@ -158,7 +160,8 @@ export class Configuration {
             "LA CHAPELAINE*PORTES DE L ERDRE": "SM-1",
             "CHAPELAINE*PORTES DE L ERDRE": "SM-1",
             "ALLIANCE PORTES DE L ERDRE": "SM-1",
-            "CHAPELAINE*PORTERIE 1": "SM-1"
+            "CHAPELAINE*PORTERIE 1": "SM-1",
+            "CHAPELAINE*PE": "SM-1",
         },
         "tournois de detection u13f": {
             "collectif": "U13F-x",
@@ -233,6 +236,7 @@ export class Configuration {
         "u19mpl ; u19 masculine regionale ; 2eme phase": {
             "collectif": "U19M-x",
             "U19M62C-PORTERIE HB*ALLIANCE PORTES DE L'ERDRE": "U19M-1",
+            "PORTERIE*PE": "U19M-1",
         },
         "u20fpl; u20feminine territoriale":{
             "collectif": "U20F-x",
