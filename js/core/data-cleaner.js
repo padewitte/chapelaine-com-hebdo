@@ -161,8 +161,10 @@ export class DataCleaner {
                 salle_dom,
                 salle_orig: match['nom salle'],
                 match_triangulaire,
-                fdme_rec: match['fdme rec'],
-                fdme_vis: match['fdme vis'],
+                //fdme_rec: match['fdme rec'],
+                //fdme_vis: match['fdme vis'],
+                fdme_rec: match['sc rec'],
+                fdme_vis: match['sc vis'],
                 victoire
             });
         })
