@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapelaine Com Hebdo</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">
+      <div class="nav-clubs">
+        <span class="nav-club">Chapelaine</span>
+        <span class="nav-separator">×</span>
+        <span class="nav-club">Porterie</span>
+      </div>
+      <div class="nav-title">Gestion Week-End</div>
+    </div>
+    <div class="nav-center">
+      <img src="assets/img/logo-chapelaine-handball.png" alt="La Chapelaine Handball" class="nav-logo">
+      <img src="assets/img/logo-porte-de-l-erdre-handball.png" alt="Portes de l'Erdre Alliance" class="nav-logo nav-logo--main">
+      <img src="assets/img/logo-porterie-handball.png" alt="Porterie Handball" class="nav-logo nav-logo--dark">
+    </div>
+    <div class="nav-right"></div>
+  </nav>
+
+  <div class="container">
+
+    <!-- ZONE D'IMPORT -->
+    <div class="upload-row">
+      <label class="dropzone" id="dropzone" for="file-input">
+        <div class="dropzone-icon">📂</div>
+        <div class="dropzone-label"><strong>Glisser le fichier GestHand ici</strong></div>
+        <div class="dropzone-sub">ou</div>
+        <input type="file" id="file-input" accept=".csv,.txt" multiple>
+      </label>
+      <div class="week-card">
+        <label for="semaine-select">Semaine</label>
+        <select id="semaine-select" disabled>
+          <option value="">— Charger un fichier CSV —</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ALERTE ERREURS -->
+    <div class="alert" id="alert-erreurs" style="display:none">
+      <span>⚠️</span>
+      <div id="alert-contenu"></div>
+    </div>
+
+    <!-- ONGLETS PRINCIPAUX -->
+    <div class="tabs">
+      <div class="tab active" data-tab="matchs">Matchs</div>
+      <div class="tab" data-tab="annonce">Visuel Annonce</div>
+      <div class="tab" data-tab="resultats">Visuel Résultats</div>
+    </div>
+
+    <!-- === ONGLET MATCHS === -->
+    <div class="main-content active" id="main-matchs">
+
+      <div class="matchs-toolbar">
+        <button class="btn-sheets" id="btn-export-sheets" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+          </svg>
+          Exporter vers Google Sheets
+        </button>
+      </div>
+
+      <!-- SOUS-ONGLETS SALLES -->
+      <div class="sub-tabs">
+        <div class="sub-tab coutanciere active" data-salle="coutanciere">Coutancière</div>
+        <div class="sub-tab jahan" data-salle="jahan">Jean Jahan</div>
+        <div class="sub-tab exterieur" data-salle="exterieur">Extérieur</div>
+      </div>
+
+      <div class="tab-content" id="tab-coutanciere">
+        <div class="empty-state" id="empty-coutanciere">Chargez un fichier CSV pour afficher le planning.</div>
+        <div id="kifekoi-coutanciere"></div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-jahan">
+        <div class="empty-state" id="empty-jahan">Chargez un fichier CSV pour afficher le planning.</div>
+        <div id="kifekoi-jahan"></div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-exterieur">
+        <div class="empty-state" id="empty-exterieur">Chargez un fichier CSV pour afficher le planning.</div>
+        <div id="kifekoi-exterieur"></div>
+      </div>
+
+    </div>
+
+    <!-- === ONGLET VISUEL ANNONCE === -->
+    <div class="main-content hidden" id="main-annonce">
+      <div class="empty-state" id="empty-annonce">Chargez un fichier CSV pour générer le visuel d'annonce.</div>
+
+      <div class="sub-tabs" id="sub-tabs-annonce" style="display:none">
+        <div class="sub-tab annonce-day active" data-day="samedi">Samedi</div>
+        <div class="sub-tab annonce-day" data-day="dimanche">Dimanche</div>
+      </div>
+
+      <div id="annonce-samedi"></div>
+      <div id="annonce-dimanche" style="display:none"></div>
+    </div>
+
+    <!-- === ONGLET VISUEL RÉSULTATS === -->
+    <div class="main-content hidden" id="main-resultats">
+      <div class="empty-state">Chargez un fichier de résultats pour générer le visuel.</div>
+      <div id="visuel-resultats"></div>
+    </div>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
