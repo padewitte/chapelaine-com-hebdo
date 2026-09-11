@@ -5,9 +5,17 @@ const SALLES_DOM    = ['COUTANCIERE', 'JAHAN'];
 
 export const DataCleaner = {
 
+  isTournoi(poule, rawPoule) {
+    const p = (poule || '').trim().toLowerCase();
+    const raw = (rawPoule || '').trim().toLowerCase();
+    return p.includes('tournoi') || raw.includes('tournoi');
+  },
+
   nettoyer(ligne) {
     const estDomicile = this.isMatchDom(ligne);
     const salle       = this.detecterSalle(ligne, estDomicile);
+    const poule       = nomPoule(ligne['poule']);
+    const tournoi     = this.isTournoi(poule, ligne['poule']);
 
     return {
       salle,
@@ -15,9 +23,9 @@ export const DataCleaner = {
       jour:        this.cleanDate(ligne['le']),
       dateISO:     this.toISO(ligne['le']),
       horaire:     this.formatHeure(ligne['horaire']),
-      poule:       nomPoule(ligne['poule']),
-      equipe_dom:  this.cleanNomEquipe(ligne['club rec']),
-      equipe_ext:  this.cleanNomEquipe(ligne['club vis']),
+      poule,
+      equipe_dom:  tournoi && !estDomicile ? 'Tournoi Détection' : this.cleanNomEquipe(ligne['club rec']),
+      equipe_ext:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(ligne['club vis']),
       nom_salle:   ligne['nom salle'] || '',
       competition: ligne['competition'] || '',
       arb1:        ligne['arb1 designe'] || '',
@@ -72,11 +80,14 @@ export const DataCleaner = {
                      : parseInt(scoreNous) < parseInt(scoreEux) ? 'defaite'
                      : 'egalite';
 
+    const poule   = nomPoule(ligne['poule']);
+    const tournoi = this.isTournoi(poule, ligne['poule']);
+
     return {
       jour:        this.cleanDate(ligne['le']),
       dateISO:     this.toISO(ligne['le']),
-      poule:       nomPoule(ligne['poule']),
-      equipe_ext:  this.cleanNomEquipe(estDomicile ? ligne['club vis'] : ligne['club rec']),
+      poule,
+      equipe_ext:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(estDomicile ? ligne['club vis'] : ligne['club rec']),
       score_dom:   scoreRec,
       score_ext:   scoreVis,
       victoire,
@@ -86,7 +97,19 @@ export const DataCleaner = {
 
   cleanNomEquipe(nom) {
     if (!nom) return '';
-    return nom
+
+    // Supprimer les préfixes de compétition GestHand suivis d'un tiret (ex: "HAU11M44E-", "HONM72C-", "U12M-44-EXC-C-", "C - ")
+    let cleaned = nom.replace(/^((?:HAU\w*|PRU\w*|HON[MF]?\w*|U\d+[MF]\b\s*\d*|\d{2}|EXC|PR|HA|C|D\d+)\s*-\s*)+/gi, '');
+
+    // Si un préfixe générique de code court précède un tiret
+    if (cleaned === nom && nom.includes('-')) {
+      const parts = nom.split('-');
+      if (parts[0].trim().length <= 10 && !/\s/.test(parts[0].trim()) && !/^(PONT|MONTBERT|SAINT|SAINTE|LES|DES|SABLES)$/i.test(parts[0].trim())) {
+        cleaned = parts.slice(1).join('-').trim();
+      }
+    }
+
+    return cleaned
       .replace(/\s+\d[MFmf](\.\d[MFmf])*/g, '') // supprime suffixes 1M.2M etc.
       .replace(/\bhandball\b/gi, '')
       .replace(/\bolympique\b/gi, '')

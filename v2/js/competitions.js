@@ -22,28 +22,33 @@ export const POULES = {
   'U11M D4':   'U11-M D4',
 
   // U12
-  'U12M D2':   'U12-M D2',
+  'U12M - HONNEUR A - POULE 6':   'U12-M',
   'U12M D3':   'U12-M D3',
   'U12M D13':  'U12-M D13',
 
   // U13
-  'U13F D3':   'U13-F D3',
-  'U13F D6':   'U13-F D6',
+  'TOURNOI U13F HONNEUR A A GUERANDE':   'U13-F 1',
+  'TOURNOI U13F HONNEUR A A TREILLIERES':   'U13-F 2',
 
   // U14
-  'U14M D2':   'U14-M D2',
+  'U14M - PRE REGION - POULE B':   'U14-M 1',
   'U14M D8':   'U14-M D8',
 
   // U15
+  'TOURNOI U15F HONNEUR A A BLAIN' :  'U15-F 1',
+  'TOURNOI U15F HONNEUR A A SUCE/ERDRE' :  'U15-F 2',
   'U15F D2':   'U15-F D2',
   'U15F D6':   'U15-F D6',
 
   // U16
-  'U16M D3':   'U16-M D3',
-  'U16M D9':   'U16-M D9',
+  'U16M - HONNEUR A - POULE 2':   'U16-M 1',
+  'U16M - HONNEUR A - POULE 4':   'U16-M 2',
+
+  // U17F
+  'U17F - PRE REGION - POULE B':   'U17-F',
 
   // U19
-  'U19M D1':   'U19-M D1',
+  'U19M - HONNEUR A - POULE 4':   'U19-M 1',
   'U19M D7':   'U19-M D7',
 
   // U20
@@ -51,10 +56,11 @@ export const POULES = {
   'U20F - PORTES DE L\'ERDRE - RACC HANDBALL':      'U20-F Alliance',
 
   // Séniors
-  'HMPL ; HONNEUR-ME PDLL; POULE B':         'SM-1',
+  'HMPL; POULE B':         'SM-1 Reg',
   'HFPL ; HONNEUR FEMININE REGIONALE ;POULE A':     'SF-1',
   'D2FPL-C ; POULE C':                              'SF-2',
-  '1DTM POULE BASSE A':                             'SM-2',
+  '2DTM - POULE 2':                             'SM-3 D2',
+  '3DTM - POULE 5':                             'SM-4 D3',
 };
 
 export function nomPoule(poule) {
