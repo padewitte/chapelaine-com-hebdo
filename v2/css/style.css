@@ -16,7 +16,7 @@
 body {
   background: var(--dark);
   color: var(--text);
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Contrail One', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   min-height: 100vh;
 }
 
@@ -617,9 +617,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,.06);
-    font-size: 18px;
+    padding: 2px 0;
+    font-size: 20px;
 
     &:last-child { border-bottom: none; }
   }
@@ -633,6 +632,7 @@ nav {
   }
 
   & .insta-res-score {
+    font-family: "cursive";
     min-width: 80px;
     text-align: center;
     font-size: 20px;
@@ -640,9 +640,9 @@ nav {
     border-radius: 8px;
     padding: 4px 10px;
 
-    &.victoire { color: var(--green); background: rgba(61,153,48,.15); }
-    &.defaite  { color: #ff4d4d;      background: rgba(255,40,40,.15); }
-    &.egalite  { color: #ffd080;      background: rgba(255,200,0,.12); }
+    &.victoire { color: var(--green);  }
+    &.defaite  { color: #705555; }
+    &.egalite  { color: #ffd080;}
   }
 
   & .insta-card-footer {

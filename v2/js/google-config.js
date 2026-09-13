@@ -12,7 +12,7 @@
  * 6. Créer un Google Sheet et copier son ID (dans l'URL : /spreadsheets/d/SPREADSHEET_ID/)
  */
 export const GOOGLE_CONFIG = {
-  clientId:      '713725989125-mfr2efe07olh0633u18nql7mnka80vko.apps.googleusercontent.com',
-  spreadsheetId: '1SNFp52sRvu_HFLbZPSkUKdsptmrM70mrg_r3dUUQDso',
+  clientId:      '915818676755-376dssnanvd6vfmfvbev3dk58vn0g57u.apps.googleusercontent.com',
+  spreadsheetId: '1b6PG45nRn--kJv-ARBqHDBx7xSumNWMuzcWZIkqshp4',
   scope:         'https://www.googleapis.com/auth/spreadsheets',
 };
