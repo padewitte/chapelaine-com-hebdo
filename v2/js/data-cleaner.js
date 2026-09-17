@@ -1,4 +1,4 @@
-import { nomPoule } from './competitions.js';
+import { nomPoule, nomClub } from './competitions.js';
 
 const NOMS_CLUB_DOM = ['CHAPELAINE', 'LA CHAPELAINE', 'PORTERIE HB', 'PORTERIE', 'ST JOSEPH PORTERIE'];
 
@@ -112,6 +112,11 @@ export const DataCleaner = {
   cleanNomEquipe(nom) {
     if (!nom) return '';
 
+    // Les cas que les règles ci-dessous ne savent pas traiter sont listés à la
+    // main dans CLUBS (competitions.js).
+    const exception = nomClub(nom);
+    if (exception) return exception;
+
     // Supprimer les préfixes de compétition GestHand suivis d'un tiret (ex: "HAU11M44E-", "HONM72C-", "U12M-44-EXC-C-", "C - ")
     let cleaned = nom.replace(/^((?:HAU\w*|PRU\w*|HON[MF]?\w*|U\d+[MF]\b\s*\d*|\d{2}|EXC|PR|HA|C|D\d+)\s*-\s*)+/gi, '');
 
@@ -123,11 +128,15 @@ export const DataCleaner = {
       }
     }
 
-    return cleaned
-      .replace(/\s+\d[MFmf](\.\d[MFmf])*/g, '') // supprime suffixes 1M.2M etc.
+    const complet = cleaned.replace(/\s+\d[MFmf](\.\d[MFmf])*/g, ''); // supprime suffixes 1M.2M etc.
+    const court   = complet
       .replace(/\bhandball\b/gi, '')
       .replace(/\bolympique\b/gi, '')
-      .replace(/\bclub\b/gi, '')
+      .replace(/\bclub\b/gi, '');
+
+    // Les noms que ce raccourci vide de leur sens ("HANDBALL CLUB DU GESVRES")
+    // sont traités par CLUBS ; ici on garde seulement le filet du nom vide.
+    return (court.trim() ? court : complet)
       .replace(/\s{2,}/g, ' ')
       .trim()
       .toLowerCase()

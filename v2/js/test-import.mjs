@@ -3,18 +3,24 @@
 // l'adversaire affiché n'est jamais notre propre équipe de la poule.
 import assert from 'node:assert';
 import fs from 'node:fs';
+import { CsvParser } from './csv-parser.js';
 import { DataExtractor } from './data-extractor.js';
+import { DataCleaner } from './data-cleaner.js';
+import { CLUBS } from './competitions.js';
 
-const parse = (txt) => {
-  const split = (l) => l.split(';').map(c => c.trim().replace(/^"(.*)"$/s, '$1'));
-  const [entete, ...lignes] = txt.replace(/^﻿/, '').split('\n').filter(l => l.trim());
-  const cols = split(entete);
-  return lignes.map(l => Object.fromEntries(split(l).map((v, i) => [cols[i], v])));
-};
+// Un fragment de CLUBS l'emporte où qu'il soit dans le nom ; sans fragment,
+// les règles de nettoyage s'appliquent.
+const [cle, valeur] = Object.entries(CLUBS)[0];
+assert.strictEqual(DataCleaner.cleanNomEquipe(`U11M44C - ${cle} 2`), valeur);
+assert.strictEqual(DataCleaner.cleanNomEquipe('PORTERIE HANDBALL'), 'Porterie');
+assert.strictEqual(DataCleaner.cleanNomEquipe('LA FLECHE HANDBALL'), 'La Fleche');
 
 const fichiers = process.argv.slice(2);
 assert(fichiers.length, 'usage: node test-import.mjs <fichier.csv…>');
-fichiers.forEach(f => DataExtractor.addFichier({ type: 'match', lignes: parse(fs.readFileSync(f, 'utf8')) }));
+fichiers.forEach(f => DataExtractor.addFichier({
+  type: 'match',
+  lignes: CsvParser.parse(fs.readFileSync(f, 'utf8').replace(/^﻿/, '')),
+}));
 
 let n = 0;
 for (const semaine of DataExtractor.getSemaines()) {

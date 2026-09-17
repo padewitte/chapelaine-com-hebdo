@@ -49,3 +49,43 @@ export const POULES = {
 export function nomPoule(numPoule, poule) {
   return POULES[numPoule] ?? poule ?? '';
 }
+
+/**
+ * Exceptions de nom de club : les règles de nettoyage de data-cleaner.js
+ * (suppression des préfixes de compétition, de "handball"/"club"/"olympique",
+ * capitalisation) ne tombent pas juste sur tous les noms GestHand.
+ *
+ * Clé   = fragment de texte cherché dans la valeur du CSV ("club rec" /
+ *          "club vis" / "club hote"), sans accent ni casse ni regexp
+ * Valeur = nom affiché tel quel, capitalisation et accents compris
+ *
+ * Toute entrée qui CONTIENT la clé prend la valeur : 'REZE' couvre aussi bien
+ * "ASB REZE HANDBALL" que "U14M44C - ASB REZE * ATLANTIQUE REZE HB". Les
+ * variantes numérotées sont donc confondues ("MARSIEN 2" → "St Mars") ; pour
+ * les distinguer, mettre une clé par équipe.
+ *
+ * À clés multiples, la plus longue gagne. Un club sans clé passe par les
+ * règles habituelles.
+ */
+export const CLUBS = {
+  'RACC':'RACC',
+  'ASPTT':'ASPTT',
+  'FANS HB LIGNE':'Ligné',
+  'PONT-CHATEAU ': 'Pont-Château',
+  'HBC BLINOIS': 'HBC Blinois',
+  'HANDBALL CLUB MARSIEN': 'St Mars',
+  'HBC HERBLINOIS': 'HBC Herblinois',
+  'LAETITIA NANTES HB':'Laetitia',
+  'REZE': 'Rezé',
+  'SUCE SUR ERDRE': 'Sucé-sur-Erdre',
+  'HANDBALL CLUB DU GESVRES': 'HBC Gesvres',
+};
+
+// La plus longue d'abord : la clé la plus précise l'emporte.
+const CLES_CLUBS = Object.keys(CLUBS).sort((a, b) => b.trim().length - a.trim().length);
+
+export function nomClub(brut) {
+  const nom = (brut || '').toUpperCase();
+  const cle = CLES_CLUBS.find(c => nom.includes(c.trim().toUpperCase()));
+  return cle ? CLUBS[cle] : null;
+}
