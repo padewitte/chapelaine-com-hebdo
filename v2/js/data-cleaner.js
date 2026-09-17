@@ -14,7 +14,7 @@ export const DataCleaner = {
   nettoyer(ligne) {
     const estDomicile = this.isMatchDom(ligne);
     const salle       = this.detecterSalle(ligne, estDomicile);
-    const poule       = nomPoule(ligne['poule']);
+    const poule       = nomPoule(ligne['num poule'], ligne['poule']);
     const tournoi     = this.isTournoi(poule, ligne['poule']);
 
     return {
@@ -80,7 +80,7 @@ export const DataCleaner = {
                      : parseInt(scoreNous) < parseInt(scoreEux) ? 'defaite'
                      : 'egalite';
 
-    const poule   = nomPoule(ligne['poule']);
+    const poule   = nomPoule(ligne['num poule'], ligne['poule']);
     const tournoi = this.isTournoi(poule, ligne['poule']);
 
     return {
