@@ -58,7 +58,7 @@ export const POULES = {
   // Séniors
   'HMPL; POULE B':         'SM-1 Reg',
   'HFPL ; HONNEUR FEMININE REGIONALE ;POULE A':     'SF-1',
-  'D2FPL-C ; POULE C':                              'SF-2',
+  'D1FPL ; POULE B':                                'SF-2',
   '2DTM - POULE 2':                             'SM-3 D2',
   '3DTM - POULE 5':                             'SM-4 D3',
 };

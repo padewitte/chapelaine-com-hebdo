@@ -156,10 +156,12 @@ export const VisuelRenderer = {
     resultats.forEach(r => {
       const ligne = document.createElement('div');
       ligne.className = 'insta-resultat-ligne';
+      const classeDom = r.estDomicile ? 'nous' : 'adversaire';
+      const classeExt = r.estDomicile ? 'adversaire' : 'nous';
       ligne.innerHTML = `
-        <span class="insta-res-equipe left">${r.poule}</span>
+        <span class="insta-res-equipe left ${classeDom}">${r.equipe_dom}</span>
         <span class="insta-res-score ${r.victoire}">${r.score_dom} - ${r.score_ext}</span>
-        <span class="insta-res-equipe right">${r.equipe_ext}</span>
+        <span class="insta-res-equipe right ${classeExt}">${r.equipe_ext}</span>
       `;
       liste.appendChild(ligne);
     });

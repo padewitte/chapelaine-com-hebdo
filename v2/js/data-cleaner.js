@@ -82,12 +82,14 @@ export const DataCleaner = {
 
     const poule   = nomPoule(ligne['poule']);
     const tournoi = this.isTournoi(poule, ligne['poule']);
+    const nomAdversaire = tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(estDomicile ? ligne['club vis'] : ligne['club rec']);
 
     return {
       jour:        this.cleanDate(ligne['le']),
       dateISO:     this.toISO(ligne['le']),
       poule,
-      equipe_ext:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(estDomicile ? ligne['club vis'] : ligne['club rec']),
+      equipe_dom:  estDomicile ? poule : nomAdversaire,
+      equipe_ext:  estDomicile ? nomAdversaire : poule,
       score_dom:   scoreRec,
       score_ext:   scoreVis,
       victoire,
