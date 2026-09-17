@@ -96,7 +96,7 @@ export const KifekoiRenderer = {
     const cellules = estDomicile ? [
       `<span class="time-badge">${match.horaire}</span>`,
       `<span class="team-home">${match.poule}</span>`,
-      `<span class="team-away">${match.equipe_ext}</span>`,
+      `<span class="team-away">${match.adversaire}</span>`,
     ] : [
       `<span class="time-badge">${match.horaire}</span>`,
       `<span class="team-home">${match.club_hote}</span>`,

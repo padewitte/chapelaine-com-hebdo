@@ -1,6 +1,9 @@
-import { nomPoule } from './competitions.js';
+import { nomPoule, nomClub } from './competitions.js';
 
 const NOMS_CLUB_DOM = ['CHAPELAINE', 'LA CHAPELAINE', 'PORTERIE HB', 'PORTERIE', 'ST JOSEPH PORTERIE'];
+
+export const estNotreClub = nom =>
+  NOMS_CLUB_DOM.some(n => (nom || '').toUpperCase().includes(n));
 const SALLES_DOM    = ['COUTANCIERE', 'JAHAN'];
 
 export const DataCleaner = {
@@ -14,7 +17,7 @@ export const DataCleaner = {
   nettoyer(ligne) {
     const estDomicile = this.isMatchDom(ligne);
     const salle       = this.detecterSalle(ligne, estDomicile);
-    const poule       = nomPoule(ligne['poule']);
+    const poule       = nomPoule(ligne['num poule'], ligne['poule']);
     const tournoi     = this.isTournoi(poule, ligne['poule']);
 
     return {
@@ -24,14 +27,25 @@ export const DataCleaner = {
       dateISO:     this.toISO(ligne['le']),
       horaire:     this.formatHeure(ligne['horaire']),
       poule,
-      equipe_dom:  tournoi && !estDomicile ? 'Tournoi Détection' : this.cleanNomEquipe(ligne['club rec']),
-      equipe_ext:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(ligne['club vis']),
+      adversaire:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(this.clubAdverse(ligne, estDomicile)),
       nom_salle:   ligne['nom salle'] || '',
       competition: ligne['competition'] || '',
       arb1:        ligne['arb1 designe'] || '',
       arb2:        ligne['arb2 designe'] || '',
       club_hote:   this.cleanNomEquipe(ligne['club hote'] || ''),
     };
+  },
+
+  // L'adversaire est le club qui n'est pas le nôtre dans cette poule (_nous,
+  // posé à l'import). Sans _nous — tournoi, poule d'un seul match — on retombe
+  // sur le côté opposé au nôtre.
+  clubAdverse(ligne, estDomicile) {
+    const nous = ligne['_nous'];
+    const rec  = ligne['club rec'] || '';
+    const vis  = ligne['club vis'] || '';
+    if (nous && rec === nous) return vis;
+    if (nous && vis === nous) return rec;
+    return estDomicile ? vis : rec;
   },
 
   isMatchDom(ligne) {
@@ -80,7 +94,7 @@ export const DataCleaner = {
                      : parseInt(scoreNous) < parseInt(scoreEux) ? 'defaite'
                      : 'egalite';
 
-    const poule   = nomPoule(ligne['poule']);
+    const poule   = nomPoule(ligne['num poule'], ligne['poule']);
     const tournoi = this.isTournoi(poule, ligne['poule']);
     const nomAdversaire = tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(estDomicile ? ligne['club vis'] : ligne['club rec']);
 
@@ -100,6 +114,11 @@ export const DataCleaner = {
   cleanNomEquipe(nom) {
     if (!nom) return '';
 
+    // Les cas que les règles ci-dessous ne savent pas traiter sont listés à la
+    // main dans CLUBS (competitions.js).
+    const exception = nomClub(nom);
+    if (exception) return exception;
+
     // Supprimer les préfixes de compétition GestHand suivis d'un tiret (ex: "HAU11M44E-", "HONM72C-", "U12M-44-EXC-C-", "C - ")
     let cleaned = nom.replace(/^((?:HAU\w*|PRU\w*|HON[MF]?\w*|U\d+[MF]\b\s*\d*|\d{2}|EXC|PR|HA|C|D\d+)\s*-\s*)+/gi, '');
 
@@ -111,11 +130,15 @@ export const DataCleaner = {
       }
     }
 
-    return cleaned
-      .replace(/\s+\d[MFmf](\.\d[MFmf])*/g, '') // supprime suffixes 1M.2M etc.
+    const complet = cleaned.replace(/\s+\d[MFmf](\.\d[MFmf])*/g, ''); // supprime suffixes 1M.2M etc.
+    const court   = complet
       .replace(/\bhandball\b/gi, '')
       .replace(/\bolympique\b/gi, '')
-      .replace(/\bclub\b/gi, '')
+      .replace(/\bclub\b/gi, '');
+
+    // Les noms que ce raccourci vide de leur sens ("HANDBALL CLUB DU GESVRES")
+    // sont traités par CLUBS ; ici on garde seulement le filet du nom vide.
+    return (court.trim() ? court : complet)
       .replace(/\s{2,}/g, ' ')
       .trim()
       .toLowerCase()
