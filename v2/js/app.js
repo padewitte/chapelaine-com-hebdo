@@ -20,6 +20,18 @@ semaineSelect.addEventListener('change', () => {
   VisuelRenderer.renderResultats(resultats);
 
   document.getElementById('btn-export-sheets').disabled = dernierMatchs.length === 0;
+
+  // Activer directement le sous-onglet salle qui contient des matchs
+  const salleActive = ['coutanciere', 'jahan', 'exterieur']
+    .find(salle => dernierMatchs.some(m => m.salle === salle));
+  if (salleActive) activerSousOngletSalle(salleActive);
+
+  // Activer directement l'onglet principal correspondant au contenu trouvé
+  if (dernierMatchs.length > 0) {
+    activerOngletPrincipal('matchs');
+  } else if (resultats.length > 0) {
+    activerOngletPrincipal('resultats');
+  }
 });
 
 // Export Google Sheets
@@ -45,13 +57,15 @@ document.getElementById('btn-export-sheets').addEventListener('click', async () 
 });
 
 // Onglets principaux
+function activerOngletPrincipal(nomOnglet) {
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.main-content').forEach(c => c.classList.add('hidden'));
+  document.querySelector(`.tabs .tab[data-tab="${nomOnglet}"]`)?.classList.add('active');
+  document.getElementById('main-' + nomOnglet).classList.remove('hidden');
+}
+
 document.querySelectorAll('.tabs .tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.main-content').forEach(c => c.classList.add('hidden'));
-    tab.classList.add('active');
-    document.getElementById('main-' + tab.dataset.tab).classList.remove('hidden');
-  });
+  tab.addEventListener('click', () => activerOngletPrincipal(tab.dataset.tab));
 });
 
 // Sous-onglets jours (annonce)
@@ -65,13 +79,15 @@ document.querySelectorAll('.annonce-day').forEach(tab => {
 });
 
 // Sous-onglets salles
+function activerSousOngletSalle(salle) {
+  document.querySelectorAll('.sub-tab:not(.annonce-day)').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+  document.querySelector(`.sub-tab[data-salle="${salle}"]`)?.classList.add('active');
+  document.getElementById('tab-' + salle).classList.remove('hidden');
+}
+
 document.querySelectorAll('.sub-tab:not(.annonce-day)').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.salle).classList.remove('hidden');
-  });
+  tab.addEventListener('click', () => activerSousOngletSalle(tab.dataset.salle));
 });
 
 // Appelé après chaque import CSV

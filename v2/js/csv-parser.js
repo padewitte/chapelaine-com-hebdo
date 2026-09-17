@@ -43,7 +43,7 @@ export const CsvParser = {
         DataExtractor.addFichier({ type, lignes });
         resolve();
       };
-      reader.readAsText(file, 'ISO-8859-1');
+      reader.readAsText(file, 'UTF-8');
     }));
 
     Promise.all(lectures).then(() => {

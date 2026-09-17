@@ -11,7 +11,7 @@ Aucun serveur requis côté back-end. Toutes les données restent en mémoire da
 ## Import des données
 
 ### Source
-Les fichiers CSV proviennent de l'export GestHand du club. Le séparateur est `;` et l'encodage est `ISO-8859-1` (latin-1).
+Les fichiers CSV proviennent de l'export GestHand du club. Le séparateur est `;` et l'encodage est `UTF-8` (avec BOM). *Avant le piratage de GestHand cet été, l'export était en `ISO-8859-1` — l'encodage a changé depuis.*
 
 ### Deux types de fichiers
 | Type | Contenu | Détection |
