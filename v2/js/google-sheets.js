@@ -111,7 +111,7 @@ export const GoogleSheets = {
         matchsDuJour.forEach(m => {
           if (domicile) {
             const arb = [m.arb1, m.arb2].filter(Boolean).join(' / ');
-            lignes.push([m.horaire, m.poule, m.equipe_ext, m._table || '', arb ? `(D) ${arb}` : '', '', '', '', '']);
+            lignes.push([m.horaire, m.poule, m.adversaire, m._table || '', arb ? `(D) ${arb}` : '', '', '', '', '']);
             meta.push({ type: 'data', salle: key, estMineur: this.estMineur(m.poule), aArbitre: !!arb });
           } else {
             lignes.push([m.horaire, m.club_hote, m.poule, m.nom_salle]);

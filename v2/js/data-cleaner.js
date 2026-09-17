@@ -1,6 +1,9 @@
 import { nomPoule } from './competitions.js';
 
 const NOMS_CLUB_DOM = ['CHAPELAINE', 'LA CHAPELAINE', 'PORTERIE HB', 'PORTERIE', 'ST JOSEPH PORTERIE'];
+
+export const estNotreClub = nom =>
+  NOMS_CLUB_DOM.some(n => (nom || '').toUpperCase().includes(n));
 const SALLES_DOM    = ['COUTANCIERE', 'JAHAN'];
 
 export const DataCleaner = {
@@ -24,14 +27,25 @@ export const DataCleaner = {
       dateISO:     this.toISO(ligne['le']),
       horaire:     this.formatHeure(ligne['horaire']),
       poule,
-      equipe_dom:  tournoi && !estDomicile ? 'Tournoi Détection' : this.cleanNomEquipe(ligne['club rec']),
-      equipe_ext:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(ligne['club vis']),
+      adversaire:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(this.clubAdverse(ligne, estDomicile)),
       nom_salle:   ligne['nom salle'] || '',
       competition: ligne['competition'] || '',
       arb1:        ligne['arb1 designe'] || '',
       arb2:        ligne['arb2 designe'] || '',
       club_hote:   this.cleanNomEquipe(ligne['club hote'] || ''),
     };
+  },
+
+  // L'adversaire est le club qui n'est pas le nôtre dans cette poule (_nous,
+  // posé à l'import). Sans _nous — tournoi, poule d'un seul match — on retombe
+  // sur le côté opposé au nôtre.
+  clubAdverse(ligne, estDomicile) {
+    const nous = ligne['_nous'];
+    const rec  = ligne['club rec'] || '';
+    const vis  = ligne['club vis'] || '';
+    if (nous && rec === nous) return vis;
+    if (nous && vis === nous) return rec;
+    return estDomicile ? vis : rec;
   },
 
   isMatchDom(ligne) {

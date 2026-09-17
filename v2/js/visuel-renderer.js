@@ -94,14 +94,13 @@ export const VisuelRenderer = {
           const gymnase = m.salle === 'exterieur' && m.nom_salle
             ? `<span class="insta-gymnase">${m.nom_salle}</span>`
             : '';
-          const adversaire = (!m.competition.includes('tournoi') && m.salle === 'exterieur') ? m.equipe_dom : m.equipe_ext;
           ligne.innerHTML = `
             <span class="insta-equipe-dom">${m.poule}</span>
             <span class="insta-centre">
               <span class="insta-horaire">${m.horaire}</span>
               ${gymnase}
             </span>
-            <span class="insta-equipe-ext">${adversaire}</span>
+            <span class="insta-equipe-ext">${m.adversaire}</span>
           `;
           section.appendChild(ligne);
         });
