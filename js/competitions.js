@@ -78,7 +78,9 @@ export const CLUBS = {
   'LAETITIA NANTES HB':'Laetitia',
   'REZE': 'Rezé',
   'SUCE SUR ERDRE': 'Sucé-sur-Erdre',
-  'HANDBALL CLUB DU GESVRES': 'HBC Gesvres'
+  'HANDBALL CLUB DU GESVRES': 'HBC Gesvres',
+  'Thouare Hbc * Hbc Marsien': 'Thouaré & HBC Marsien',
+  'Eclair Chauve Hb*Sud Estuaire Hc': 'Eclair Chauvé & Sud Estuaire',
 };
 
 // La plus longue d'abord : la clé la plus précise l'emporte.
