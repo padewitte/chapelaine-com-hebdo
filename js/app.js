@@ -93,10 +93,16 @@ document.querySelectorAll('.sub-tab:not(.annonce-day)').forEach(tab => {
 // Formate une semaine (YYYY-SS) en date du samedi (DD/MM)
 function formaterDateSamedi(semaineStr) {
   const [year, week] = semaineStr.split('-').map(Number);
-  const date = new Date(year, 0, 4);
-  date.setDate(date.getDate() - date.getDay() + 1);
-  date.setDate(date.getDate() + (week - 1) * 7);
-  date.setDate(date.getDate() + 5);
+  
+  // Calculer le jeudi de la semaine ISO (référence ISO 8601)
+  const date = new Date(year, 0, 1 + (week - 1) * 7);
+  const dayOfWeek = date.getDay(); // 0=dimanche, 1=lundi, ..., 6=samedi
+  const diff = (4 - dayOfWeek + 7) % 7; // Ajustement pour atteindre jeudi
+  date.setDate(date.getDate() + diff);
+  
+  // Ajouter 2 jours pour aller de jeudi à samedi
+  date.setDate(date.getDate() + 2);
+  
   const jour = String(date.getDate()).padStart(2, '0');
   const mois = String(date.getMonth() + 1).padStart(2, '0');
   return `${jour}/${mois}`;
