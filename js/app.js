@@ -108,21 +108,52 @@ function formaterDateSamedi(semaineStr) {
   return `${jour}/${mois}`;
 }
 
+// Retourne la date du samedi pour une semaine donnée
+function getSamediDate(semaineStr) {
+  const [year, week] = semaineStr.split('-').map(Number);
+  const date = new Date(year, 0, 4);
+  date.setDate(date.getDate() - date.getDay() + 1);
+  date.setDate(date.getDate() + (week - 1) * 7);
+  date.setDate(date.getDate() + 5);
+  return date;
+}
+
 // Appelé après chaque import CSV
 function onImportSuccess(semaines) {
   semaineSelect.innerHTML = '<option value="">— Sélectionner une semaine —</option>';
+
+  const aujourdhui = new Date();
+  aujourdhui.setHours(0, 0, 0, 0);
+
+  let semainePasseeProche = null;
+  let diffMin = Infinity;
 
   semaines.forEach(s => {
     const opt = document.createElement('option');
     opt.value = s;
     opt.textContent = `Semaine ${s.split('-')[1]} — ${formaterDateSamedi(s)}`;
+
+    const samedi = getSamediDate(s);
+    if (samedi < aujourdhui) {
+      opt.style.opacity = '0.6';
+      const diff = aujourdhui - samedi;
+      if (diff < diffMin) {
+        diffMin = diff;
+        semainePasseeProche = s;
+      }
+    }
+
     semaineSelect.appendChild(opt);
   });
 
   semaineSelect.disabled = false;
 
-  // Sélectionner automatiquement la première semaine
-  semaineSelect.selectedIndex = 1;
+  // Sélectionner la semaine passée la plus proche si elle existe, sinon la première
+  if (semainePasseeProche) {
+    semaineSelect.value = semainePasseeProche;
+  } else if (semaines.length > 0) {
+    semaineSelect.selectedIndex = 1;
+  }
   semaineSelect.dispatchEvent(new Event('change'));
 }
 

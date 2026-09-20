@@ -201,6 +201,11 @@ nav {
   align-self: flex-start;
 }
 
+select option.semaine-passee {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
 /* ===== ALERT ===== */
 .alert {
   background: rgba(255,120,40,.1);
