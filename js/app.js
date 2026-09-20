@@ -90,6 +90,18 @@ document.querySelectorAll('.sub-tab:not(.annonce-day)').forEach(tab => {
   tab.addEventListener('click', () => activerSousOngletSalle(tab.dataset.salle));
 });
 
+// Formate une semaine (YYYY-SS) en date du samedi (DD/MM)
+function formaterDateSamedi(semaineStr) {
+  const [year, week] = semaineStr.split('-').map(Number);
+  const date = new Date(year, 0, 4);
+  date.setDate(date.getDate() - date.getDay() + 1);
+  date.setDate(date.getDate() + (week - 1) * 7);
+  date.setDate(date.getDate() + 5);
+  const jour = String(date.getDate()).padStart(2, '0');
+  const mois = String(date.getMonth() + 1).padStart(2, '0');
+  return `${jour}/${mois}`;
+}
+
 // Appelé après chaque import CSV
 function onImportSuccess(semaines) {
   semaineSelect.innerHTML = '<option value="">— Sélectionner une semaine —</option>';
@@ -97,7 +109,7 @@ function onImportSuccess(semaines) {
   semaines.forEach(s => {
     const opt = document.createElement('option');
     opt.value = s;
-    opt.textContent = `Semaine ${s.split('-')[1]} — ${s}`;
+    opt.textContent = `Semaine ${s.split('-')[1]} — ${formaterDateSamedi(s)}`;
     semaineSelect.appendChild(opt);
   });
 
