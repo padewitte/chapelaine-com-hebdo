@@ -42,8 +42,8 @@ export const POULES = {
 
   // Séniors
   'M62000201G': 'SM-1',     // hmpl; honneur masculine regionale / POULE B
-  'M624401011': 'SM-2',     // 2dtm-44 / 2DTM - POULE 2
-  'M624402041': 'SM-3',     // 3dtm-44 / 3DTM - POULE 5
+  'M624401011': 'SM-3',     // 2dtm-44 / 2DTM - POULE 2
+  'M624402041': 'SM-4',     // 3dtm-44 / 3DTM - POULE 5
   'F62000200G': 'SF-1',     // hfpl ; honneur feminine regionale / POULE A
   'F62000301G': 'SF-2',     // d1fpl ; division 1 feminine territoriale / POULE B
 
