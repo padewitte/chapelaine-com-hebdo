@@ -6,13 +6,19 @@
  * Plusieurs poules peuvent porter le même nom court : le championnat d'une
  * équipe et ses tournois de détection sont la même équipe.
  *
+ * Quand plusieurs de nos équipes jouent dans la même poule, la valeur est un
+ * objet { fragment du nom de notre équipe : nom court }.
+ *
  * Si un code n'est pas listé ici, la poule brute du CSV est affichée.
  */
 export const POULES = {
   // Jeunes
   'F624470061': 'U11F-1',   // u11f-44 / HONNEUR B - POULE 4
   'Z624470041': 'U11M-1',   // u11 mixte - 44 / HONNEUR A - POULE 5
-  'Z624470051': 'U11M-2',   // u11 mixte - 44 / HONNEUR B - POULE 1
+  'Z624470051': {           // u11 mixte - 44 / HONNEUR B - POULE 1 : deux de nos équipes
+    'CHAPELAINE': 'U11M-2',
+    'PORTERIE':   'U11M-Porterie',
+  },
   'M624465071': 'U12M-1',   // u12m-44 / HONNEUR A - POULE 6
   'M624465091': 'U12M-2',   // u12m-44 / HONNEUR B - POULE 2
   'F624460041': 'U13F-1',   // u13f-44 / HONNEUR A - POULE 4        (Chapelaine)
@@ -46,8 +52,14 @@ export const POULES = {
   'F50001300R': 'SF-1',    // coupe de france regionale feminine 2026-2027
 };
 
-export function nomPoule(numPoule, poule) {
-  return POULES[numPoule] ?? poule ?? '';
+// nous = nom GestHand de notre équipe dans la poule (ligne['_nous']).
+export function nomPoule(numPoule, poule, nous) {
+  let nom = POULES[numPoule];
+  if (nom && typeof nom === 'object') {
+    const cle = Object.keys(nom).find(k => (nous || '').toUpperCase().includes(k));
+    nom = nom[cle];
+  }
+  return nom ?? poule ?? '';
 }
 
 /**
