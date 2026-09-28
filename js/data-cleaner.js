@@ -17,7 +17,7 @@ export const DataCleaner = {
   nettoyer(ligne) {
     const estDomicile = this.isMatchDom(ligne);
     const salle       = this.detecterSalle(ligne, estDomicile);
-    const poule       = nomPoule(ligne['num poule'], ligne['poule']);
+    const poule       = nomPoule(ligne['num poule'], ligne['poule'], ligne['_nous']);
     const tournoi     = this.isTournoi(poule, ligne['poule']);
 
     return {
@@ -27,7 +27,7 @@ export const DataCleaner = {
       dateISO:     this.toISO(ligne['le']),
       horaire:     this.formatHeure(ligne['horaire']),
       poule,
-      adversaire:  tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(this.clubAdverse(ligne, estDomicile)),
+      adversaire:  tournoi ? 'Tournoi Détection' : this.nomEquipe(ligne, this.clubAdverse(ligne, estDomicile)),
       nom_salle:   ligne['nom salle'] || '',
       competition: ligne['competition'] || '',
       arb1:        ligne['arb1 designe'] || '',
@@ -46,6 +46,13 @@ export const DataCleaner = {
     if (nous && rec === nous) return vis;
     if (nous && vis === nous) return rec;
     return estDomicile ? vis : rec;
+  },
+
+  // Derby entre deux de nos équipes : l'adversaire prend son nom court.
+  nomEquipe(ligne, club) {
+    return estNotreClub(club)
+      ? nomPoule(ligne['num poule'], ligne['poule'], club)
+      : this.cleanNomEquipe(club);
   },
 
   isMatchDom(ligne) {
@@ -94,16 +101,18 @@ export const DataCleaner = {
                      : parseInt(scoreNous) < parseInt(scoreEux) ? 'defaite'
                      : 'egalite';
 
-    const poule   = nomPoule(ligne['num poule'], ligne['poule']);
+    const poule   = nomPoule(ligne['num poule'], ligne['poule'], ligne['_nous']);
     const tournoi = this.isTournoi(poule, ligne['poule']);
-    const nomAdversaire = tournoi ? 'Tournoi Détection' : this.cleanNomEquipe(estDomicile ? ligne['club vis'] : ligne['club rec']);
+    const nomAdversaire = tournoi ? 'Tournoi Détection' : this.nomEquipe(ligne, estDomicile ? ligne['club vis'] : ligne['club rec']);
+    // Derby : chaque côté porte le nom de sa propre équipe, quel que soit _nous.
+    const derby = !tournoi && estNotreClub(ligne['club rec']) && estNotreClub(ligne['club vis']);
 
     return {
       jour:        this.cleanDate(ligne['le']),
       dateISO:     this.toISO(ligne['le']),
       poule,
-      equipe_dom:  estDomicile ? poule : nomAdversaire,
-      equipe_ext:  estDomicile ? nomAdversaire : poule,
+      equipe_dom:  derby ? this.nomEquipe(ligne, ligne['club rec']) : estDomicile ? poule : nomAdversaire,
+      equipe_ext:  derby ? this.nomEquipe(ligne, ligne['club vis']) : estDomicile ? nomAdversaire : poule,
       score_dom:   scoreRec,
       score_ext:   scoreVis,
       victoire,
