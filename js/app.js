@@ -22,7 +22,7 @@ semaineSelect.addEventListener('change', () => {
   document.getElementById('btn-export-sheets').disabled = dernierMatchs.length === 0;
 
   // Activer directement le sous-onglet salle qui contient des matchs
-  const salleActive = ['coutanciere', 'jahan', 'exterieur']
+  const salleActive = ['coutanciere', 'jahan', 'exterieur', 'non-defini']
     .find(salle => dernierMatchs.some(m => m.salle === salle));
   if (salleActive) activerSousOngletSalle(salleActive);
 
@@ -42,9 +42,10 @@ document.getElementById('btn-export-sheets').addEventListener('click', async () 
 
   try {
     const parSalle = {
-      coutanciere: dernierMatchs.filter(m => m.salle === 'coutanciere'),
-      jahan:       dernierMatchs.filter(m => m.salle === 'jahan'),
-      exterieur:   dernierMatchs.filter(m => m.salle === 'exterieur'),
+      coutanciere:  dernierMatchs.filter(m => m.salle === 'coutanciere'),
+      jahan:        dernierMatchs.filter(m => m.salle === 'jahan'),
+      exterieur:    dernierMatchs.filter(m => m.salle === 'exterieur'),
+      'non-defini': dernierMatchs.filter(m => m.salle === 'non-defini'),
     };
     await GoogleSheets.exporter(parSalle, semaineSelect.value);
     btn.textContent = '✓ Exporté !';

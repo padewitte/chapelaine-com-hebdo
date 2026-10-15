@@ -61,13 +61,13 @@ export const DataCleaner = {
     return NOMS_CLUB_DOM.some(n => hote.includes(n) || rec.includes(n));
   },
 
-  // Retourne 'coutanciere' | 'jahan' | 'exterieur'
+  // Retourne 'coutanciere' | 'jahan' | 'exterieur' | 'non-defini' (voir README).
   detecterSalle(ligne, estDomicile) {
+    if (!ligne['le']) return 'non-defini';
     if (!estDomicile) return 'exterieur';
     const salle = (ligne['nom salle'] || '').toUpperCase();
-    if (salle.includes('COUTANCIERE')) return 'coutanciere';
-    if (salle.includes('JAHAN'))       return 'jahan';
-    return 'exterieur';
+    if (salle.includes('JAHAN')) return 'jahan';
+    return 'coutanciere';
   },
 
   formatHeure(horaire) {

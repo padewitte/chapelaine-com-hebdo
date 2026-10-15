@@ -1,3 +1,6 @@
+const TITRE_DOMICILE_NON_DEFINI  = 'Domicile — gymnase à définir';
+const TITRE_EXTERIEUR_NON_DEFINI = 'Extérieur — à définir';
+
 export const KifekoiRenderer = {
 
   render(matchs) {
@@ -5,9 +8,10 @@ export const KifekoiRenderer = {
     if (!matchs || matchs.length === 0) return;
 
     const parSalle = {
-      coutanciere: matchs.filter(m => m.salle === 'coutanciere'),
-      jahan:       matchs.filter(m => m.salle === 'jahan'),
-      exterieur:   matchs.filter(m => m.salle === 'exterieur'),
+      coutanciere:    matchs.filter(m => m.salle === 'coutanciere'),
+      jahan:          matchs.filter(m => m.salle === 'jahan'),
+      exterieur:      matchs.filter(m => m.salle === 'exterieur'),
+      'non-defini':   matchs.filter(m => m.salle === 'non-defini'),
     };
 
     Object.entries(parSalle).forEach(([salle, liste]) => {
@@ -20,7 +24,8 @@ export const KifekoiRenderer = {
       }
 
       emptyState.style.display = 'none';
-      this.renderSection(liste, container, salle);
+      if (salle === 'non-defini') this.renderNonDefini(liste, container);
+      else this.renderSection(liste, container, salle);
     });
   },
 
@@ -39,6 +44,30 @@ export const KifekoiRenderer = {
         const bloc = this.creerBloc(label, matchsDuJour, salle);
         container.appendChild(bloc);
       });
+  },
+
+  // Zone "Match non défini" (voir README)
+  renderNonDefini(matchs, container) {
+    const parPoule = (a, b) => (a.poule || '').localeCompare(b.poule || '');
+    const domicile  = matchs.filter(m => m.estDomicile).sort(parPoule);
+    const exterieur = matchs.filter(m => !m.estDomicile).sort(parPoule);
+
+    if (domicile.length  > 0) container.appendChild(this.creerBlocNonDefini(TITRE_DOMICILE_NON_DEFINI,  domicile,  true));
+    if (exterieur.length > 0) container.appendChild(this.creerBlocNonDefini(TITRE_EXTERIEUR_NON_DEFINI, exterieur, false));
+  },
+
+  creerBlocNonDefini(titre, matchs, estDomicile) {
+    const bloc = document.createElement('div');
+    bloc.className = 'kifekoi-block pending';
+
+    const header = document.createElement('div');
+    header.className = 'kifekoi-day';
+    header.textContent = titre;
+    bloc.appendChild(header);
+
+    bloc.appendChild(this.creerTableau(matchs, estDomicile));
+
+    return bloc;
   },
 
   creerBloc(jour, matchs, salle) {
@@ -70,7 +99,7 @@ export const KifekoiRenderer = {
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
     const colonnes = estDomicile
-      ? ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation']
+      ? ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation', 'Anim Indispo']
       : ['Horaire', 'Club hôte', 'Équipe', 'Gymnase'];
 
     colonnes.forEach(col => {
@@ -110,7 +139,7 @@ export const KifekoiRenderer = {
         : '<span class="cell-empty">—</span>';
       cellules.push(table);
       cellules.push(this.formatArbitrage(match.arb1, match.arb2));
-      for (let i = 0; i < 4; i++) cellules.push('<span class="cell-empty">—</span>');
+      for (let i = 0; i < 5; i++) cellules.push('<span class="cell-empty">—</span>');
     }
 
     cellules.forEach(html => {
@@ -123,7 +152,7 @@ export const KifekoiRenderer = {
   },
 
   vider() {
-    ['jahan', 'coutanciere', 'exterieur'].forEach(salle => {
+    ['jahan', 'coutanciere', 'exterieur', 'non-defini'].forEach(salle => {
       document.getElementById(`kifekoi-${salle}`).innerHTML = '';
     });
   },
