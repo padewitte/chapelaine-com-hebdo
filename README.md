@@ -1,6 +1,6 @@
 # Chapelaine Com Hebdo
 
-Application web qui génère le planning hebdomadaire des matchs (**kifekoi**) à partir d'un export CSV issu de **GestHand**, le logiciel fédéral de gestion du handball.
+Application web qui génère le planning hebdomadaire des matchs (**kifekoi**) à partir d'un export CSV issu de [**GestHand**](https://gesthand.net), le logiciel fédéral de gestion du handball.
 
 Vanilla JS (ES Modules), aucun build, aucun back-end. Tout tourne dans le navigateur — les données sont perdues à la fermeture/au rechargement de la page (sauf export Google Sheets).
 
@@ -34,7 +34,7 @@ mail/                          — Scripts ponctuels d'envoi de mail (indépenda
 ## Import des données
 
 ### Source
-Les fichiers CSV proviennent de l'export GestHand du club. Séparateur `;`, encodage `UTF-8` (avec BOM). *Avant le piratage de GestHand cet été, l'export était en `ISO-8859-1` — l'encodage a changé depuis.*
+Les fichiers CSV proviennent de l'export [GestHand](https://gesthand.net) du club. Séparateur `;`, encodage `UTF-8` (avec BOM). *Avant le piratage de GestHand cet été, l'export était en `ISO-8859-1` — l'encodage a changé depuis.*
 
 ### Deux types de fichiers
 | Type | Contenu | Détection |
