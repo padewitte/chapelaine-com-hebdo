@@ -67,7 +67,7 @@ export const KifekoiRenderer = {
     if (salle !== 'exterieur') {
       const venue = document.createElement('div');
       venue.className = 'kifekoi-venue';
-      venue.innerHTML = `<span class="venue-dot"></span> ${matchs[0]?.nom_salle || ''}`;
+      venue.innerHTML = `<span class="venue-dot"></span> ${matchs[0]?.nom_salle || 'Gymnase à définir'}`;
       bloc.appendChild(venue);
     }
 

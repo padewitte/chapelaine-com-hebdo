@@ -40,10 +40,12 @@ Après l'import, le sélecteur se peuple avec toutes les semaines présentes dan
 | **Jean Jahan** | Matchs joués à la salle Jean Jahan |
 | **Extérieur** | Matchs joués dans une salle adverse |
 
-La détection de la salle se fait sur le champ `nom salle` du CSV :
-- Contient `COUTANCIERE` → onglet Coutancière
-- Contient `JAHAN` → onglet Jean Jahan
-- Sinon → onglet Extérieur
+La détection de la salle se fait d'abord sur le statut domicile/extérieur du match, puis sur le champ `nom salle` du CSV :
+- Match à l'extérieur → onglet Extérieur
+- Match à domicile, `nom salle` contient `JAHAN` → onglet Jean Jahan
+- Match à domicile, sinon (y compris si `nom salle` est encore vide) → onglet Coutancière
+
+Un match à domicile reste à domicile même si le gymnase n'est pas encore confirmé par la fédération (ex: date pas encore fixée) — il n'est jamais basculé vers Extérieur, sous peine d'afficher notre propre club comme "Club hôte" d'un match extérieur.
 
 ### Détection des matchs à domicile
 Un match est considéré à domicile si le champ `club hote` **ou** `club rec` contient l'un des noms connus du club :
