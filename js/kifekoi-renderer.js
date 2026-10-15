@@ -1,3 +1,6 @@
+// Intitulé de la zone neutre regroupant les matchs sans date/horaire fixé
+const JOUR_NON_DEFINI = 'Jour non défini — à venir';
+
 export const KifekoiRenderer = {
 
   render(matchs) {
@@ -25,9 +28,16 @@ export const KifekoiRenderer = {
   },
 
   renderSection(matchs, container, salle) {
+    // Les matchs sans date (horaire/jour pas encore fixé par l'adversaire)
+    // sont isolés dans une zone neutre « à venir », plutôt que mélangés
+    // sous un bloc de jour vide.
+    const avecDate = matchs.filter(m => m.dateISO);
+    const sansDate  = matchs.filter(m => !m.dateISO)
+      .sort((a, b) => (a.poule || '').localeCompare(b.poule || ''));
+
     // Grouper par jour (clé = dateISO pour le tri, valeur = { label, matchs })
     const parJour = new Map();
-    matchs.forEach(m => {
+    avecDate.forEach(m => {
       if (!parJour.has(m.dateISO)) parJour.set(m.dateISO, { label: m.jour, matchs: [] });
       parJour.get(m.dateISO).matchs.push(m);
     });
@@ -39,11 +49,15 @@ export const KifekoiRenderer = {
         const bloc = this.creerBloc(label, matchsDuJour, salle);
         container.appendChild(bloc);
       });
+
+    if (sansDate.length > 0) {
+      container.appendChild(this.creerBloc(JOUR_NON_DEFINI, sansDate, salle, true));
+    }
   },
 
-  creerBloc(jour, matchs, salle) {
+  creerBloc(jour, matchs, salle, nonDefini = false) {
     const bloc = document.createElement('div');
-    bloc.className = `kifekoi-block ${salle}`;
+    bloc.className = `kifekoi-block ${salle}${nonDefini ? ' pending' : ''}`;
 
     const header = document.createElement('div');
     header.className = 'kifekoi-day';
@@ -70,7 +84,7 @@ export const KifekoiRenderer = {
     const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
     const colonnes = estDomicile
-      ? ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation']
+      ? ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation', 'Anim Indispo']
       : ['Horaire', 'Club hôte', 'Équipe', 'Gymnase'];
 
     colonnes.forEach(col => {
@@ -110,7 +124,7 @@ export const KifekoiRenderer = {
         : '<span class="cell-empty">—</span>';
       cellules.push(table);
       cellules.push(this.formatArbitrage(match.arb1, match.arb2));
-      for (let i = 0; i < 4; i++) cellules.push('<span class="cell-empty">—</span>');
+      for (let i = 0; i < 5; i++) cellules.push('<span class="cell-empty">—</span>');
     }
 
     cellules.forEach(html => {

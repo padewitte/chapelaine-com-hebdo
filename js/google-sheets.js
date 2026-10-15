@@ -15,6 +15,9 @@ const BLANC            = { red: 1,    green: 1,    blue: 1    };
 const COULEUR_DESIGNE  = { red: 0.80, green: 0.90, blue: 1.00 }; // bleu clair
 const COULEUR_MINEUR   = { red: 1.00, green: 0.95, blue: 0.80 }; // jaune pâle
 
+// Intitulé de la zone neutre regroupant les matchs sans date/horaire fixé
+const JOUR_NON_DEFINI = 'Jour non défini — à venir';
+
 export const GoogleSheets = {
 
   authentifier() {
@@ -46,7 +49,7 @@ export const GoogleSheets = {
 
   nomFeuille(matchsParSalle, semaine) {
     const tous  = Object.values(matchsParSalle).flat();
-    const dates = [...new Set(tous.map(m => m.dateISO))].sort();
+    const dates = [...new Set(tous.map(m => m.dateISO).filter(Boolean))].sort();
     const fmt   = iso => { const [,m,j] = iso.split('-'); return `${parseInt(j)}/${parseInt(m)}`; };
     const sNum  = semaine.split('-')[1];
     if (dates.length === 0) return `S${sNum}`;
@@ -86,19 +89,27 @@ export const GoogleSheets = {
       meta.push({ type: 'section', salle: key });
 
       const entetes = domicile
-        ? ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation']
+        ? ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation', 'Anim Indispo']
         : ['Horaire', 'Club hôte', 'Équipe', 'Gymnase'];
 
-      const tries = [...matchs].sort((a, b) =>
+      // Les matchs sans date (horaire/jour pas encore fixé par l'adversaire)
+      // sont isolés dans une zone neutre « à venir », plutôt que mélangés
+      // sous un intitulé de jour vide.
+      const avecDate = [...matchs.filter(m => m.dateISO)].sort((a, b) =>
         a.dateISO.localeCompare(b.dateISO) || a.horaire.localeCompare(b.horaire)
       );
+      const sansDate = matchs.filter(m => !m.dateISO)
+        .sort((a, b) => (a.poule || '').localeCompare(b.poule || ''));
 
       // Grouper par jour
       const parJour = new Map();
-      tries.forEach(m => {
+      avecDate.forEach(m => {
         if (!parJour.has(m.dateISO)) parJour.set(m.dateISO, { label: m.jour, matchs: [] });
         parJour.get(m.dateISO).matchs.push(m);
       });
+      if (sansDate.length > 0) {
+        parJour.set('_non-defini', { label: JOUR_NON_DEFINI, matchs: sansDate });
+      }
 
       // Pour chaque jour : date → en-têtes → matchs
       parJour.forEach(({ label, matchs: matchsDuJour }) => {
@@ -111,7 +122,7 @@ export const GoogleSheets = {
         matchsDuJour.forEach(m => {
           if (domicile) {
             const arb = [m.arb1, m.arb2].filter(Boolean).join(' / ');
-            lignes.push([m.horaire, m.poule, m.adversaire, m._table || '', arb ? `(D) ${arb}` : '', '', '', '', '']);
+            lignes.push([m.horaire, m.poule, m.adversaire, m._table || '', arb ? `(D) ${arb}` : '', '', '', '', '', '']);
             meta.push({ type: 'data', salle: key, estMineur: this.estMineur(m.poule), aArbitre: !!arb });
           } else {
             lignes.push([m.horaire, m.club_hote, m.poule, m.nom_salle]);
@@ -169,7 +180,7 @@ export const GoogleSheets = {
     const requests = [];
 
     meta.forEach(({ type, salle }, i) => {
-      const range = { sheetId, startRowIndex: i, endRowIndex: i + 1, startColumnIndex: 0, endColumnIndex: 9 };
+      const range = { sheetId, startRowIndex: i, endRowIndex: i + 1, startColumnIndex: 0, endColumnIndex: 10 };
 
       if (type === 'section') {
         const bg = COULEURS[salle];
@@ -286,10 +297,10 @@ export const GoogleSheets = {
       },
     });
 
-    // Largeur fixe pour les colonnes bénévoles E-I (Table, Arbitrage, Arb. backup, Suivi, Resp. Salle, Animation)
+    // Largeur fixe pour les colonnes bénévoles E-J (Table, Arbitrage, Arb. backup, Suivi, Resp. Salle, Animation, Anim Indispo)
     requests.push({
       updateDimensionProperties: {
-        range: { sheetId, dimension: 'COLUMNS', startIndex: 4, endIndex: 9 },
+        range: { sheetId, dimension: 'COLUMNS', startIndex: 4, endIndex: 10 },
         properties: { pixelSize: 150 },
         fields: 'pixelSize',
       },

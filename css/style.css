@@ -391,6 +391,16 @@ select option.semaine-passee {
     & .venue-dot { background: #b0b8c8; }
     & .time-badge { background: rgba(176,184,200,.1); color: #b0b8c8; }
   }
+
+  &.pending {
+    border-style: dashed;
+
+    & .kifekoi-day {
+      background: none;
+      color: var(--muted);
+      font-style: italic;
+    }
+  }
 }
 
 .kifekoi-block {

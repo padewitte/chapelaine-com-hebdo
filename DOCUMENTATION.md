@@ -68,6 +68,7 @@ CHAPELAINE, LA CHAPELAINE, PORTERIE HB, PORTERIE, ST JOSEPH PORTERIE
 | **Suivi** | — | Colonne vide à remplir manuellement |
 | **Resp. Salle** | — | Colonne vide à remplir manuellement |
 | **Animation** | — | Colonne vide à remplir manuellement |
+| **Anim Indispo** | — | Colonne vide à remplir manuellement |
 
 ### Matchs extérieur
 | Colonne | Source |
@@ -135,7 +136,7 @@ Pour chaque gymnase (Coutancière, Jean Jahan, Extérieur), le planning est stru
 ```
 COUTANCIÈRE
   samedi 26 avril 2025
-  Horaire | Équipe | Adversaire | Table | Arbitrage | Arb. backup | Suivi | Resp. Salle | Animation
+  Horaire | Équipe | Adversaire | Table | Arbitrage | Arb. backup | Suivi | Resp. Salle | Animation | Anim Indispo
   14h00   | U14-M D8 | Pornic  | U11-M D4 | ...
   (ligne vide)
   dimanche 27 avril 2025
@@ -190,6 +191,9 @@ Les noms de clubs adverses (colonne Adversaire) sont nettoyés automatiquement :
 - Les blocs sont triés **par date calendaire** (samedi avant dimanche)
 - Les matchs dans un bloc sont triés **par horaire croissant**
 - Les matchs amicaux ne sont pas affichés
+
+### Matchs sans date encore fixée
+Certains matchs extérieur (plus rarement domicile) n'ont pas encore de date/horaire/gymnase arrêtés par l'adversaire au moment de l'export GestHand (champ `le` vide). Ils ne sont pas mélangés aux jours connus : ils sont regroupés dans un bloc neutre **« Jour non défini — à venir »**, affiché après les jours datés (onglet kifekoi comme export Google Sheets).
 
 ---
 
