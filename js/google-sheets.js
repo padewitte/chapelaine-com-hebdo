@@ -4,9 +4,10 @@ let accessToken = null;
 
 // Couleurs des gymnases (valeurs 0-1 pour l'API Sheets)
 const COULEURS = {
-  coutanciere: { red: 0.24, green: 0.60, blue: 0.19 },
-  jahan:       { red: 1.00, green: 0.47, blue: 0.16 },
-  exterieur:   { red: 0.55, green: 0.56, blue: 0.56 },
+  coutanciere:  { red: 0.24, green: 0.60, blue: 0.19 },
+  jahan:        { red: 1.00, green: 0.47, blue: 0.16 },
+  exterieur:    { red: 0.55, green: 0.56, blue: 0.56 },
+  'non-defini': { red: 0.40, green: 0.42, blue: 0.47 },
 };
 
 const COULEUR_HEADER   = { red: 0.18, green: 0.20, blue: 0.25 };
@@ -15,8 +16,11 @@ const BLANC            = { red: 1,    green: 1,    blue: 1    };
 const COULEUR_DESIGNE  = { red: 0.80, green: 0.90, blue: 1.00 }; // bleu clair
 const COULEUR_MINEUR   = { red: 1.00, green: 0.95, blue: 0.80 }; // jaune pâle
 
-// Intitulé de la zone neutre regroupant les matchs sans date/horaire fixé
-const JOUR_NON_DEFINI = 'Jour non défini — à venir';
+const ENTETES_DOMICILE  = ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation', 'Anim Indispo'];
+const ENTETES_EXTERIEUR = ['Horaire', 'Club hôte', 'Équipe', 'Gymnase'];
+
+const TITRE_DOMICILE_NON_DEFINI  = 'Domicile — gymnase à définir';
+const TITRE_EXTERIEUR_NON_DEFINI = 'Extérieur — à définir';
 
 export const GoogleSheets = {
 
@@ -88,28 +92,18 @@ export const GoogleSheets = {
       lignes.push([nom]);
       meta.push({ type: 'section', salle: key });
 
-      const entetes = domicile
-        ? ['Horaire', 'Équipe', 'Adversaire', 'Table', 'Arbitrage', 'Arb. backup', 'Suivi', 'Resp. Salle', 'Animation', 'Anim Indispo']
-        : ['Horaire', 'Club hôte', 'Équipe', 'Gymnase'];
+      const entetes = domicile ? ENTETES_DOMICILE : ENTETES_EXTERIEUR;
 
-      // Les matchs sans date (horaire/jour pas encore fixé par l'adversaire)
-      // sont isolés dans une zone neutre « à venir », plutôt que mélangés
-      // sous un intitulé de jour vide.
-      const avecDate = [...matchs.filter(m => m.dateISO)].sort((a, b) =>
+      const tries = [...matchs].sort((a, b) =>
         a.dateISO.localeCompare(b.dateISO) || a.horaire.localeCompare(b.horaire)
       );
-      const sansDate = matchs.filter(m => !m.dateISO)
-        .sort((a, b) => (a.poule || '').localeCompare(b.poule || ''));
 
       // Grouper par jour
       const parJour = new Map();
-      avecDate.forEach(m => {
+      tries.forEach(m => {
         if (!parJour.has(m.dateISO)) parJour.set(m.dateISO, { label: m.jour, matchs: [] });
         parJour.get(m.dateISO).matchs.push(m);
       });
-      if (sansDate.length > 0) {
-        parJour.set('_non-defini', { label: JOUR_NON_DEFINI, matchs: sansDate });
-      }
 
       // Pour chaque jour : date → en-têtes → matchs
       parJour.forEach(({ label, matchs: matchsDuJour }) => {
@@ -136,6 +130,48 @@ export const GoogleSheets = {
 
     }
 
+    // Zone "Match non défini" (voir README)
+    const nonDefinis = matchsParSalle['non-defini'] || [];
+    if (nonDefinis.length > 0) {
+      if (lignes.length > 0) {
+        lignes.push([], []);
+        meta.push({ type: 'empty', salle: 'non-defini' }, { type: 'empty', salle: 'non-defini' });
+      }
+
+      lignes.push(['MATCH NON DÉFINI']);
+      meta.push({ type: 'section', salle: 'non-defini' });
+
+      const sousGroupes = [
+        { estDomicile: true,  label: TITRE_DOMICILE_NON_DEFINI,  entetes: ENTETES_DOMICILE },
+        { estDomicile: false, label: TITRE_EXTERIEUR_NON_DEFINI, entetes: ENTETES_EXTERIEUR },
+      ];
+
+      sousGroupes.forEach(({ estDomicile, label, entetes }) => {
+        const sousListe = nonDefinis.filter(m => m.estDomicile === estDomicile)
+          .sort((a, b) => (a.poule || '').localeCompare(b.poule || ''));
+        if (sousListe.length === 0) return;
+
+        lignes.push([label]);
+        meta.push({ type: 'jour', salle: 'non-defini' });
+
+        lignes.push(entetes);
+        meta.push({ type: 'header', salle: 'non-defini' });
+
+        sousListe.forEach(m => {
+          if (estDomicile) {
+            const arb = [m.arb1, m.arb2].filter(Boolean).join(' / ');
+            lignes.push([m.horaire, m.poule, m.adversaire, m._table || '', arb ? `(D) ${arb}` : '', '', '', '', '', '']);
+            meta.push({ type: 'data', salle: 'non-defini', estMineur: this.estMineur(m.poule), aArbitre: !!arb });
+          } else {
+            lignes.push([m.horaire, m.club_hote, m.poule, m.nom_salle]);
+            meta.push({ type: 'data', salle: 'non-defini', estMineur: false, aArbitre: false });
+          }
+        });
+
+        lignes.push([]);
+        meta.push({ type: 'empty', salle: 'non-defini' });
+      });
+    }
 
     return { lignes, meta };
   },

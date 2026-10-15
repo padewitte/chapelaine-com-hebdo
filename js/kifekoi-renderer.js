@@ -1,5 +1,5 @@
-// Intitulé de la zone neutre regroupant les matchs sans date/horaire fixé
-const JOUR_NON_DEFINI = 'Jour non défini — à venir';
+const TITRE_DOMICILE_NON_DEFINI  = 'Domicile — gymnase à définir';
+const TITRE_EXTERIEUR_NON_DEFINI = 'Extérieur — à définir';
 
 export const KifekoiRenderer = {
 
@@ -8,9 +8,10 @@ export const KifekoiRenderer = {
     if (!matchs || matchs.length === 0) return;
 
     const parSalle = {
-      coutanciere: matchs.filter(m => m.salle === 'coutanciere'),
-      jahan:       matchs.filter(m => m.salle === 'jahan'),
-      exterieur:   matchs.filter(m => m.salle === 'exterieur'),
+      coutanciere:    matchs.filter(m => m.salle === 'coutanciere'),
+      jahan:          matchs.filter(m => m.salle === 'jahan'),
+      exterieur:      matchs.filter(m => m.salle === 'exterieur'),
+      'non-defini':   matchs.filter(m => m.salle === 'non-defini'),
     };
 
     Object.entries(parSalle).forEach(([salle, liste]) => {
@@ -23,21 +24,15 @@ export const KifekoiRenderer = {
       }
 
       emptyState.style.display = 'none';
-      this.renderSection(liste, container, salle);
+      if (salle === 'non-defini') this.renderNonDefini(liste, container);
+      else this.renderSection(liste, container, salle);
     });
   },
 
   renderSection(matchs, container, salle) {
-    // Les matchs sans date (horaire/jour pas encore fixé par l'adversaire)
-    // sont isolés dans une zone neutre « à venir », plutôt que mélangés
-    // sous un bloc de jour vide.
-    const avecDate = matchs.filter(m => m.dateISO);
-    const sansDate  = matchs.filter(m => !m.dateISO)
-      .sort((a, b) => (a.poule || '').localeCompare(b.poule || ''));
-
     // Grouper par jour (clé = dateISO pour le tri, valeur = { label, matchs })
     const parJour = new Map();
-    avecDate.forEach(m => {
+    matchs.forEach(m => {
       if (!parJour.has(m.dateISO)) parJour.set(m.dateISO, { label: m.jour, matchs: [] });
       parJour.get(m.dateISO).matchs.push(m);
     });
@@ -49,15 +44,35 @@ export const KifekoiRenderer = {
         const bloc = this.creerBloc(label, matchsDuJour, salle);
         container.appendChild(bloc);
       });
-
-    if (sansDate.length > 0) {
-      container.appendChild(this.creerBloc(JOUR_NON_DEFINI, sansDate, salle, true));
-    }
   },
 
-  creerBloc(jour, matchs, salle, nonDefini = false) {
+  // Zone "Match non défini" (voir README)
+  renderNonDefini(matchs, container) {
+    const parPoule = (a, b) => (a.poule || '').localeCompare(b.poule || '');
+    const domicile  = matchs.filter(m => m.estDomicile).sort(parPoule);
+    const exterieur = matchs.filter(m => !m.estDomicile).sort(parPoule);
+
+    if (domicile.length  > 0) container.appendChild(this.creerBlocNonDefini(TITRE_DOMICILE_NON_DEFINI,  domicile,  true));
+    if (exterieur.length > 0) container.appendChild(this.creerBlocNonDefini(TITRE_EXTERIEUR_NON_DEFINI, exterieur, false));
+  },
+
+  creerBlocNonDefini(titre, matchs, estDomicile) {
     const bloc = document.createElement('div');
-    bloc.className = `kifekoi-block ${salle}${nonDefini ? ' pending' : ''}`;
+    bloc.className = 'kifekoi-block pending';
+
+    const header = document.createElement('div');
+    header.className = 'kifekoi-day';
+    header.textContent = titre;
+    bloc.appendChild(header);
+
+    bloc.appendChild(this.creerTableau(matchs, estDomicile));
+
+    return bloc;
+  },
+
+  creerBloc(jour, matchs, salle) {
+    const bloc = document.createElement('div');
+    bloc.className = `kifekoi-block ${salle}`;
 
     const header = document.createElement('div');
     header.className = 'kifekoi-day';
@@ -67,7 +82,7 @@ export const KifekoiRenderer = {
     if (salle !== 'exterieur') {
       const venue = document.createElement('div');
       venue.className = 'kifekoi-venue';
-      venue.innerHTML = `<span class="venue-dot"></span> ${matchs[0]?.nom_salle || 'Gymnase à définir'}`;
+      venue.innerHTML = `<span class="venue-dot"></span> ${matchs[0]?.nom_salle || ''}`;
       bloc.appendChild(venue);
     }
 
@@ -137,7 +152,7 @@ export const KifekoiRenderer = {
   },
 
   vider() {
-    ['jahan', 'coutanciere', 'exterieur'].forEach(salle => {
+    ['jahan', 'coutanciere', 'exterieur', 'non-defini'].forEach(salle => {
       document.getElementById(`kifekoi-${salle}`).innerHTML = '';
     });
   },

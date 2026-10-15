@@ -61,11 +61,9 @@ export const DataCleaner = {
     return NOMS_CLUB_DOM.some(n => hote.includes(n) || rec.includes(n));
   },
 
-  // Retourne 'coutanciere' | 'jahan' | 'exterieur'. Un match à domicile reste
-  // à domicile même si le gymnase n'est pas encore renseigné par la fédération
-  // (ex: date pas encore fixée) — on ne bascule jamais un match domicile vers
-  // 'exterieur', sous peine de l'afficher avec notre propre club en "Club hôte".
+  // Retourne 'coutanciere' | 'jahan' | 'exterieur' | 'non-defini' (voir README).
   detecterSalle(ligne, estDomicile) {
+    if (!ligne['le']) return 'non-defini';
     if (!estDomicile) return 'exterieur';
     const salle = (ligne['nom salle'] || '').toUpperCase();
     if (salle.includes('JAHAN')) return 'jahan';
