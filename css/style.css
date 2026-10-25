@@ -90,6 +90,48 @@ nav {
   }
 }
 
+/* ===== MENU MODULES (ONGLETS PRINCIPAUX DE LA SPA) ===== */
+.menu-modules {
+  display: flex;
+  gap: 0;
+  background: var(--dark2);
+  border-bottom: 2px solid var(--border);
+  padding: 0 32px;
+  overflow-x: auto;
+}
+
+.menu-module {
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color .2s, border-color .2s;
+  white-space: nowrap;
+  letter-spacing: .3px;
+  user-select: none;
+
+  &:hover {
+    color: var(--text);
+  }
+
+  &.active {
+    color: var(--orange);
+    border-bottom-color: var(--orange);
+  }
+}
+
+/* ===== SECTIONS DE CONTENU DES MODULES ===== */
+.module-content {
+  display: block;
+
+  &.hidden {
+    display: none;
+  }
+}
+
 /* ===== LAYOUT ===== */
 .container {
   max-width: 1200px;
@@ -97,7 +139,7 @@ nav {
   padding: 32px 24px;
 }
 
-/* ===== UPLOAD ===== */
+/* ===== UPLOAD / DROPZONE ===== */
 .upload-row {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -122,7 +164,7 @@ nav {
 
   &:hover, &.drag-over {
     border-color: var(--text);
-    background: rgba(255,255,255,.03);
+    background: rgba(255, 255, 255, .03);
   }
 
   & .dropzone-icon { font-size: 28px; opacity: .5; }
@@ -159,6 +201,7 @@ nav {
   }
 }
 
+/* ===== CARTE SEMAINE / SÉLECTEUR ===== */
 .week-card {
   background: var(--dark2);
   border: 1px solid var(--border);
@@ -192,7 +235,7 @@ nav {
 }
 
 .badge-semaine {
-  background: rgba(255,120,40,.15);
+  background: rgba(255, 120, 40, .15);
   color: var(--orange);
   border-radius: 6px;
   padding: 4px 10px;
@@ -206,10 +249,10 @@ select option.semaine-passee {
   opacity: 0.7;
 }
 
-/* ===== ALERT ===== */
+/* ===== ALERTE ===== */
 .alert {
-  background: rgba(255,120,40,.1);
-  border: 1px solid rgba(255,120,40,.3);
+  background: rgba(255, 120, 40, .1);
+  border: 1px solid rgba(255, 120, 40, .3);
   border-radius: 10px;
   padding: 12px 16px;
   font-size: 13px;
@@ -220,7 +263,7 @@ select option.semaine-passee {
   margin-bottom: 20px;
 }
 
-/* ===== TABS ===== */
+/* ===== ONGLETS COM-HEBDO (MATCHS / ANNONCE / RÉSULTATS) ===== */
 .tabs {
   display: flex;
   gap: 4px;
@@ -243,7 +286,7 @@ select option.semaine-passee {
   }
 }
 
-/* ===== TOOLBAR MATCHS ===== */
+/* ===== BARRE D'OUTILS MATCHS ===== */
 .matchs-toolbar {
   display: flex;
   justify-content: flex-end;
@@ -295,7 +338,7 @@ select option.semaine-passee {
       &.active, &:hover {
         color: var(--orange);
         border-color: var(--orange);
-        background: rgba(255,120,40,.08);
+        background: rgba(255, 120, 40, .08);
       }
     }
 
@@ -303,7 +346,7 @@ select option.semaine-passee {
       &.active, &:hover {
         color: var(--green);
         border-color: var(--green);
-        background: rgba(61,153,48,.08);
+        background: rgba(61, 153, 48, .08);
       }
     }
 
@@ -311,11 +354,11 @@ select option.semaine-passee {
       &.active, &:hover {
         color: #b0b8c8;
         border-color: #b0b8c8;
-        background: rgba(176,184,200,.08);
+        background: rgba(176, 184, 200, .08);
       }
     }
 
-    &.non-defini {
+     &.non-defini {
       &.active, &:hover {
         color: #d4a73a;
         border-color: #d4a73a;
@@ -323,11 +366,21 @@ select option.semaine-passee {
       }
     }
 
+    &.pending {
+    border-style: dashed;
+
+    & .kifekoi-day {
+      background: rgba(212,167,58,.1);
+      color: #d4a73a;
+      font-style: italic;
+    }
+  }
+
     &.annonce-day {
       &.active, &:hover {
         color: var(--text);
         border-color: var(--text);
-        background: rgba(255,255,255,.06);
+        background: rgba(255, 255, 255, .06);
       }
     }
   }
@@ -343,7 +396,7 @@ select option.semaine-passee {
   &.hidden { display: none; }
 }
 
-/* ===== EMPTY STATE ===== */
+/* ===== ÉTAT VIDE ===== */
 .empty-state {
   color: var(--muted);
   font-size: 14px;
@@ -351,7 +404,7 @@ select option.semaine-passee {
   padding: 48px;
 }
 
-/* ===== SECTION TITLE ===== */
+/* ===== TITRE DE SECTION ===== */
 .section-title {
   font-size: 11px;
   font-weight: 700;
@@ -372,32 +425,33 @@ select option.semaine-passee {
 }
 
 /* ===== KIFEKOI ===== */
+/* Couleurs par salle */
 .kifekoi-block {
   &.jahan {
     & .kifekoi-day {
-      background: linear-gradient(90deg, rgba(255,120,40,.2), transparent);
+      background: linear-gradient(90deg, rgba(255, 120, 40, .2), transparent);
       color: var(--orange);
     }
     & .venue-dot { background: var(--orange); }
-    & .time-badge { background: rgba(255,120,40,.15); color: var(--orange); }
+    & .time-badge { background: rgba(255, 120, 40, .15); color: var(--orange); }
   }
 
   &.coutanciere {
     & .kifekoi-day {
-      background: linear-gradient(90deg, rgba(61,153,48,.2), transparent);
+      background: linear-gradient(90deg, rgba(61, 153, 48, .2), transparent);
       color: var(--green);
     }
     & .venue-dot { background: var(--green); }
-    & .time-badge { background: rgba(61,153,48,.15); color: var(--green); }
+    & .time-badge { background: rgba(61, 153, 48, .15); color: var(--green); }
   }
 
   &.exterieur {
     & .kifekoi-day {
-      background: linear-gradient(90deg, rgba(176,184,200,.12), transparent);
+      background: linear-gradient(90deg, rgba(176, 184, 200, .12), transparent);
       color: #b0b8c8;
     }
     & .venue-dot { background: #b0b8c8; }
-    & .time-badge { background: rgba(176,184,200,.1); color: #b0b8c8; }
+    & .time-badge { background: rgba(176, 184, 200, .1); color: #b0b8c8; }
   }
 
   &.pending {
@@ -411,6 +465,7 @@ select option.semaine-passee {
   }
 }
 
+/* Structure du bloc kifekoi */
 .kifekoi-block {
   background: var(--dark2);
   border: 1px solid var(--border);
@@ -419,7 +474,7 @@ select option.semaine-passee {
   margin-bottom: 20px;
 
   & .kifekoi-day {
-    background: linear-gradient(90deg, rgba(255,120,40,.2), transparent);
+    background: linear-gradient(90deg, rgba(255, 120, 40, .2), transparent);
     padding: 10px 18px;
     font-size: 13px;
     font-weight: 700;
@@ -475,7 +530,7 @@ select option.semaine-passee {
       transition: background .1s;
 
       &:last-child { border-bottom: none; }
-      &:hover { background: rgba(255,255,255,.03); }
+      &:hover { background: rgba(255, 255, 255, .03); }
     }
 
     & td {
@@ -527,15 +582,15 @@ select option.semaine-passee {
 
   &.annonce {
     background:
-      radial-gradient(circle at top left,    rgba(255,120,40,.35) 0%, transparent 45%),
-      radial-gradient(circle at bottom right, rgba(61,153,48,.3)  0%, transparent 45%),
+      radial-gradient(circle at top left,    rgba(255, 120, 40, .35) 0%, transparent 45%),
+      radial-gradient(circle at bottom right, rgba(61, 153, 48, .3)  0%, transparent 45%),
       #0a0a0a;
   }
 
   &.resultats {
     background:
-      radial-gradient(circle at top left,    rgba(255,120,40,.35) 0%, transparent 45%),
-      radial-gradient(circle at bottom right, rgba(61,153,48,.3)  0%, transparent 45%),
+      radial-gradient(circle at top left,    rgba(255, 120, 40, .35) 0%, transparent 45%),
+      radial-gradient(circle at bottom right, rgba(61, 153, 48, .3)  0%, transparent 45%),
       #0a0a0a;
   }
 
@@ -561,7 +616,7 @@ select option.semaine-passee {
 
   & .insta-card-date {
     font-size: 16px;
-    color: rgba(255,255,255,.5);
+    color: rgba(255, 255, 255, .5);
     text-align: right;
     margin-bottom: 20px;
   }
@@ -575,8 +630,8 @@ select option.semaine-passee {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: rgba(255,255,255,.4);
-    border-bottom: 1px solid rgba(255,255,255,.1);
+    color: rgba(255, 255, 255, .4);
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
     padding-bottom: 6px;
     margin-bottom: 8px;
   }
@@ -597,8 +652,8 @@ select option.semaine-passee {
   }
 
   & .insta-horaire {
-    background: rgba(255,255,255,.08);
-    color: rgba(255,255,255,.7);
+    background: rgba(255, 255, 255, .08);
+    color: rgba(255, 255, 255, .7);
     border-radius: 6px;
     padding: 3px 10px;
     font-size: 14px;
@@ -610,7 +665,7 @@ select option.semaine-passee {
   & .insta-equipe-ext {
     flex: 1;
     text-align: right;
-    color: rgba(255,255,255,.7);
+    color: rgba(255, 255, 255, .7);
   }
 
   & .insta-centre {
@@ -622,7 +677,7 @@ select option.semaine-passee {
 
   & .insta-gymnase {
     font-size: 10px;
-    color: rgba(255,255,255,.35);
+    color: rgba(255, 255, 255, .35);
     white-space: nowrap;
     font-style: italic;
     text-align: center;
@@ -654,7 +709,7 @@ select option.semaine-passee {
     &.right { text-align: left;  padding-left:  16px; }
 
     &.nous       { font-weight: 700; }
-    &.adversaire { color: rgba(255,255,255,.7); }
+    &.adversaire { color: rgba(255, 255, 255, .7); }
   }
 
   & .insta-res-score {
@@ -666,9 +721,9 @@ select option.semaine-passee {
     border-radius: 8px;
     padding: 4px 10px;
 
-    &.victoire { color: var(--green);  }
+    &.victoire { color: var(--green); }
     &.defaite  { color: #705555; }
-    &.egalite  { color: #ffd080;}
+    &.egalite  { color: #ffd080; }
   }
 
   & .insta-card-footer {
@@ -679,15 +734,15 @@ select option.semaine-passee {
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: rgba(255,255,255,.12);
+    color: rgba(255, 255, 255, .12);
   }
 }
 
+/* Couleurs d'accent utilitaires */
 .accent-orange { color: var(--orange); }
 .accent-green  { color: var(--green); }
 
-/* ===== FIN VISUELS ===== */
-
+/* ===== BADGE DÉSIGNÉ ===== */
 .badge-designe {
   display: inline-block;
   font-size: 10px;
@@ -700,8 +755,9 @@ select option.semaine-passee {
   opacity: .8;
 }
 
+/* ===== BADGE HORAIRE ===== */
 .time-badge {
-  background: rgba(255,120,40,.15);
+  background: rgba(255, 120, 40, .15);
   color: var(--orange);
   border-radius: 6px;
   padding: 3px 8px;
@@ -709,4 +765,152 @@ select option.semaine-passee {
   font-weight: 700;
   white-space: nowrap;
   display: inline-block;
+}
+
+/* ===== MODULE ATTESTATION ===== */
+
+/* Formulaire d'attestation */
+.att-form {
+  margin-bottom: 24px;
+}
+
+/* Tableau de prévisualisation des licenciés */
+.att-resume {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--muted);
+
+  & strong {
+    color: var(--text);
+  }
+}
+
+.att-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.att-tableau {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--dark2);
+
+  & thead th {
+    background: var(--dark3);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  & tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .1s;
+
+    &:last-child { border-bottom: none; }
+    &:hover { background: rgba(255, 255, 255, .03); }
+  }
+
+  & td {
+    padding: 10px 14px;
+    vertical-align: middle;
+    color: var(--text);
+    white-space: nowrap;
+
+    &.col-adresse {
+      max-width: 320px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.nom-gras {
+      font-weight: 700;
+    }
+  }
+}
+
+.badge-tarif {
+  background: rgba(61, 153, 48, .15);
+  color: var(--green);
+  border: 1px solid rgba(61, 153, 48, .3);
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* Zone des boutons d'action attestation */
+.att-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Bouton de génération des attestations */
+.btn-generer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: var(--orange);
+  color: var(--dark);
+  transition: all .2s;
+  letter-spacing: .3px;
+
+  &:hover:not(:disabled) {
+    background: #ff9050;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(255, 120, 40, .3);
+  }
+
+  &:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ===== PAGE PLACEHOLDER (MODULES À VENIR) ===== */
+.module-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 80px 24px;
+  text-align: center;
+  color: var(--muted);
+
+  & .module-placeholder-icon {
+    font-size: 48px;
+    line-height: 1;
+  }
+
+  & h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: .5px;
+  }
+
+  & p {
+    font-size: 14px;
+    color: var(--muted);
+  }
 }

@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chapelaine Com Hebdo</title>
+  <title>Super Chapelaine — Outils de gestion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Contrail+One&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="assets/img/favicon-48.png">
@@ -12,14 +15,13 @@
 </head>
 <body>
 
+  <!-- ===== NAVIGATION PRINCIPALE ===== -->
   <nav>
     <div class="nav-left">
       <div class="nav-clubs">
-        <span class="nav-club">Chapelaine</span>
-        <span class="nav-separator">×</span>
-        <span class="nav-club">Porterie</span>
+        <span class="nav-club">Super Chapelaine</span>
       </div>
-      <div class="nav-title">Gestion Week-End</div>
+      <div class="nav-title">Outils de gestion</div>
     </div>
     <div class="nav-center">
       <img src="assets/img/logo-chapelaine-handball.png" alt="La Chapelaine Handball" class="nav-logo">
@@ -29,102 +31,184 @@
     <div class="nav-right"></div>
   </nav>
 
-  <div class="container">
+  <!-- ===== MENU MODULES (ONGLETS PRINCIPAUX) ===== -->
+  <div class="menu-modules">
+    <div class="menu-module active" data-module="com-hebdo">Com Hebdo</div>
+    <div class="menu-module" data-module="attestation">Attestations</div>
+    <div class="menu-module" data-module="frais-km">Frais km</div>
+    <div class="menu-module" data-module="assistance">Assistance</div>
+  </div>
 
-    <!-- ZONE D'IMPORT -->
-    <div class="upload-row">
-      <label class="dropzone" id="dropzone" for="file-input">
-        <div class="dropzone-icon">📂</div>
-        <div class="dropzone-label"><strong>Glisser le fichier GestHand ici</strong></div>
-        <div class="dropzone-sub">ou</div>
-        <input type="file" id="file-input" accept=".csv,.txt" multiple>
-      </label>
-      <div class="week-card">
-        <label for="semaine-select">Semaine</label>
-        <select id="semaine-select" disabled>
-          <option value="">— Charger un fichier CSV —</option>
-        </select>
+  <!-- ============================================================= -->
+  <!-- MODULE ATTESTATION                                            -->
+  <!-- ============================================================= -->
+  <div class="module-content hidden" id="module-attestation">
+    <div class="container">
+
+      <!-- Zone d'import CSV -->
+      <div class="att-form">
+        <div class="upload-row">
+          <label class="dropzone" id="att-dropzone" for="att-file-input">
+            <div class="dropzone-icon">📂</div>
+            <div class="dropzone-label"><strong>Glisser le fichier des licenciés ici</strong></div>
+            <div class="dropzone-sub">ou</div>
+            <input type="file" id="att-file-input" accept=".csv">
+          </label>
+          <div class="week-card">
+            <label for="att-modele-select">Modèle d'attestation</label>
+            <select id="att-modele-select" disabled>
+              <option value="">— Charger un fichier CSV —</option>
+            </select>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- ALERTE ERREURS -->
-    <div class="alert" id="alert-erreurs" style="display:none">
-      <span>⚠️</span>
-      <div id="alert-contenu"></div>
-    </div>
+      <!-- Zone de prévisualisation -->
+      <div id="att-apercu">
+        <div class="empty-state">Importez un fichier CSV pour prévisualiser les licenciés.</div>
+      </div>
 
-    <!-- ONGLETS PRINCIPAUX -->
-    <div class="tabs">
-      <div class="tab active" data-tab="matchs">Matchs</div>
-      <div class="tab" data-tab="annonce">Visuel Annonce</div>
-      <div class="tab" data-tab="resultats">Visuel Résultats</div>
-    </div>
-
-    <!-- === ONGLET MATCHS === -->
-    <div class="main-content active" id="main-matchs">
-
-      <div class="matchs-toolbar">
-        <button class="btn-sheets" id="btn-export-sheets" disabled>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-          </svg>
-          Exporter vers Google Sheets
+      <!-- Bouton de génération -->
+      <div class="att-actions">
+        <button class="btn-generer" id="att-btn-generer" disabled>
+          Générer les attestations
         </button>
       </div>
 
-      <!-- SOUS-ONGLETS SALLES -->
-      <div class="sub-tabs">
-        <div class="sub-tab coutanciere active" data-salle="coutanciere">Coutancière</div>
-        <div class="sub-tab jahan" data-salle="jahan">Jean Jahan</div>
-        <div class="sub-tab exterieur" data-salle="exterieur">Extérieur</div>
-        <div class="sub-tab non-defini" data-salle="non-defini">Match non défini</div>
-      </div>
-
-      <div class="tab-content" id="tab-coutanciere">
-        <div class="empty-state" id="empty-coutanciere">Chargez un fichier CSV pour afficher le planning.</div>
-        <div id="kifekoi-coutanciere"></div>
-      </div>
-
-      <div class="tab-content hidden" id="tab-jahan">
-        <div class="empty-state" id="empty-jahan">Chargez un fichier CSV pour afficher le planning.</div>
-        <div id="kifekoi-jahan"></div>
-      </div>
-
-      <div class="tab-content hidden" id="tab-exterieur">
-        <div class="empty-state" id="empty-exterieur">Chargez un fichier CSV pour afficher le planning.</div>
-        <div id="kifekoi-exterieur"></div>
-      </div>
-
-      <div class="tab-content hidden" id="tab-non-defini">
-        <div class="empty-state" id="empty-non-defini">Chargez un fichier CSV pour afficher le planning.</div>
-        <div id="kifekoi-non-defini"></div>
-      </div>
-
     </div>
-
-    <!-- === ONGLET VISUEL ANNONCE === -->
-    <div class="main-content hidden" id="main-annonce">
-      <div class="empty-state" id="empty-annonce">Chargez un fichier CSV pour générer le visuel d'annonce.</div>
-
-      <div class="sub-tabs" id="sub-tabs-annonce" style="display:none">
-        <div class="sub-tab annonce-day active" data-day="samedi">Samedi</div>
-        <div class="sub-tab annonce-day" data-day="dimanche">Dimanche</div>
-      </div>
-
-      <div id="annonce-samedi"></div>
-      <div id="annonce-dimanche" style="display:none"></div>
-    </div>
-
-    <!-- === ONGLET VISUEL RÉSULTATS === -->
-    <div class="main-content hidden" id="main-resultats">
-      <div class="empty-state">Chargez un fichier de résultats pour générer le visuel.</div>
-      <div id="visuel-resultats"></div>
-    </div>
-
   </div>
 
+  <!-- ============================================================= -->
+  <!-- MODULE COM HEBDO                                              -->
+  <!-- ============================================================= -->
+  <div class="module-content" id="module-com-hebdo">
+    <div class="container">
+
+      <!-- Zone d'import CSV GestHand -->
+      <div class="upload-row">
+        <label class="dropzone" id="com-hebdo-dropzone" for="com-hebdo-file-input">
+          <div class="dropzone-icon">📂</div>
+          <div class="dropzone-label"><strong>Glisser le fichier GestHand ici</strong></div>
+          <div class="dropzone-sub">ou</div>
+          <input type="file" id="com-hebdo-file-input" accept=".csv,.txt" multiple>
+        </label>
+        <div class="week-card">
+          <label for="semaine-select">Semaine</label>
+          <select id="semaine-select" disabled>
+            <option value="">— Charger un fichier CSV —</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Alerte erreurs -->
+      <div class="alert" id="alert-erreurs" style="display:none">
+        <span>⚠️</span>
+        <div id="alert-contenu"></div>
+      </div>
+
+      <!-- Onglets principaux com-hebdo : Matchs / Annonce / Résultats -->
+      <div class="tabs">
+        <div class="tab active" data-tab="matchs">Matchs</div>
+        <div class="tab" data-tab="annonce">Visuel Annonce</div>
+        <div class="tab" data-tab="resultats">Visuel Résultats</div>
+      </div>
+
+      <!-- === ONGLET MATCHS === -->
+      <div class="main-content active" id="main-matchs">
+
+        <div class="matchs-toolbar">
+          <button class="btn-sheets" id="btn-export-sheets" disabled>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 14H7v-2h5v2zm5-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            Exporter vers Google Sheets
+          </button>
+        </div>
+
+        <!-- Sous-onglets salles -->
+        <div class="sub-tabs">
+          <div class="sub-tab coutanciere active" data-salle="coutanciere">Coutancière</div>
+          <div class="sub-tab jahan" data-salle="jahan">Jean Jahan</div>
+          <div class="sub-tab exterieur" data-salle="exterieur">Extérieur</div>
+          <div class="sub-tab non-defini" data-salle="non-defini">Match non défini</div>
+        </div>
+
+        <div class="tab-content" id="tab-coutanciere">
+          <div class="empty-state" id="empty-coutanciere">Chargez un fichier CSV pour afficher le planning.</div>
+          <div id="kifekoi-coutanciere"></div>
+        </div>
+
+        <div class="tab-content hidden" id="tab-jahan">
+          <div class="empty-state" id="empty-jahan">Chargez un fichier CSV pour afficher le planning.</div>
+          <div id="kifekoi-jahan"></div>
+        </div>
+
+        <div class="tab-content hidden" id="tab-exterieur">
+          <div class="empty-state" id="empty-exterieur">Chargez un fichier CSV pour afficher le planning.</div>
+          <div id="kifekoi-exterieur"></div>
+        </div>
+
+        <div class="tab-content hidden" id="tab-non-defini">
+          <div class="empty-state" id="empty-non-defini">Chargez un fichier CSV pour afficher le planning.</div>
+          <div id="kifekoi-non-defini"></div>
+        </div>
+
+      </div>
+
+      <!-- === ONGLET VISUEL ANNONCE === -->
+      <div class="main-content hidden" id="main-annonce">
+        <div class="empty-state" id="empty-annonce">Chargez un fichier CSV pour générer le visuel d'annonce.</div>
+
+        <div class="sub-tabs" id="sub-tabs-annonce" style="display:none">
+          <div class="sub-tab annonce-day active" data-day="samedi">Samedi</div>
+          <div class="sub-tab annonce-day" data-day="dimanche">Dimanche</div>
+        </div>
+
+        <div id="annonce-samedi"></div>
+        <div id="annonce-dimanche" style="display:none"></div>
+      </div>
+
+      <!-- === ONGLET VISUEL RÉSULTATS === -->
+      <div class="main-content hidden" id="main-resultats">
+        <div class="empty-state">Chargez un fichier de résultats pour générer le visuel.</div>
+        <div id="visuel-resultats"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- MODULE FRAIS KM                                               -->
+  <!-- ============================================================= -->
+  <div class="module-content hidden" id="module-frais-km">
+    <div class="container">
+      <div class="module-placeholder">
+        <span class="module-placeholder-icon">🚧</span>
+        <h2>Frais kilométriques</h2>
+        <p>Module en cours de développement</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================= -->
+  <!-- MODULE ASSISTANCE                                             -->
+  <!-- ============================================================= -->
+  <div class="module-content hidden" id="module-assistance">
+    <div class="container">
+      <div class="module-placeholder">
+        <span class="module-placeholder-icon">🚧</span>
+        <h2>Assistance membres</h2>
+        <p>Module en cours de développement</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCRIPTS CDN ===== -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async></script>
+
+  <!-- ===== SCRIPT PRINCIPAL ===== -->
   <script type="module" src="js/app.js"></script>
+
 </body>
 </html>
