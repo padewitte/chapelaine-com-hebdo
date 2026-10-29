@@ -1,10 +1,10 @@
 import { nomPoule, nomClub } from './competitions.js';
 
-const NOMS_CLUB_DOM = ['CHAPELAINE', 'LA CHAPELAINE', 'PORTERIE HB', 'PORTERIE', 'ST JOSEPH PORTERIE'];
+const NOMS_CLUB_DOM = ['CHAPELAINE', 'LA CHAPELAINE', 'PORTERIE HB', 'PORTERIE', 'ST JOSEPH PORTERIE', 'ALLIANCE ERDRE ET GESVRES'];
 
 export const estNotreClub = nom =>
   NOMS_CLUB_DOM.some(n => (nom || '').toUpperCase().includes(n));
-const SALLES_DOM    = ['COUTANCIERE', 'JAHAN'];
+const SALLES_DOM    = ['COUTANCIERE', 'JAHAN', 'OLYMPIE'];
 
 export const DataCleaner = {
 
@@ -61,12 +61,15 @@ export const DataCleaner = {
     return NOMS_CLUB_DOM.some(n => hote.includes(n) || rec.includes(n));
   },
 
-  // Retourne 'coutanciere' | 'jahan' | 'exterieur' | 'non-defini' (voir README).
+  // Retourne 'coutanciere' | 'jahan' | 'olympie' | 'exterieur' | 'non-defini' (voir README).
   detecterSalle(ligne, estDomicile) {
     if (!ligne['le']) return 'non-defini';
     if (!estDomicile) return 'exterieur';
     const salle = (ligne['nom salle'] || '').toUpperCase();
     if (salle.includes('JAHAN')) return 'jahan';
+    if (salle.includes('OLYMPIE')) return 'olympie';
+    // Entente reçue dans un autre gymnase du club partenaire.
+    if (salle && !SALLES_DOM.some(s => salle.includes(s))) return 'exterieur';
     return 'coutanciere';
   },
 

@@ -10,6 +10,7 @@ export const KifekoiRenderer = {
     const parSalle = {
       coutanciere:    matchs.filter(m => m.salle === 'coutanciere'),
       jahan:          matchs.filter(m => m.salle === 'jahan'),
+      olympie:        matchs.filter(m => m.salle === 'olympie'),
       exterieur:      matchs.filter(m => m.salle === 'exterieur'),
       'non-defini':   matchs.filter(m => m.salle === 'non-defini'),
     };
@@ -152,7 +153,7 @@ export const KifekoiRenderer = {
   },
 
   vider() {
-    ['jahan', 'coutanciere', 'exterieur', 'non-defini'].forEach(salle => {
+    ['jahan', 'olympie', 'coutanciere', 'exterieur', 'non-defini'].forEach(salle => {
       document.getElementById(`kifekoi-${salle}`).innerHTML = '';
     });
   },

@@ -6,6 +6,7 @@ let accessToken = null;
 const COULEURS = {
   coutanciere:  { red: 0.24, green: 0.60, blue: 0.19 },
   jahan:        { red: 1.00, green: 0.47, blue: 0.16 },
+  olympie:      { red: 0.23, green: 0.51, blue: 0.96 },
   exterieur:    { red: 0.55, green: 0.56, blue: 0.56 },
   'non-defini': { red: 0.40, green: 0.42, blue: 0.47 },
 };
@@ -75,6 +76,7 @@ export const GoogleSheets = {
     const salles = [
       { key: 'coutanciere', nom: 'COUTANCIÈRE', domicile: true  },
       { key: 'jahan',       nom: 'JEAN JAHAN',  domicile: true  },
+      { key: 'olympie',     nom: 'OLYMPIE',     domicile: true  },
       { key: 'exterieur',   nom: 'EXTÉRIEUR',    domicile: false },
     ];
 

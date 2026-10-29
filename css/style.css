@@ -4,6 +4,7 @@
 :root {
   --orange: #ff7828;
   --green: #3d9930;
+  --blue: #3b82f6;
   --dark: #0f1117;
   --dark2: #1a1d27;
   --dark3: #242736;
@@ -342,6 +343,14 @@ select option.semaine-passee {
       }
     }
 
+    &.olympie {
+      &.active, &:hover {
+        color: var(--blue);
+        border-color: var(--blue);
+        background: rgba(59, 130, 246, .08);
+      }
+    }
+
     &.coutanciere {
       &.active, &:hover {
         color: var(--green);
@@ -434,6 +443,15 @@ select option.semaine-passee {
     }
     & .venue-dot { background: var(--orange); }
     & .time-badge { background: rgba(255, 120, 40, .15); color: var(--orange); }
+  }
+
+  &.olympie {
+    & .kifekoi-day {
+      background: linear-gradient(90deg, rgba(59, 130, 246, .2), transparent);
+      color: var(--blue);
+    }
+    & .venue-dot { background: var(--blue); }
+    & .time-badge { background: rgba(59, 130, 246, .15); color: var(--blue); }
   }
 
   &.coutanciere {

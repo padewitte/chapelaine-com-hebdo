@@ -28,25 +28,30 @@ Seuls les fichiers de type **programme** alimentent le kifekoi.
 
 ## Structure du kifekoi
 
-### Quatre onglets
+### Cinq onglets
 | Onglet | Contenu |
 |--------|---------|
 | **Coutancière** | Matchs à domicile joués à La Coutancière |
 | **Jean Jahan** | Matchs à domicile joués à la salle Jean Jahan |
+| **Olympie** | Matchs à domicile joués à la salle Olympie (Treillières, Alliance Erdre et Gesvres) |
 | **Extérieur** | Matchs à l'extérieur dont la date est connue |
 | **Match non défini** | Matchs (domicile ou extérieur) dont la date n'est pas encore fixée |
 
 ### Détection domicile / salle
-Un match est à **domicile** si le champ `club hote` **ou** `club rec` contient l'un des noms connus du club (liste modifiable dans `js/data-cleaner.js`) :
+Un match est à **domicile** si le champ `club hote` **ou** `club rec` contient l'un des noms connus du club (liste modifiable dans `js/com-hebdo/data-cleaner.js`) :
 ```
-CHAPELAINE, LA CHAPELAINE, PORTERIE HB, PORTERIE, ST JOSEPH PORTERIE
+CHAPELAINE, LA CHAPELAINE, PORTERIE HB, PORTERIE, ST JOSEPH PORTERIE, ALLIANCE ERDRE ET GESVRES
 ```
+
+À l'import, seules les rencontres dont `club rec`, `club vis` ou `club hote` contient l'un de ces noms sont gardées : l'export d'un club partenaire (ex. HBC Gesvres pour l'Alliance Erdre et Gesvres) peut ainsi être chargé tel quel.
 
 La salle (`detecterSalle` dans `data-cleaner.js`) se décide dans cet ordre :
 1. Champ `le` (date) vide → **Match non défini**, quel que soit le statut domicile/extérieur
 2. Match à l'extérieur (date connue) → **Extérieur**
 3. Match à domicile, `nom salle` contient `JAHAN` → **Jean Jahan**
-4. Match à domicile, sinon → **Coutancière**
+4. Match à domicile, `nom salle` contient `OLYMPIE` → **Olympie**
+5. Match à domicile, `nom salle` renseigné et ne contenant ni `COUTANCIERE`, ni `JAHAN`, ni `OLYMPIE` (entente reçue dans un autre gymnase du club partenaire) → **Extérieur**
+6. Match à domicile, sinon → **Coutancière**
 
 Tant que la date n'est pas fixée, on ne sait rien de fiable sur la salle réelle : plutôt que de deviner (et risquer d'afficher une fausse information, par exemple notre propre club comme "Club hôte" d'un match extérieur), le match part dans la zone neutre **Match non défini**, qui se scinde elle-même en deux blocs : **Domicile — gymnase à définir** et **Extérieur — à définir** (même logique dans le kifekoi et dans l'export Google Sheets).
 
@@ -54,7 +59,7 @@ Tant que la date n'est pas fixée, on ne sait rien de fiable sur la salle réell
 
 ## Colonnes du tableau
 
-### Matchs domicile (Coutancière / Jean Jahan / bloc "Domicile" de Match non défini)
+### Matchs domicile (Coutancière / Jean Jahan / Olympie / bloc "Domicile" de Match non défini)
 | Colonne | Source | Règle |
 |---------|--------|-------|
 | **Horaire** | Champ `horaire` du CSV | Formaté `10h00` |
@@ -121,7 +126,7 @@ Le badge **D** indique une désignation officielle fédérale, à distinguer d'u
 Le bouton **"Exporter vers Google Sheets"** apparaît dans l'onglet Matchs après chargement d'un CSV. Il déclenche une authentification Google (pop-up OAuth) puis écrit les données dans le spreadsheet configuré.
 
 ### Configuration
-Le fichier **`js/google-config.js`** contient les identifiants Google (non versionné) :
+Le fichier **`js/com-hebdo/google-config.js`** contient les identifiants Google :
 ```js
 export const GOOGLE_CONFIG = {
   clientId:      'VOTRE_CLIENT_ID.apps.googleusercontent.com',
@@ -143,6 +148,9 @@ COUTANCIÈRE
   ...
 (2 lignes vides)
 JEAN JAHAN
+  ...
+(2 lignes vides)
+OLYMPIE
   ...
 (2 lignes vides)
 EXTÉRIEUR
@@ -174,10 +182,10 @@ Une **légende** reprenant ce code couleur est automatiquement ajoutée en haut 
 
 ## Noms des équipes, clubs et compétitions
 
-Le fichier **`js/competitions.js`** est le seul endroit à modifier pour personnaliser les noms affichés.
+Le fichier **`js/com-hebdo/competitions.js`** est le seul endroit à modifier pour personnaliser les noms affichés.
 
 ### Ajouter une nouvelle compétition
-1. Ouvrir `js/competitions.js`
+1. Ouvrir `js/com-hebdo/competitions.js`
 2. Repérer la valeur exacte du champ `poule` dans le CSV GestHand
 3. Ajouter une ligne dans le tableau `POULES` : `'U17M D2': 'U17-M D2',`
 4. Enregistrer — le nom s'affiche immédiatement au prochain import
@@ -185,7 +193,7 @@ Le fichier **`js/competitions.js`** est le seul endroit à modifier pour personn
 Si une poule n'est pas listée, la valeur brute du CSV s'affiche telle quelle — rien ne plante.
 
 ### Nettoyage automatique des noms de clubs
-Les noms de clubs adverses (colonne Adversaire) sont nettoyés automatiquement (`js/data-cleaner.js`) :
+Les noms de clubs adverses (colonne Adversaire) sont nettoyés automatiquement (`js/com-hebdo/data-cleaner.js`) :
 - Suppression des suffixes GestHand (`1M.2M`, `1F.2F`…) et des préfixes de compétition (`U12M-44-EXC-C-`…)
 - Suppression des mots génériques (`Handball`, `Olympique`, `Club`…)
 - Mise en forme en majuscule initiale
