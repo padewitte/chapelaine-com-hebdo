@@ -28,25 +28,30 @@ Seuls les fichiers de type **programme** alimentent le kifekoi.
 
 ## Structure du kifekoi
 
-### Quatre onglets
+### Cinq onglets
 | Onglet | Contenu |
 |--------|---------|
 | **Coutancière** | Matchs à domicile joués à La Coutancière |
 | **Jean Jahan** | Matchs à domicile joués à la salle Jean Jahan |
+| **Olympie** | Matchs à domicile joués à la salle Olympie (Treillières, Alliance Erdre et Gesvres) |
 | **Extérieur** | Matchs à l'extérieur dont la date est connue |
 | **Match non défini** | Matchs (domicile ou extérieur) dont la date n'est pas encore fixée |
 
 ### Détection domicile / salle
 Un match est à **domicile** si le champ `club hote` **ou** `club rec` contient l'un des noms connus du club (liste modifiable dans `js/data-cleaner.js`) :
 ```
-CHAPELAINE, LA CHAPELAINE, PORTERIE HB, PORTERIE, ST JOSEPH PORTERIE
+CHAPELAINE, LA CHAPELAINE, PORTERIE HB, PORTERIE, ST JOSEPH PORTERIE, ALLIANCE ERDRE ET GESVRES
 ```
+
+À l'import, seules les rencontres dont `club rec`, `club vis` ou `club hote` contient l'un de ces noms sont gardées : l'export d'un club partenaire (ex. HBC Gesvres pour l'Alliance Erdre et Gesvres) peut ainsi être chargé tel quel.
 
 La salle (`detecterSalle` dans `data-cleaner.js`) se décide dans cet ordre :
 1. Champ `le` (date) vide → **Match non défini**, quel que soit le statut domicile/extérieur
 2. Match à l'extérieur (date connue) → **Extérieur**
 3. Match à domicile, `nom salle` contient `JAHAN` → **Jean Jahan**
-4. Match à domicile, sinon → **Coutancière**
+4. Match à domicile, `nom salle` contient `OLYMPIE` → **Olympie**
+5. Match à domicile, `nom salle` renseigné et ne contenant ni `COUTANCIERE`, ni `JAHAN`, ni `OLYMPIE` (entente reçue dans un autre gymnase du club partenaire) → **Extérieur**
+6. Match à domicile, sinon → **Coutancière**
 
 Tant que la date n'est pas fixée, on ne sait rien de fiable sur la salle réelle : plutôt que de deviner (et risquer d'afficher une fausse information, par exemple notre propre club comme "Club hôte" d'un match extérieur), le match part dans la zone neutre **Match non défini**, qui se scinde elle-même en deux blocs : **Domicile — gymnase à définir** et **Extérieur — à définir** (même logique dans le kifekoi et dans l'export Google Sheets).
 
@@ -54,7 +59,7 @@ Tant que la date n'est pas fixée, on ne sait rien de fiable sur la salle réell
 
 ## Colonnes du tableau
 
-### Matchs domicile (Coutancière / Jean Jahan / bloc "Domicile" de Match non défini)
+### Matchs domicile (Coutancière / Jean Jahan / Olympie / bloc "Domicile" de Match non défini)
 | Colonne | Source | Règle |
 |---------|--------|-------|
 | **Horaire** | Champ `horaire` du CSV | Formaté `10h00` |
@@ -143,6 +148,9 @@ COUTANCIÈRE
   ...
 (2 lignes vides)
 JEAN JAHAN
+  ...
+(2 lignes vides)
+OLYMPIE
   ...
 (2 lignes vides)
 EXTÉRIEUR

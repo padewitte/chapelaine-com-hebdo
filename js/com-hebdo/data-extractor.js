@@ -35,6 +35,11 @@ export const DataExtractor = {
       ? store.resultatsParSemaine
       : store.matchsParSemaine;
 
+    // L'export d'un club partenaire (ex. HBC Gesvres) contient aussi ses propres
+    // équipes : on ne garde que les rencontres où l'un de nos noms apparaît.
+    lignes = lignes.filter(l =>
+      ['club rec', 'club vis', 'club hote'].some(c => estNotreClub(l[c])));
+
     const nous = notreEquipeParPoule(lignes);
 
     lignes.forEach(ligne => {

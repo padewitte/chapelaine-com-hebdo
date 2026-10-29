@@ -71,7 +71,7 @@ export function initialiserComHebdo() {
     }
 
     // Activer directement le sous-onglet salle qui contient des matchs
-    const salleActive = ['coutanciere', 'jahan', 'exterieur', 'non-defini']
+    const salleActive = ['coutanciere', 'jahan', 'olympie', 'exterieur', 'non-defini']
       .find(salle => dernierMatchs.some(m => m.salle === salle));
     if (salleActive) activerSousOngletSalle(salleActive);
 
@@ -94,6 +94,7 @@ export function initialiserComHebdo() {
         const parSalle = {
           coutanciere:  dernierMatchs.filter(m => m.salle === 'coutanciere'),
           jahan:        dernierMatchs.filter(m => m.salle === 'jahan'),
+          olympie:      dernierMatchs.filter(m => m.salle === 'olympie'),
           exterieur:    dernierMatchs.filter(m => m.salle === 'exterieur'),
           'non-defini': dernierMatchs.filter(m => m.salle === 'non-defini'),
         };
