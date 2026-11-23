@@ -123,6 +123,7 @@ Le badge **D** indique une désignation officielle fédérale, à distinguer d'u
 ## Tri et organisation
 
 - Les blocs sont triés **par date calendaire** (samedi avant dimanche), les matchs dans un bloc **par horaire croissant**
+- Les résultats (onglet **Visuel Résultats**) sont triés **par catégorie des plus jeunes aux plus anciens** (`U11` à `U19`, puis Séniors `SF` et `SM`)
 - Les matchs amicaux ne sont pas affichés
 - Les matchs sans date encore fixée (voir [Match non défini](#structure-du-kifekoi)) sont triés par nom de poule
 
@@ -201,8 +202,10 @@ Le fichier **`js/com-hebdo/competitions.js`** est le seul endroit à modifier po
 Si une poule n'est listée ni dans `POULES` ni dans `COUPES`, la valeur brute du champ `poule` du CSV s'affiche telle quelle — rien ne plante.
 
 ### Nettoyage automatique des noms de clubs
-Les noms de clubs adverses (colonne Adversaire) sont nettoyés automatiquement (`js/com-hebdo/data-cleaner.js`) :
-- Suppression des suffixes GestHand (`1M.2M`, `1F.2F`…) et des préfixes de compétition (`U12M-44-EXC-C-`…)
-- Suppression des mots génériques (`Handball`, `Olympique`, `Club`…)
+Les noms de clubs adverses et hôtes (colonnes Adversaire et Club hôte) sont nettoyés automatiquement (`js/com-hebdo/data-cleaner.js`) :
+- Suppression des préfixes de compétition et de division GestHand, avec ou sans tiret (`U12M-44-EXC-C-`, `1DTM44C - `, `D2M85 `, `HONM62C-`…)
+- Normalisation des ententes : remplacement du séparateur `*` par ` & ` et suppression du préfixe `E.` (`D2M85 E.POIRE *VIE ET YON 2` → `Poire & Vie Et Yon 2`)
+- Suppression des suffixes de catégorie (`1M.2M`, `1F`, `- U19M`…) tout en conservant le numéro d'équipe final (`1`, `2`, `3`, `4`)
+- Suppression des mots génériques et sigles d'association (`Handball`, `Olympique`, `Club`, `Association`, `Sportive`, `Entente`, `Union`, `HB`, `HC`, `HBAC`, `OHB`, `AAEEC`, `ASCED`, `AL`, `AS`, `CJ`, `CO`, `CSC`, `ES`, `US`, `AC`, `OS`, `NOV`…) tout en préservant l'acronyme `HBC`
 - Mise en forme en majuscule initiale
-- Les cas particuliers non couverts par ces règles se règlent dans le tableau `CLUBS` de `competitions.js`
+- Les cas particuliers (accents spécifiques ou surnoms) se règlent dans le tableau `CLUBS` de `competitions.js` (qui conserve lui aussi le numéro d'équipe final)

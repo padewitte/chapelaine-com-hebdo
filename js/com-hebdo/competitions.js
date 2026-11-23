@@ -132,9 +132,8 @@ export function nomPoule(numPoule, poule, nous, competition = '', numNous = '') 
  * Valeur = nom affiché tel quel, capitalisation et accents compris
  *
  * Toute entrée qui CONTIENT la clé prend la valeur : 'REZE' couvre aussi bien
- * "ASB REZE HANDBALL" que "U14M44C - ASB REZE * ATLANTIQUE REZE HB". Les
- * variantes numérotées sont donc confondues ("MARSIEN 2" → "St Mars") ; pour
- * les distinguer, mettre une clé par équipe.
+ * "ASB REZE HANDBALL" que "U14M44C - ASB REZE * ATLANTIQUE REZE HB". Un
+ * éventuel numéro d'équipe final ("ASPTT NANTES 2" → "ASPTT 2") est conservé.
  *
  * À clés multiples, la plus longue gagne. Un club sans clé passe par les
  * règles habituelles.
@@ -143,6 +142,7 @@ export const CLUBS = {
   'RACC':'RACC',
   'ASPTT':'ASPTT',
   'FANS HB LIGNE':'Ligné',
+  'FANS LIGNE': 'Ligné',
   'PONT-CHATEAU ': 'Pont-Château',
   'HBC BLINOIS': 'HBC Blinois',
   'HANDBALL CLUB MARSIEN': 'St Mars',
@@ -151,6 +151,7 @@ export const CLUBS = {
   'REZE': 'Rezé',
   'SUCE SUR ERDRE': 'Sucé-sur-Erdre',
   'HANDBALL CLUB DU GESVRES': 'HBC Gesvres',
+  'HBC GESVRES': 'HBC Gesvres',
   'Thouare Hbc * Hbc Marsien': 'Thouaré & HBC Marsien',
   'Eclair Chauve Hb*Sud Estuaire Hc': 'Eclair Chauvé & Sud Estuaire',
 };
@@ -161,5 +162,16 @@ const CLES_CLUBS = Object.keys(CLUBS).sort((a, b) => b.trim().length - a.trim().
 export function nomClub(brut) {
   const nom = (brut || '').toUpperCase();
   const cle = CLES_CLUBS.find(c => nom.includes(c.trim().toUpperCase()));
-  return cle ? CLUBS[cle] : null;
+  if (!cle) return null;
+
+  const base = CLUBS[cle];
+  const sansSuffixeCat = (brut || '')
+    .replace(/\s*-\s*U\d+[MF]\b/gi, '')
+    .replace(/\s+\d[MFmf](\.\d[MFmf])*/g, '')
+    .trim();
+  const matchNum = sansSuffixeCat.match(/\s+(\d+)$/);
+  if (matchNum && !/\s+\d+$/.test(base)) {
+    return `${base} ${matchNum[1]}`;
+  }
+  return base;
 }

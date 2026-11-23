@@ -323,3 +323,7 @@ Le fichier de session doit contenir :
 3. **Documentation** : mettre à jour la documentation quand le code change.
 
 4. **Commits** : messages de commit en français, clairs et descriptifs.
+
+5. **Simplicité et refus des hacks / contournements dans le code** :
+   - Ne jamais polluer le code applicatif avec des artifices techniques ou de la complexité accidentelle pour contourner un comportement d'environnement, d'outillage ou de navigateur (par exemple : ne jamais ajouter de paramètres `?v=...` de cache-busting sur les `import` ES6 ou les balises `<script>`).
+   - Traiter chaque problème à sa juste place : si le problème relève de la configuration de l'environnement de développement ou du navigateur, documenter et expliquer la configuration adéquate plutôt que de dégrader la propreté et la maintenabilité du code source.

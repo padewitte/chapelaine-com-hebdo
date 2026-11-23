@@ -172,8 +172,11 @@ export const DataCleaner = {
     const exception = nomClub(nom);
     if (exception) return exception;
 
-    // Supprimer les préfixes de compétition GestHand suivis d'un tiret (ex: "HAU11M44E-", "HONM72C-", "U12M-44-EXC-C-", "C - ")
-    let cleaned = nom.replace(/^((?:HAU\w*|PRU\w*|HON[MF]?\w*|U\d+[MF]\b\s*\d*|\d{2}|EXC|PR|HA|C|D\d+)\s*-\s*)+/gi, '');
+    // 1. Supprimer les préfixes de compétition GestHand (avec ou sans tiret)
+    //    ex: "HAU11M44E-", "HONM72C-", "1DTM44C - ", "D2M85 ", "U12M-44-EXC-C-", "C - "
+    let cleaned = nom
+      .replace(/^((?:HAU\w*|PRU\w*|HON[MF]?\w*|\d*DT[MF]\w*|D\d+[MF]\w*|U\d+[MF]\w*|\d{2}|EXC|PR|HA|C|D\d+)\s*-\s*)+/gi, '')
+      .replace(/^(?:HAU\d+\w*|PRU\d+\w*|HON[MF]\d+\w*|\d*DT[MF]\d+\w*|D\d+[MF]\d+\w*|U\d+[MF]\d+\w*)\s+/gi, '');
 
     // Si un préfixe générique de code court précède un tiret
     if (cleaned === nom && nom.includes('-')) {
@@ -183,19 +186,34 @@ export const DataCleaner = {
       }
     }
 
-    const complet = cleaned.replace(/\s+\d[MFmf](\.\d[MFmf])*/g, ''); // supprime suffixes 1M.2M etc.
-    const court   = complet
+    // 2. Normaliser les séparateurs d'entente "*" en " & " et le préfixe "E."
+    cleaned = cleaned
+      .replace(/(?:^|(?<=\*|\s))E\.\s*/gi, '')
+      .replace(/\s*\*\s*/g, ' & ');
+
+    // 3. Supprimer les suffixes de catégorie ("1M.2M", "1F", "- U19M")
+    //    tout en conservant un éventuel numéro d'équipe final ("1", "2", "3", "4")
+    const complet = cleaned
+      .replace(/\s*-\s*U\d+[MF]\b/gi, '')
+      .replace(/\s+\d[MFmf](\.\d[MFmf])*/g, '');
+
+    // 4. Supprimer les termes génériques et sigles d'association tout en gardant HBC
+    const court = complet
       .replace(/\bhandball\b/gi, '')
       .replace(/\bolympique\b/gi, '')
-      .replace(/\bclub\b/gi, '');
+      .replace(/\bclub\b/gi, '')
+      .replace(/\b(?:hb|hc|hbac|ohb|asb|aaeec|asced|al|as|cj|co|csc|es|us|ac|os|nov)\b/gi, '')
+      .replace(/\b(?:association|sportive|entente|union)\b/gi, '');
 
     // Les noms que ce raccourci vide de leur sens ("HANDBALL CLUB DU GESVRES")
     // sont traités par CLUBS ; ici on garde seulement le filet du nom vide.
     return (court.trim() ? court : complet)
       .replace(/\s{2,}/g, ' ')
+      .replace(/^\s*&\s*|\s*&\s*$/g, '')
       .trim()
       .toLowerCase()
-      .replace(/\b\w/g, c => c.toUpperCase());
+      .replace(/\b\w/g, c => c.toUpperCase())
+      .replace(/\bHbc\b/g, 'HBC');
   },
 
 };
