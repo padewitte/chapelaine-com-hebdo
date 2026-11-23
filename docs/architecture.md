@@ -22,19 +22,21 @@ flowchart TD
 
     APP --> MOD_ATT["Module Attestation<br/>js/attestation/"]
     APP --> MOD_COM["Module Com' hebdo<br/>js/com-hebdo/"]
-    APP --> MOD_FRM["Module Frais km 🔜<br/>js/frais-km/"]
+    APP --> MOD_FRM["Module Frais km<br/>js/frais-km/"]
     APP --> MOD_ASS["Module Assistance 🔜<br/>js/assistance/"]
 
     MOD_ATT --> RES_ATT["ressources/attestation-de-paiement/<br/>Tarifs CSV & Modèles DOCX"]
     MOD_COM --> FIXTURES["matchs/<br/>Exports CSV GestHand (tests)"]
+    MOD_FRM --> RES_FKM["ressources/frais-km/<br/>Modèle DOCX abandon de frais"]
 
     style ENTREE fill:#f96,stroke:#333,color:#fff
     style APP fill:#69b,stroke:#333,color:#fff
     style MOD_ATT fill:#5a5,stroke:#333,color:#fff
     style MOD_COM fill:#5a5,stroke:#333,color:#fff
-    style MOD_FRM fill:#999,stroke:#333,color:#fff
+    style MOD_FRM fill:#5a5,stroke:#333,color:#fff
     style MOD_ASS fill:#999,stroke:#333,color:#fff
     style RES_ATT fill:#fc5,stroke:#333,color:#333
+    style RES_FKM fill:#fc5,stroke:#333,color:#333
     style FIXTURES fill:#fc5,stroke:#333,color:#333
 ```
 
@@ -118,23 +120,29 @@ super-chapelaine/
 │   │   ├── calcul-tarif.js     ← Calcul et déduction des cotisations
 │   │   ├── csv-licencies-parser.js ← Analyse des CSV GestHand licenciés
 │   │   └── generateur-docx.js  ← Rendu et export DOCX
-│   └── com-hebdo/              ← Module Communication hebdomadaire
-│       ├── com-hebdo-app.js    ← Contrôleur du module com' hebdo
-│       ├── csv-parser.js       ← Analyse des CSV GestHand (programmes/résultats)
-│       ├── data-extractor.js   ← Extraction et groupement par semaine
-│       ├── data-cleaner.js     ← Normalisation équipes, détection dom/ext & salle
-│       ├── competitions.js     ← Mapping poules & clubs vers libellés d'affichage
-│       ├── kifekoi-renderer.js ← Rendu HTML du planning kifekoi (4 onglets)
-│       ├── visuel-renderer.js  ← Visuels réseaux sociaux (Instagram)
-│       ├── google-sheets.js    ← Export Google Sheets API (couleurs & légendes)
-│       └── google-config.js    ← Identifiants OAuth Google (non versionné)
+│   ├── com-hebdo/              ← Module Communication hebdomadaire
+│   │   ├── com-hebdo-app.js    ← Contrôleur du module com' hebdo
+│   │   ├── csv-parser.js       ← Analyse des CSV GestHand (programmes/résultats)
+│   │   ├── data-extractor.js   ← Extraction et groupement par semaine
+│   │   ├── data-cleaner.js     ← Normalisation équipes, détection dom/ext & salle
+│   │   ├── competitions.js     ← Mapping poules & clubs vers libellés d'affichage
+│   │   ├── kifekoi-renderer.js ← Rendu HTML du planning kifekoi (4 onglets)
+│   │   ├── visuel-renderer.js  ← Visuels réseaux sociaux (Instagram)
+│   │   ├── google-sheets.js    ← Export Google Sheets API (couleurs & légendes)
+│   │   └── google-config.js    ← Identifiants OAuth Google (non versionné)
+│   └── frais-km/               ← Module Frais kilométriques & Abandon de frais
+│       ├── frais-km-app.js     ← Contrôleur (collectifs, matchs passés ext., récap)
+│       ├── bareme-etat.js      ← Barème kilométrique officiel de l'État
+│       ├── distances-clubs.js  ← Référentiel communes/salles, géocodage & distances A/R
+│       └── generateur-abandon-docx.js ← Génération Word (.docx) conforme art. 200 CGI
 │
 ├── css/                        ← Styles natifs
 │   └── style.css               ← Styles globaux et par module (variables CSS :root)
 │
 ├── ressources/                 ← Données et modèles
 │   ├── attestation-de-paiement/← Fichiers de référence pour les attestations
-│   └── modele-attestation-de-paiement/
+│   ├── modele-attestation-de-paiement/
+│   └── frais-km/               ← Modèle Word officiel d'abandon de frais
 │
 ├── matchs/                     ← Fichiers CSV d'export GestHand (jeux d'essai)
 ├── mail/                       ← Scripts utilitaires d'envoi de mail (hors SPA)

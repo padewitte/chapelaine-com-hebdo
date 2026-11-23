@@ -1129,3 +1129,369 @@ select option.semaine-passee {
     color: var(--muted);
   }
 }
+
+/* ===== MODULE FRAIS KM (DÉPLACEMENTS & ABANDON DE FRAIS) ===== */
+.fkm-top-grid {
+  display: grid;
+  grid-template-columns: 1fr 290px;
+  gap: 18px;
+  margin-bottom: 20px;
+  align-items: stretch;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fkm-card {
+  background: var(--dark2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+
+  .fkm-top-grid & {
+    margin-bottom: 0;
+  }
+}
+
+.fkm-card--csv {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fkm-csv-statut {
+  font-size: 12px;
+  color: var(--green);
+  background: rgba(61, 153, 48, .12);
+  border: 1px solid rgba(61, 153, 48, .3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  line-height: 1.4;
+}
+
+.fkm-dropzone {
+  padding: 18px 12px;
+  min-height: 140px;
+  flex: 1;
+}
+
+.fkm-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fkm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+
+  & label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .7px;
+    color: var(--muted);
+  }
+
+  & input[type="text"],
+  & select {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 13px;
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+  }
+}
+
+.fkm-checkbox-row {
+  padding-top: 2px;
+}
+
+.fkm-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px !important;
+  text-transform: none !important;
+  letter-spacing: .2px !important;
+  color: var(--text) !important;
+  cursor: pointer;
+
+  & input[type="checkbox"] {
+    accent-color: var(--orange);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+}
+
+.fkm-adresse-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  & input[type="text"] {
+    flex: 1;
+    min-width: 240px;
+  }
+}
+
+.fkm-adresse-statut {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.fkm-btn-secondary {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .15s;
+
+  &:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+  }
+}
+
+.fkm-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+
+  & .section-title {
+    margin-bottom: 0;
+    flex: 1;
+  }
+}
+
+.fkm-actions-inline {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.fkm-btn-link {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+
+  &:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+}
+
+/* Puces de sélection des collectifs */
+.fkm-collectifs-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fkm-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--dark3);
+  color: var(--muted);
+  user-select: none;
+  transition: all .15s;
+
+  &:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  &.active {
+    background: rgba(255, 120, 40, .16);
+    border-color: var(--orange);
+    color: var(--orange);
+  }
+
+  & .fkm-pill-count {
+    font-size: 11px;
+    background: rgba(255, 255, 255, .08);
+    padding: 1px 6px;
+    border-radius: 10px;
+  }
+
+  &.active .fkm-pill-count {
+    background: rgba(255, 120, 40, .25);
+    color: var(--text);
+  }
+}
+
+/* Tableau des déplacements */
+.fkm-table-wrap {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.fkm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  & thead th {
+    background: rgba(15, 17, 23, .45);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  & tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .1s;
+
+    &:last-child { border-bottom: none; }
+    &:hover { background: rgba(255, 255, 255, .03); }
+    &.fkm-row-selected { background: rgba(255, 120, 40, .08); }
+  }
+
+  & td {
+    padding: 10px 14px;
+    vertical-align: middle;
+  }
+}
+
+.fkm-check-match {
+  accent-color: var(--orange);
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+
+.fkm-input-km {
+  width: 78px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--dark2);
+  color: var(--text);
+  font-weight: 700;
+  text-align: right;
+  font-size: 13px;
+
+  &:focus {
+    outline: none;
+    border-color: var(--orange);
+  }
+}
+
+/* Carte récapitulative fiscale */
+.fkm-recap-card {
+  background: linear-gradient(135deg, var(--dark2), var(--dark3));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fkm-recap-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 14px;
+}
+
+.fkm-metric {
+  background: rgba(15, 17, 23, .55);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &--highlight {
+    border-color: rgba(255, 120, 40, .5);
+    background: rgba(255, 120, 40, .08);
+  }
+
+  & .fkm-metric-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--muted);
+  }
+
+  & .fkm-metric-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+
+    &--small {
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    &--green {
+      color: var(--green);
+    }
+  }
+
+  &--highlight .fkm-metric-value {
+    color: var(--orange);
+  }
+}
+
+.fkm-generate-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.fkm-legal-note {
+  font-size: 12px;
+  color: var(--muted);
+  flex: 1;
+  min-width: 240px;
+}

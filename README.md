@@ -9,7 +9,7 @@ de handball **La Chapelaine**.
 |--------|-------------|--------|
 | **Attestation de paiement** | Génération d'attestations de paiement de licences | ✅ Actif |
 | **Com' hebdo** | Communication hebdomadaire — import GestHand CSV, planning, export Google Sheets | ✅ Actif |
-| **Frais km** | Fiches de frais kilométriques | 🔜 À venir |
+| **Frais km** | Déplacements à l'extérieur passés, calcul barème État et génération Word d'abandon de frais (art. 200 CGI) | ✅ Actif |
 | **Assistance** | Gestion assistance membres | 🔜 À venir |
 
 ## Démarrer
