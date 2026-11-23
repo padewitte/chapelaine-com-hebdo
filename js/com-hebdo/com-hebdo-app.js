@@ -28,10 +28,131 @@ function formaterDateSamedi(semaineStr) {
 function getSamediDate(semaineStr) {
   const [year, week] = semaineStr.split('-').map(Number);
   const date = new Date(year, 0, 4);
-  date.setDate(date.getDate() - date.getDay() + 1);
+  const jourIso = date.getDay() || 7;
+  date.setDate(date.getDate() - (jourIso - 1));
   date.setDate(date.getDate() + (week - 1) * 7);
   date.setDate(date.getDate() + 5);
   return date;
+}
+
+function formaterDelaiSemaines(delai) {
+  if (delai <= 0) return 'Cette semaine';
+  if (delai === 1) return 'Dans 1 sem.';
+  return `Dans ${delai} sem.`;
+}
+
+function creerTableauNonConclus(matchs) {
+  const lignesHtml = matchs.map(m => {
+    const numSemaine = m.semaine.split('-')[1];
+    const dateSam    = formaterDateSamedi(m.semaine);
+    const classeEch  = m.urgent ? 'badge-echeance badge-echeance--urgent' : 'badge-echeance badge-echeance--preavis';
+    const iconeEch   = m.urgent ? '⚠️ ' : '';
+    const badgesManq = m.manquants
+      .map(ch => `<span class="badge-manquant">${ch}</span>`)
+      .join(' ');
+
+    return `
+      <tr class="${m.urgent ? 'row-urgent' : ''}">
+        <td><span class="non-conclu-semaine">S${numSemaine} — sam. ${dateSam}</span></td>
+        <td><span class="${classeEch}">${iconeEch}${formaterDelaiSemaines(m.delaiSemaines)}</span></td>
+        <td><span class="team-home">${m.poule}</span></td>
+        <td><span class="team-away">${m.adversaire}</span></td>
+        <td><div class="manquants-wrap">${badgesManq}</div></td>
+      </tr>
+    `;
+  }).join('');
+
+  return `
+    <div class="alert-table-wrap">
+      <table class="alert-table">
+        <thead>
+          <tr>
+            <th>Semaine</th>
+            <th>Échéance</th>
+            <th>Équipe</th>
+            <th>Adversaire</th>
+            <th>Manquant</th>
+          </tr>
+        </thead>
+        <tbody>${lignesHtml}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function afficherAlerteNonConclus() {
+  const alertEl      = document.getElementById('alert-erreurs');
+  const alertContenu = document.getElementById('alert-contenu');
+  if (!alertEl || !alertContenu) return;
+
+  const nonConclus = DataExtractor.getMatchsDomicileNonConclus();
+  if (nonConclus.length === 0) {
+    alertEl.style.display = 'none';
+    alertEl.className = 'alert';
+    alertContenu.innerHTML = '';
+    return;
+  }
+
+  const urgents = nonConclus.filter(m => m.urgent);
+  const preavis = nonConclus.filter(m => !m.urgent);
+  const iconeEl = alertEl.querySelector('span');
+
+  if (urgents.length > 0) {
+    alertEl.className = 'alert alert--urgent';
+    if (iconeEl) iconeEl.textContent = '🚨';
+
+    const plurielUrg = urgents.length > 1 ? 's' : '';
+    let html = `
+      <div class="alert-header">
+        <div class="alert-header-top">
+          <div class="alert-title">
+            Alerte conclusion GestHand : ${urgents.length} match${plurielUrg} à domicile non conclu${plurielUrg} à 6 semaines ou moins !
+          </div>
+          <button type="button" class="alert-close" id="btn-fermer-alerte" aria-label="Fermer l'alerte" title="Fermer l'alerte">✕</button>
+        </div>
+        <div class="alert-subtitle">
+          Ces rencontres à domicile n'ont pas de date, d'horaire ou de salle définie (lieu inconnu) dans GestHand.
+        </div>
+      </div>
+      ${creerTableauNonConclus(urgents)}
+    `;
+
+    if (preavis.length > 0) {
+      const plurielPre = preavis.length > 1 ? 's' : '';
+      html += `
+        <details class="alert-details">
+          <summary>
+            Voir ${preavis.length} autre${plurielPre} match${plurielPre} à domicile non conclu${plurielPre} à plus de 6 semaines
+          </summary>
+          ${creerTableauNonConclus(preavis)}
+        </details>
+      `;
+    }
+
+    alertContenu.innerHTML = html;
+  } else {
+    alertEl.className = 'alert alert--preavis';
+    if (iconeEl) iconeEl.textContent = '📅';
+
+    const plurielPre = preavis.length > 1 ? 's' : '';
+    alertContenu.innerHTML = `
+      <div class="alert-preavis-bar">
+        <details class="alert-details alert-details--standalone">
+          <summary>
+            <strong>${preavis.length} match${plurielPre} à domicile non conclu${plurielPre}</strong> dans les semaines suivantes (au-delà de 6 semaines)
+          </summary>
+          ${creerTableauNonConclus(preavis)}
+        </details>
+        <button type="button" class="alert-close" id="btn-fermer-alerte" aria-label="Fermer l'alerte" title="Fermer l'alerte">✕</button>
+      </div>
+    `;
+  }
+
+  document.getElementById('btn-fermer-alerte')?.addEventListener('click', () => {
+    alertEl.style.display = 'none';
+  });
+
+  alertEl.style.display = 'flex';
 }
 
 // Onglets principaux com-hebdo
@@ -174,6 +295,7 @@ export function initialiserComHebdo() {
       semaineSelect.selectedIndex = 1;
     }
     semaineSelect.dispatchEvent(new Event('change'));
+    afficherAlerteNonConclus();
   }
 
   CsvParser.init(onImportSuccess);

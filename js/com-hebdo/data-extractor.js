@@ -57,6 +57,16 @@ function identifierNotreEquipe(ligne, nousParPoule) {
   return nousParPoule.get(ligne['num poule']) || { nom: '', num: '' };
 }
 
+// Retourne la date du samedi (à 00:00:00) pour une semaine ISO "YYYY-SS".
+function getSamediSemaine(semaineStr) {
+  const [annee, semaine] = semaineStr.split('-').map(Number);
+  const date = new Date(annee, 0, 4);
+  date.setHours(0, 0, 0, 0);
+  const jourIso = date.getDay() || 7;
+  date.setDate(date.getDate() - (jourIso - 1) + (semaine - 1) * 7 + 5);
+  return date;
+}
+
 export const DataExtractor = {
 
   addFichier({ type, lignes }) {
@@ -107,6 +117,75 @@ export const DataExtractor = {
     return (store.resultatsParSemaine.get(semaine) || [])
       .map(l => DataCleaner.nettoyerResultat(l))
       .filter(Boolean);
+  },
+
+  // Retourne les matchs à domicile non conclus des semaines à venir par rapport
+  // à la date du jour, en regroupant les triangulaires sur une seule ligne.
+  getMatchsDomicileNonConclus(dateRef = new Date()) {
+    const aujourdhui = new Date(dateRef);
+    aujourdhui.setHours(0, 0, 0, 0);
+
+    const samediCourant = new Date(aujourdhui);
+    const jourIso = samediCourant.getDay() || 7;
+    samediCourant.setDate(samediCourant.getDate() + (6 - jourIso));
+
+    const resultats = [];
+
+    store.semaines.forEach(semaine => {
+      const samediMatch = getSamediSemaine(semaine);
+      if (samediMatch < aujourdhui) return;
+
+      const delaiSemaines = Math.round((samediMatch - samediCourant) / (7 * 24 * 3600 * 1000));
+      const lignes = store.matchsParSemaine.get(semaine) || [];
+      const analyses = lignes
+        .map(l => DataCleaner.analyserNonConclu(l))
+        .filter(Boolean);
+
+      if (analyses.length === 0) return;
+
+      const groupes = new Map();
+      analyses.forEach(a => {
+        const cle = a.numPoule || a.codeRenc;
+        if (!groupes.has(cle)) groupes.set(cle, []);
+        groupes.get(cle).push(a);
+      });
+
+      const matchsSemaine = [];
+      groupes.forEach(elements => {
+        const premier         = elements[0];
+        const estTriangulaire = elements.length > 1;
+        let adversaire        = premier.adversaire;
+
+        if (estTriangulaire) {
+          const adversairesUniques = [...new Set(elements.flatMap(e => e.clubsAdverses))];
+          adversaire = adversairesUniques.length > 0
+            ? `${adversairesUniques.join(' / ')} (Triangulaire)`
+            : `${premier.adversaire} (Triangulaire)`;
+        }
+
+        const setManquants = new Set(elements.flatMap(e => e.manquants));
+        const manquants = ['Date', 'Horaire', 'Salle'].filter(m => setManquants.has(m));
+
+        matchsSemaine.push({
+          semaine,
+          samediDate: samediMatch,
+          delaiSemaines,
+          urgent: delaiSemaines <= 6,
+          poule: premier.poule,
+          adversaire,
+          manquants,
+          estTriangulaire,
+          nbRencontres: elements.length,
+        });
+      });
+
+      matchsSemaine.sort((a, b) =>
+        (a.poule || '').localeCompare(b.poule || '', 'fr', { numeric: true })
+      );
+      resultats.push(...matchsSemaine);
+    });
+
+    return resultats;
   },
 
   getSemaines() {
