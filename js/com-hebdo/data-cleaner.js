@@ -60,6 +60,50 @@ export const DataCleaner = {
     };
   },
 
+  // Diagnostique un match à domicile non conclu (date, horaire ou salle manquants / lieu inconnu).
+  analyserNonConclu(ligne) {
+    if (!this.isMatchDom(ligne)) return null;
+
+    const rec = (ligne['club rec'] || '').trim();
+    const vis = (ligne['club vis'] || '').trim();
+    if (!rec && !vis) return null;
+
+    const manqueDate    = !(ligne['le'] || '').trim();
+    const manqueHoraire = !(ligne['horaire'] || '').trim();
+    const salleBrute    = (ligne['nom salle'] || '').trim();
+    const manqueSalle   = !salleBrute || /inconnu|a\s*d[eé]finir|non\s*d[eé]fini/i.test(salleBrute);
+
+    if (!manqueDate && !manqueHoraire && !manqueSalle) return null;
+
+    const manquants = [];
+    if (manqueDate) manquants.push('Date');
+    if (manqueHoraire) manquants.push('Horaire');
+    if (manqueSalle) manquants.push('Salle');
+
+    const poule   = nomPoule(ligne['num poule'], ligne['poule'], ligne['_nous'], ligne['competition'], ligne['_numNous']);
+    const tournoi = this.isTournoi(poule, ligne['poule']);
+    const { nom, num } = this.clubAdverse(ligne, true);
+    const adversaire   = tournoi ? 'Tournoi Détection' : this.nomEquipe(ligne, nom, num);
+
+    const clubsAdverses = [
+      { nom: rec, num: ligne['Num rec'] || '' },
+      { nom: vis, num: ligne['Num vis'] || '' },
+    ]
+      .filter(c => c.nom && !estNotreEquipe(c.nom, c.num))
+      .map(c => this.cleanNomEquipe(c.nom))
+      .filter(Boolean);
+
+    return {
+      semaine:     (ligne['semaine'] || '').trim(),
+      numPoule:    (ligne['num poule'] || '').trim(),
+      codeRenc:    (ligne['code renc'] || '').trim(),
+      poule,
+      adversaire,
+      clubsAdverses,
+      manquants,
+    };
+  },
+
   // L'adversaire est le club qui n'est pas le nôtre dans cette poule (_nous,
   // posé à l'import). Sans _nous — tournoi, poule d'un seul match — on retombe
   // sur le côté opposé au nôtre.

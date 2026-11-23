@@ -63,6 +63,16 @@ La salle (`detecterSalle` dans `data-cleaner.js`) se décide dans cet ordre :
 
 Tant que la date n'est pas fixée, on ne sait rien de fiable sur la salle réelle : plutôt que de deviner (et risquer d'afficher une fausse information, par exemple notre propre club comme "Club hôte" d'un match extérieur), le match part dans la zone neutre **Match non défini**, qui se scinde elle-même en deux blocs : **Domicile — gymnase à définir** et **Extérieur — à définir** (même logique dans le kifekoi et dans l'export Google Sheets).
 
+### Alerte sur les matchs à domicile non conclus (échéance à 6 semaines)
+
+Dès l'import des fichiers CSV de type **programme**, l'application analyse l'ensemble des semaines à venir par rapport à la **date du jour** afin de détecter les rencontres **à domicile non conclues** dans GestHand :
+- Une rencontre à domicile est considérée comme **non conclue** s'il lui manque au moins l'une des informations suivantes : **Date** (`le` vide), **Horaire** (`horaire` vide) ou **Salle** (`nom salle` vide ou indiquant un lieu inconnu / à définir).
+- Les créneaux de réservation sans équipes (`club rec` et `club vis` vides) ainsi que les semaines antérieures à la date du jour sont ignorés.
+- **Regroupement des triangulaires** : lorsque plusieurs rencontres à domicile non conclues partagent la même semaine et le même code `num poule` (ex. les 3 matchs d'une triangulaire de coupe départementale hébergée par le club), elles sont regroupées sur **une seule ligne** indiquant le collectif hôte et la liste des clubs adverses suivie de la mention `(Triangulaire)` (ex. `Nort / Ligné (Triangulaire)`).
+- **Alerte visuelle graduée dans l'onglet Com Hebdo** (sous la zone d'import CSV) :
+  - **À 6 semaines ou moins du match ($\le 6$ semaines)** : affichage d'un panneau d'**alerte forte** (rouge-orangé critique `🚨`) présentant directement le tableau des matchs à conclure d'urgence, et d'un bloc repliable `<details>` pour les éventuels matchs situés à plus de 6 semaines.
+  - **Au-delà de 6 semaines uniquement ($> 6$ semaines)** : affichage d'un bandeau de **préavis discret** (ambre `📅`), replié par défaut.
+
 ---
 
 ## Colonnes du tableau
