@@ -38,12 +38,20 @@ Seuls les fichiers de type **programme** alimentent le kifekoi.
 | **Match non défini** | Matchs (domicile ou extérieur) dont la date n'est pas encore fixée |
 
 ### Détection domicile / salle
-Un match est à **domicile** si le champ `club hote` **ou** `club rec` contient l'un des noms connus du club (liste modifiable dans `js/com-hebdo/data-cleaner.js`) :
+Les équipes du club sont reconnues à la fois par leurs **numéros fédéraux** (`6244038` La Chapelaine, `6244021` Porterie) et par leurs noms connus (liste modifiable dans `js/com-hebdo/data-cleaner.js`) :
 ```
-CHAPELAINE, LA CHAPELAINE, PORTERIE HB, PORTERIE, ST JOSEPH PORTERIE, ALLIANCE ERDRE ET GESVRES
+CHAPELAINE, CHAPELAIN, LA CHAPELAINE, PORTERIE HB, PORTERIE, ST JOSEPH PORTERIE, ALLIANCE ERDRE ET GESVRES
 ```
 
-À l'import, seules les rencontres dont `club rec`, `club vis` ou `club hote` contient l'un de ces noms sont gardées : l'export d'un club partenaire (ex. HBC Gesvres pour l'Alliance Erdre et Gesvres) peut ainsi être chargé tel quel.
+À l'import, seules les rencontres impliquant l'une de nos équipes (en `club rec` / `Num rec`, `club vis` / `Num vis`) ou hébergées par notre club (`club hote`) sont gardées : l'export d'un club partenaire (ex. HBC Gesvres `6244085` pour l'Alliance Erdre et Gesvres) peut ainsi être chargé tel quel sans embarquer ses équipes propres.
+
+Le statut **domicile** (`isMatchDom` dans `data-cleaner.js`) donne priorité à `club hote` lorsqu'il est renseigné :
+- `club hote` appartient à notre club → **Domicile**
+- `club hote` est `HANDBALL CLUB DU GESVRES` et l'équipe recevante est une de nos ententes avec Gesvres (`SM-2`, `U19M-2`) → **Domicile**
+- `club hote` est un autre club tiers (ex. triangulaire de coupe jouée chez un club adverse) → **Extérieur**
+- `club hote` est vide (fichiers de résultats) → **Domicile** si l'équipe recevante est l'une de nos équipes
+
+Lors d'une triangulaire hébergée dans l'un de nos gymnases, les matchs opposant deux clubs adverses sont conservés avec le collectif hôte et affichent `<Recevant> vs <Visiteur>` en colonne Adversaire.
 
 La salle (`detecterSalle` dans `data-cleaner.js`) se décide dans cet ordre :
 1. Champ `le` (date) vide → **Match non défini**, quel que soit le statut domicile/extérieur
@@ -186,11 +194,11 @@ Le fichier **`js/com-hebdo/competitions.js`** est le seul endroit à modifier po
 
 ### Ajouter une nouvelle compétition
 1. Ouvrir `js/com-hebdo/competitions.js`
-2. Repérer la valeur exacte du champ `poule` dans le CSV GestHand
-3. Ajouter une ligne dans le tableau `POULES` : `'U17M D2': 'U17-M D2',`
+2. Pour un **championnat** ou tournoi de détection : repérer la valeur exacte du champ `num poule` dans le CSV GestHand et l'ajouter dans `POULES`
+3. Pour une **coupe** (dont le `num poule` change à chaque tour ou triangulaire) : ajouter ou ajuster une règle dans `COUPES` sur la colonne `competition` (avec désambiguïsation `parClub` / `parNom` si plusieurs collectifs y participent)
 4. Enregistrer — le nom s'affiche immédiatement au prochain import
 
-Si une poule n'est pas listée, la valeur brute du CSV s'affiche telle quelle — rien ne plante.
+Si une poule n'est listée ni dans `POULES` ni dans `COUPES`, la valeur brute du champ `poule` du CSV s'affiche telle quelle — rien ne plante.
 
 ### Nettoyage automatique des noms de clubs
 Les noms de clubs adverses (colonne Adversaire) sont nettoyés automatiquement (`js/com-hebdo/data-cleaner.js`) :

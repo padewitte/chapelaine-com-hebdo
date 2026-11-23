@@ -48,18 +48,76 @@ export const POULES = {
   'M624402041': 'SM-4',     // 3dtm-44 / 3DTM - POULE 5
   'F62000200G': 'SF-1',     // hfpl ; honneur feminine regionale / POULE A
   'F62000301G': 'SF-2',     // d1fpl ; division 1 feminine territoriale / POULE B
-
-  // Coupe de France
-  'M50001300R': 'SM-1',    // coupe de france regionale masculine 2026-2027
-  'F50001300R': 'SF-1',    // coupe de france regionale feminine 2026-2027
 };
 
+/**
+ * Règles de résolution pour les compétitions de coupe.
+ * En coupe, GestHand génère un nouveau "num poule" à chaque tour et pour
+ * chaque triangulaire : on s'appuie donc sur la colonne "competition"
+ * (normalisée sans accents ni casse), avec désambiguïsation optionnelle par
+ * numéro de club (parClub) ou fragment de nom d'équipe (parNom).
+ */
+export const COUPES = [
+  // Coupes Jeunes 44
+  { motif: /coupe\s+u13f\b/, nom: 'U13F-1' },
+  { motif: /coupe\s+u14m\b/, nom: 'U14M-1' },
+  { motif: /coupe\s+u15f\b/, nom: 'U15F-1' },
+  { motif: /coupe\s+u16m\b/, nom: 'U16M-1' },
+  { motif: /coupe\s+u17f\b/, nom: 'U17F-1' },
+  { motif: /coupe\s+u19m\b/, nom: 'U19M-1' },
+
+  // Coupe de France & Coupe Pays de la Loire (Séniors)
+  { motif: /coupe.*regionale.*feminine/,      nom: 'SF-1' },
+  { motif: /coupe.*regionale.*masculine/,     nom: 'SM-1' },
+  { motif: /coupe.*departementale.*feminine/, nom: 'SF-2' },
+  {
+    motif: /coupe.*departementale.*masculine/,
+    parClub: {
+      '6244021': 'SM-3', // Porterie — Alliance Erdre et Gesvres
+      '6244085': 'SM-2', // HBC Gesvres — Alliance Erdre et Gesvres
+    },
+    parNom: {
+      'PORTERIE': 'SM-3',
+      'GESVRES':  'SM-2',
+    },
+  },
+];
+
+function normaliserTexte(texte) {
+  return (texte || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
+
+function nomCoupe(competition, nous, numNous) {
+  const compNorm = normaliserTexte(competition);
+  if (!compNorm) return undefined;
+
+  const regle = COUPES.find(r => r.motif.test(compNorm));
+  if (!regle) return undefined;
+
+  if (regle.nom) return regle.nom;
+  if (regle.parClub && numNous && regle.parClub[numNous]) {
+    return regle.parClub[numNous];
+  }
+  if (regle.parNom) {
+    const cle = Object.keys(regle.parNom).find(k => (nous || '').toUpperCase().includes(k));
+    if (cle) return regle.parNom[cle];
+  }
+  return undefined;
+}
+
 // nous = nom GestHand de notre équipe dans la poule (ligne['_nous']).
-export function nomPoule(numPoule, poule, nous) {
+// competition = colonne "competition" du CSV, numNous = numéro de club de notre équipe.
+export function nomPoule(numPoule, poule, nous, competition = '', numNous = '') {
   let nom = POULES[numPoule];
   if (nom && typeof nom === 'object') {
     const cle = Object.keys(nom).find(k => (nous || '').toUpperCase().includes(k));
     nom = nom[cle];
+  }
+  if (!nom) {
+    nom = nomCoupe(competition, nous, numNous);
   }
   return nom ?? poule ?? '';
 }

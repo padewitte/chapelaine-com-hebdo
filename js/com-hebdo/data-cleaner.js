@@ -1,9 +1,14 @@
 import { nomPoule, nomClub } from './competitions.js';
 
-const NOMS_CLUB_DOM = ['CHAPELAINE', 'LA CHAPELAINE', 'PORTERIE HB', 'PORTERIE', 'ST JOSEPH PORTERIE', 'ALLIANCE ERDRE ET GESVRES'];
+const NOMS_CLUB_DOM  = ['CHAPELAINE', 'CHAPELAIN', 'LA CHAPELAINE', 'PORTERIE HB', 'PORTERIE', 'ST JOSEPH PORTERIE', 'ALLIANCE ERDRE ET GESVRES'];
+const CODES_CLUB_DOM = ['6244038', '6244021']; // La Chapelaine, Porterie
 
 export const estNotreClub = nom =>
   NOMS_CLUB_DOM.some(n => (nom || '').toUpperCase().includes(n));
+
+export const estNotreEquipe = (nom, numClub) =>
+  CODES_CLUB_DOM.includes((numClub || '').trim()) || estNotreClub(nom);
+
 const SALLES_DOM    = ['COUTANCIERE', 'JAHAN', 'OLYMPIE'];
 
 export const DataCleaner = {
@@ -14,11 +19,30 @@ export const DataCleaner = {
     return p.includes('tournoi') || raw.includes('tournoi');
   },
 
+  // Match entre deux clubs adverses hébergé dans notre gymnase (ex. triangulaire de coupe).
+  estMatchTiersHeberge(ligne, estDomicile) {
+    const rec = (ligne['club rec'] || '').trim();
+    const vis = (ligne['club vis'] || '').trim();
+    if (!estDomicile || !rec || !vis) return false;
+    return !estNotreEquipe(rec, ligne['Num rec']) && !estNotreEquipe(vis, ligne['Num vis']);
+  },
+
   nettoyer(ligne) {
-    const estDomicile = this.isMatchDom(ligne);
-    const salle       = this.detecterSalle(ligne, estDomicile);
-    const poule       = nomPoule(ligne['num poule'], ligne['poule'], ligne['_nous']);
-    const tournoi     = this.isTournoi(poule, ligne['poule']);
+    const estDomicile  = this.isMatchDom(ligne);
+    const salle        = this.detecterSalle(ligne, estDomicile);
+    const poule        = nomPoule(ligne['num poule'], ligne['poule'], ligne['_nous'], ligne['competition'], ligne['_numNous']);
+    const tournoi      = this.isTournoi(poule, ligne['poule']);
+    const tiersHeberge = this.estMatchTiersHeberge(ligne, estDomicile);
+
+    let adversaire;
+    if (tournoi) {
+      adversaire = 'Tournoi Détection';
+    } else if (tiersHeberge) {
+      adversaire = `${this.cleanNomEquipe(ligne['club rec'])} vs ${this.cleanNomEquipe(ligne['club vis'])}`;
+    } else {
+      const { nom, num } = this.clubAdverse(ligne, estDomicile);
+      adversaire = this.nomEquipe(ligne, nom, num);
+    }
 
     return {
       salle,
@@ -27,7 +51,7 @@ export const DataCleaner = {
       dateISO:     this.toISO(ligne['le']),
       horaire:     this.formatHeure(ligne['horaire']),
       poule,
-      adversaire:  tournoi ? 'Tournoi Détection' : this.nomEquipe(ligne, this.clubAdverse(ligne, estDomicile)),
+      adversaire,
       nom_salle:   ligne['nom salle'] || '',
       competition: ligne['competition'] || '',
       arb1:        ligne['arb1 designe'] || '',
@@ -43,22 +67,35 @@ export const DataCleaner = {
     const nous = ligne['_nous'];
     const rec  = ligne['club rec'] || '';
     const vis  = ligne['club vis'] || '';
-    if (nous && rec === nous) return vis;
-    if (nous && vis === nous) return rec;
-    return estDomicile ? vis : rec;
+    if (nous && rec === nous) return { nom: vis, num: ligne['Num vis'] || '' };
+    if (nous && vis === nous) return { nom: rec, num: ligne['Num rec'] || '' };
+    return estDomicile
+      ? { nom: vis, num: ligne['Num vis'] || '' }
+      : { nom: rec, num: ligne['Num rec'] || '' };
   },
 
   // Derby entre deux de nos équipes : l'adversaire prend son nom court.
-  nomEquipe(ligne, club) {
-    return estNotreClub(club)
-      ? nomPoule(ligne['num poule'], ligne['poule'], club)
+  nomEquipe(ligne, club, numClub = '') {
+    return estNotreEquipe(club, numClub)
+      ? nomPoule(ligne['num poule'], ligne['poule'], club, ligne['competition'], numClub)
       : this.cleanNomEquipe(club);
   },
 
   isMatchDom(ligne) {
-    const hote = (ligne['club hote'] || '').toUpperCase();
-    const rec  = (ligne['club rec']  || '').toUpperCase();
-    return NOMS_CLUB_DOM.some(n => hote.includes(n) || rec.includes(n));
+    const hote   = (ligne['club hote'] || '').trim();
+    const rec    = ligne['club rec'] || '';
+    const numRec = ligne['Num rec']  || '';
+
+    if (hote) {
+      if (estNotreClub(hote)) return true;
+      // Entente reçue par le club partenaire (ex. HBC Gesvres pour Alliance Erdre et Gesvres).
+      if (estNotreEquipe(rec, numRec) && hote.toUpperCase().includes('GESVRES') && rec.toUpperCase().includes('GESVRES')) {
+        return true;
+      }
+      return false;
+    }
+
+    return estNotreEquipe(rec, numRec);
   },
 
   // Retourne 'coutanciere' | 'jahan' | 'olympie' | 'exterieur' | 'non-defini' (voir README).
@@ -104,18 +141,22 @@ export const DataCleaner = {
                      : parseInt(scoreNous) < parseInt(scoreEux) ? 'defaite'
                      : 'egalite';
 
-    const poule   = nomPoule(ligne['num poule'], ligne['poule'], ligne['_nous']);
+    const poule   = nomPoule(ligne['num poule'], ligne['poule'], ligne['_nous'], ligne['competition'], ligne['_numNous']);
     const tournoi = this.isTournoi(poule, ligne['poule']);
-    const nomAdversaire = tournoi ? 'Tournoi Détection' : this.nomEquipe(ligne, estDomicile ? ligne['club vis'] : ligne['club rec']);
+    const advClub = estDomicile ? ligne['club vis'] : ligne['club rec'];
+    const advNum  = estDomicile ? ligne['Num vis']  : ligne['Num rec'];
+    const nomAdversaire = tournoi ? 'Tournoi Détection' : this.nomEquipe(ligne, advClub, advNum);
     // Derby : chaque côté porte le nom de sa propre équipe, quel que soit _nous.
-    const derby = !tournoi && estNotreClub(ligne['club rec']) && estNotreClub(ligne['club vis']);
+    const derby = !tournoi
+      && estNotreEquipe(ligne['club rec'], ligne['Num rec'])
+      && estNotreEquipe(ligne['club vis'], ligne['Num vis']);
 
     return {
       jour:        this.cleanDate(ligne['le']),
       dateISO:     this.toISO(ligne['le']),
       poule,
-      equipe_dom:  derby ? this.nomEquipe(ligne, ligne['club rec']) : estDomicile ? poule : nomAdversaire,
-      equipe_ext:  derby ? this.nomEquipe(ligne, ligne['club vis']) : estDomicile ? nomAdversaire : poule,
+      equipe_dom:  derby ? this.nomEquipe(ligne, ligne['club rec'], ligne['Num rec']) : estDomicile ? poule : nomAdversaire,
+      equipe_ext:  derby ? this.nomEquipe(ligne, ligne['club vis'], ligne['Num vis']) : estDomicile ? nomAdversaire : poule,
       score_dom:   scoreRec,
       score_ext:   scoreVis,
       victoire,
