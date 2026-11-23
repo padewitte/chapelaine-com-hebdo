@@ -12,6 +12,18 @@ make servir
 Cela lance un serveur HTTP Python sur le port 8080. Les ES Modules
 nécessitent un serveur HTTP (ils ne fonctionnent pas en `file://`).
 
+### Configurer Chrome pour désactiver le cache des modules ES6 en développement
+
+Le serveur HTTP Python (`python3 -m http.server`) n'envoie pas d'en-tête `Cache-Control: no-cache`. Par conséquent, même après un rafraîchissement (`F5` / `Ctrl+R`), Chrome peut conserver en mémoire les sous-modules JavaScript importés en chaîne (`import ... from './...'`).
+
+Pour que Chrome recharge systématiquement tous les modules sans rien mettre en cache pendant le développement :
+
+1. Ouvrir les **Outils de développement** (**`F12`** ou **`Ctrl + Shift + I`** / `Cmd + Option + I`).
+2. Aller dans l'onglet **Réseau** (*Network*).
+3. Cocher la case **Désactiver le cache** (*Disable cache*) dans la barre d'outils supérieure.
+   *(Cette option reste active tant que le panneau des outils de développement est ouvert — on peut le réduire ou l'ancrer sur le côté).*
+4. **Alternative ponctuelle** : lorsque les DevTools sont ouverts, faire un **clic droit sur le bouton Actualiser** de Chrome permet de choisir directement **« Vider le cache et actualiser de manière forcée »** (*Empty Cache and Hard Reload*), ou utiliser **`Ctrl + Shift + R`**.
+
 ### Changer le port
 
 ```bash
