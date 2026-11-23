@@ -5,6 +5,7 @@
 
 import { initialiserAttestation } from './attestation/attestation-app.js';
 import { initialiserComHebdo } from './com-hebdo/com-hebdo-app.js';
+import { initialiserFraisKm } from './frais-km/frais-km-app.js';
 
 /**
  * Active un module spécifique et masque les autres.
@@ -34,4 +35,5 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialiser les modules actifs
   initialiserAttestation();
   initialiserComHebdo();
+  initialiserFraisKm();
 });

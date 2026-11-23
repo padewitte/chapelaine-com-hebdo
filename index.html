@@ -184,15 +184,131 @@
   </div>
 
   <!-- ============================================================= -->
-  <!-- MODULE FRAIS KM                                               -->
+  <!-- MODULE FRAIS KM (DÉPLACEMENTS & ABANDON DE FRAIS)             -->
   <!-- ============================================================= -->
   <div class="module-content hidden" id="module-frais-km">
     <div class="container">
-      <div class="module-placeholder">
-        <span class="module-placeholder-icon">🚧</span>
-        <h2>Frais kilométriques</h2>
-        <p>Module en cours de développement</p>
+
+      <!-- 1. Formulaire Bénévole, Véhicule & Source CSV -->
+      <div class="fkm-top-grid">
+        <div class="fkm-card">
+          <div class="section-title">1. Bénévole déclarant &amp; Véhicule (Barème officiel de l'État)</div>
+          <div class="fkm-form-grid">
+            <div class="fkm-field">
+              <label for="fkm-nom">Nom *</label>
+              <input type="text" id="fkm-nom" placeholder="Ex : DUPONT" autocomplete="family-name">
+            </div>
+            <div class="fkm-field">
+              <label for="fkm-prenom">Prénom *</label>
+              <input type="text" id="fkm-prenom" placeholder="Ex : Marie" autocomplete="given-name">
+            </div>
+            <div class="fkm-field">
+              <label for="fkm-immatriculation">Immatriculation *</label>
+              <input type="text" id="fkm-immatriculation" placeholder="Ex : AA-123-BB">
+            </div>
+            <div class="fkm-field">
+              <label for="fkm-vehicule-select">Type et puissance fiscale du véhicule</label>
+              <select id="fkm-vehicule-select"></select>
+            </div>
+            <div class="fkm-field fkm-field--full fkm-checkbox-row">
+              <label class="fkm-check-label" for="fkm-electrique">
+                <input type="checkbox" id="fkm-electrique">
+                <span>⚡ Véhicule 100 % électrique (majoration légale de +20 % sur le barème de l'État)</span>
+              </label>
+            </div>
+            <div class="fkm-field fkm-field--full">
+              <label for="fkm-adresse">Adresse de départ (par défaut : La Coutancière — La Chapelle-sur-Erdre)</label>
+              <div class="fkm-adresse-row">
+                <input type="text" id="fkm-adresse" value="La Coutancière, Allée des Favrières, 44240 La Chapelle-sur-Erdre">
+                <button type="button" class="fkm-btn-secondary" id="fkm-btn-recalculer-adresse">
+                  Recalculer les km
+                </button>
+                <button type="button" class="fkm-btn-secondary" id="fkm-btn-reset-adresse" title="Revenir à l'adresse de La Coutancière">
+                  La Coutancière
+                </button>
+              </div>
+              <div class="fkm-adresse-statut" id="fkm-adresse-statut">
+                Point de départ actif : La Coutancière, Allée des Favrières, 44240 La Chapelle-sur-Erdre
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fkm-card fkm-card--csv">
+          <div class="section-title">Source des matchs</div>
+          <div class="fkm-csv-statut" id="fkm-statut-csv">Chargement des matchs du club…</div>
+          <label class="dropzone fkm-dropzone" id="fkm-dropzone" for="fkm-file-input">
+            <div class="dropzone-icon">📂</div>
+            <div class="dropzone-label"><strong>Importer d'autres CSV GestHand</strong></div>
+            <div class="dropzone-sub">Résultats ou Programmes</div>
+            <input type="file" id="fkm-file-input" accept=".csv,.txt" multiple>
+          </label>
+        </div>
       </div>
+
+      <!-- 2. Sélection des collectifs -->
+      <div class="fkm-card">
+        <div class="fkm-section-header">
+          <div class="section-title">2. Sélectionner ses collectifs</div>
+          <div class="fkm-actions-inline">
+            <button type="button" class="fkm-btn-link" id="fkm-btn-tous-collectifs">Tous les collectifs</button>
+            <button type="button" class="fkm-btn-link" id="fkm-btn-aucun-collectif">Effacer la sélection</button>
+          </div>
+        </div>
+        <div class="fkm-collectifs-pills" id="fkm-collectifs-pills">
+          <div class="empty-state">Chargement des collectifs…</div>
+        </div>
+      </div>
+
+      <!-- 3. Liste des matchs à l'extérieur et dans le passé -->
+      <div class="fkm-card">
+        <div class="fkm-section-header">
+          <div class="section-title">3. Cocher les déplacements effectués (extérieur &amp; passés uniquement)</div>
+          <div class="fkm-actions-inline">
+            <button type="button" class="fkm-btn-link" id="fkm-btn-tout-cocher">Tout cocher</button>
+            <button type="button" class="fkm-btn-link" id="fkm-btn-tout-decocher">Tout décocher</button>
+          </div>
+        </div>
+        <div id="fkm-matchs-conteneur">
+          <div class="empty-state">Sélectionnez un ou plusieurs collectifs ci-dessus pour afficher leurs déplacements passés.</div>
+        </div>
+      </div>
+
+      <!-- 4. Récapitulatif et génération Word (.docx) -->
+      <div class="fkm-recap-card">
+        <div class="fkm-recap-metrics">
+          <div class="fkm-metric">
+            <span class="fkm-metric-label">Déplacements cochés</span>
+            <span class="fkm-metric-value" id="fkm-recap-nb">0</span>
+          </div>
+          <div class="fkm-metric">
+            <span class="fkm-metric-label">Distance totale A/R</span>
+            <span class="fkm-metric-value" id="fkm-recap-km">0 km</span>
+          </div>
+          <div class="fkm-metric">
+            <span class="fkm-metric-label">Barème État appliqué</span>
+            <span class="fkm-metric-value fkm-metric-value--small" id="fkm-recap-formule">—</span>
+          </div>
+          <div class="fkm-metric fkm-metric--highlight">
+            <span class="fkm-metric-label">Abandon de frais (Don art. 200 CGI)</span>
+            <span class="fkm-metric-value" id="fkm-recap-montant">0,00 €</span>
+          </div>
+          <div class="fkm-metric">
+            <span class="fkm-metric-label">Réduction d'impôt estimée (66 %)</span>
+            <span class="fkm-metric-value fkm-metric-value--green" id="fkm-recap-impot">0,00 €</span>
+          </div>
+        </div>
+
+        <div class="fkm-generate-row">
+          <div class="fkm-legal-note" id="fkm-validation-msg">
+            Renseignez vos nom, prénom, immatriculation et cochez au moins un déplacement pour générer le document officiel.
+          </div>
+          <button type="button" class="btn-generer" id="fkm-btn-generer-docx" disabled>
+            📄 Télécharger l'abandon de frais Word (.docx)
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
