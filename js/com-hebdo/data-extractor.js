@@ -1,4 +1,4 @@
-import { DataCleaner, estNotreClub } from './data-cleaner.js';
+import { DataCleaner, estNotreClub, estNotreEquipe } from './data-cleaner.js';
 
 const store = {
   semaines: [],
@@ -9,7 +9,7 @@ const store = {
 
 // Notre équipe dans une poule = le club qui revient dans toutes ses rencontres
 // (un export ne contient que les matchs d'un seul club). À égalité — poule d'un
-// seul match — on tranche sur le nom du club.
+// seul match — on tranche sur l'appartenance au club.
 function notreEquipeParPoule(lignes) {
   const compte = new Map();
   lignes.forEach(l => {
@@ -17,15 +17,44 @@ function notreEquipeParPoule(lignes) {
     if (!poule) return;
     if (!compte.has(poule)) compte.set(poule, new Map());
     const c = compte.get(poule);
-    [l['club rec'], l['club vis']].forEach(n => n && c.set(n, (c.get(n) || 0) + 1));
+    [
+      { nom: l['club rec'], num: l['Num rec'] || '' },
+      { nom: l['club vis'], num: l['Num vis'] || '' },
+    ].forEach(({ nom, num }) => {
+      if (!nom) return;
+      const existant = c.get(nom) || { count: 0, num };
+      existant.count += 1;
+      if (!existant.num && num) existant.num = num;
+      c.set(nom, existant);
+    });
   });
 
   const nous = new Map();
   compte.forEach((c, poule) => {
-    const [nom] = [...c].sort((a, b) => b[1] - a[1] || estNotreClub(b[0]) - estNotreClub(a[0]))[0] || [];
-    if (estNotreClub(nom)) nous.set(poule, nom);
+    const [nom, info] = [...c].sort((a, b) =>
+      b[1].count - a[1].count
+      || Number(estNotreEquipe(b[0], b[1].num)) - Number(estNotreEquipe(a[0], a[1].num))
+    )[0] || [];
+    if (nom && estNotreEquipe(nom, info?.num)) {
+      nous.set(poule, { nom, num: info.num || '' });
+    }
   });
   return nous;
+}
+
+// Identifie notre équipe pour une rencontre donnée, avec repli sur l'équipe
+// dominante de la poule (derby ou match tiers hébergé en triangulaire).
+function identifierNotreEquipe(ligne, nousParPoule) {
+  const recEstNous = estNotreEquipe(ligne['club rec'], ligne['Num rec']);
+  const visEstNous = estNotreEquipe(ligne['club vis'], ligne['Num vis']);
+
+  if (recEstNous && !visEstNous) {
+    return { nom: ligne['club rec'] || '', num: ligne['Num rec'] || '' };
+  }
+  if (visEstNous && !recEstNous) {
+    return { nom: ligne['club vis'] || '', num: ligne['Num vis'] || '' };
+  }
+  return nousParPoule.get(ligne['num poule']) || { nom: '', num: '' };
 }
 
 export const DataExtractor = {
@@ -36,9 +65,11 @@ export const DataExtractor = {
       : store.matchsParSemaine;
 
     // L'export d'un club partenaire (ex. HBC Gesvres) contient aussi ses propres
-    // équipes : on ne garde que les rencontres où l'un de nos noms apparaît.
+    // équipes : on ne garde que les rencontres où l'une de nos équipes apparaît.
     lignes = lignes.filter(l =>
-      ['club rec', 'club vis', 'club hote'].some(c => estNotreClub(l[c])));
+      estNotreEquipe(l['club rec'], l['Num rec'])
+      || estNotreEquipe(l['club vis'], l['Num vis'])
+      || estNotreClub(l['club hote']));
 
     const nous = notreEquipeParPoule(lignes);
 
@@ -51,7 +82,9 @@ export const DataExtractor = {
         if (store.rencontresVues.has(renc)) return;
         store.rencontresVues.add(renc);
       }
-      ligne['_nous'] = nous.get(ligne['num poule']) || '';
+      const equipe = identifierNotreEquipe(ligne, nous);
+      ligne['_nous']    = equipe.nom;
+      ligne['_numNous'] = equipe.num;
       if (!map.has(semaine)) map.set(semaine, []);
       map.get(semaine).push(ligne);
     });
